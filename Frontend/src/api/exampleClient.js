@@ -9,11 +9,11 @@ import axios from 'axios'
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Mix-ins
  * https://javascript.info/mixins
  */
-export default class ExampleClient extends BaseClass {
+export default class rsvpClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getExample', 'createExample'];
+        const methodsToBind = ['clientLoaded', 'getRsvpByAttending', 'getRsvp', 'updateRsvp', 'deleteRsvp'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -36,23 +36,56 @@ export default class ExampleClient extends BaseClass {
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The concert
      */
-    async getExample(id, errorCallback) {
+    async getRsvp(id, errorCallback) {
         try {
-            const response = await this.client.get(`/example/${id}`);
+            const response = await this.client.get(`/rsvp/${id}`);
             return response.data;
         } catch (error) {
-            this.handleError("getConcert", error, errorCallback)
+            this.handleError("getRsvp", error, errorCallback)
         }
     }
 
-    async createExample(name, errorCallback) {
+    async getRsvpByAttending(attending, errorCallback) {
         try {
-            const response = await this.client.post(`example`, {
+            const response = await this.client.get(`/rsvp/${attending}`);
+            return response.data;
+        } catch (error) {
+            this.handleError("getRsvpByAttending", error, errorCallback)
+        }
+    }
+
+    async updateRsvp(name, errorCallback) {
+        try {
+            const response = await this.client.post(`rsvp`, {
                 name: name
             });
             return response.data;
         } catch (error) {
-            this.handleError("createExample", error, errorCallback);
+            this.handleError("updateRsvp", error, errorCallback);
+        }
+    }
+
+    async deleteRsvp(name, errorCallback) {
+        try {
+            const response = await this.client.delete(`rsvp`, {
+                name: name
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError("deleteRsvp", error, errorCallback);
+        }
+    }
+
+    // brideLogin is not yet a working feature
+    async brideLogin(username, password, errorCallback) {
+        try {
+            const response = await this.client.post(`login`, {
+                username: username,
+                password: password
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError("brideLogin", error, errorCallback);
         }
     }
 
