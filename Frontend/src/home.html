@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+
+    <link href="css/css-home.css" rel="stylesheet" type="text/css">
+
+    <ul class="nav">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="directions.html">Directions</a></li>
+        <li><a href="registry.html">Registry</a></li>
+        <li><a href="bridalLogin.html">Bridal Login</a></li>
+    </ul>
+
+    <div class="banner">
+        <img class="banner-image" src="images/wedding-banner2.png">
+    </div>
+
+</head>
+
+<body>
+<!-- <h1>Do you plan on joining us, <br> on the 25th of June?</h1> -->
+
+<div class="banner1">
+    <img class="flower-image1" src="images/leftside-banner.png">
+</div>
+
+<div class="banner2">
+    <img class="flower-image2" src="images/rightside-banner.png">
+</div>
+
+</body>
+
+<footer>
+
+    <h3>Come Celebrate <br> A new chapter with Shelly and Bobby, <br> June 25th, The Philadelphia Art Muesuem</h3>
+
+    <form class="questions" action="loading.html" method="post">
+        <!-- <div class="questions"> -->
+        <div>
+            <label for="name">Who is checking in?</label>
+            <input type="text" name="name" placeholder="first and last name" id="name" required>
+        </div>
+        <p></p>
+        <div>
+            <!-- <form action="attending-dropdown"> -->
+            <label for="attending">Do you plan on attending?</label>
+            <select name="attending" id="attending">
+                <option disabled selected> yes/no </option>
+                <option>yes</option>
+                <option>no</option>
+            </select>
+            <!-- </form> -->
+        </div>
+        <p></p>
+        <div>
+            <!-- <form action="entree-dropdown"> -->
+            <label for="entree">What would you prefer?</label>
+            <select name="entree" id="entree">
+                <option disabled selected> Entree </option>
+                <option>Chicken</option>
+                <option>Beef</option>
+                <option>Salmon</option>
+                <option>Vegetarian</option>
+            </select>
+            <!-- </form> -->
+        </div>
+        <p></p>
+        <!-- </div> -->
+
+        <button type="submit"> Submit </button>
+
+    </form>
+
+</footer>
+
+</html>

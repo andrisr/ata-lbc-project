@@ -1,0 +1,65 @@
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Parisienne', cursive;
+}
+
+h2{
+    text-align: left;
+    margin-left: 40px;
+    font-size: 30px;
+    letter-spacing: 0.025em;
+    font-family: 'Parisienne', cursive;
+}
+
+.nav{
+    background-color: whitesmoke;
+    color: #050404;
+    list-style: none;
+    text-align: right;
+    padding: 20px 0 10px 0;
+}
+
+.nav > li {
+    display: inline-block;
+    padding: 0 25px 0 25px;
+    font-size: 30px;
+}
+
+.nav > li > a{
+    text-decoration: none;
+    color: black;
+}
+
+.nav > li > a:hover {
+    color:rgb(174, 30, 30);
+}
+
+.banner{
+    width: 100%;
+    height: 25%;
+    display: block;
+}
+
+.banner > .banner-image{
+    border-top: 15px solid rgb(201, 198, 198);
+    border-radius: 10px;
+    border-bottom: 15px solid rgb(201, 198, 198);
+    width: 100%;
+    height: 25%;
+    display: block;
+    opacity: .7;
+}
+
+.banner2{
+    width: 56%;
+    display: block;
+}
+
+.banner2 > .flower-image2{
+    width: 56%;
+    display: block;
+    position: absolute;
+    right: 0px;
+}

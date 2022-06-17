@@ -1,0 +1,158 @@
+h1{
+    padding-left: 30px;
+    color: #f2d16b;
+    font-family: 'Parisienne', cursive;
+    font-size: 78px;
+    -webkit-text-stroke: 1px #f2d16b;
+    text-shadow: 3px 3px 6px rgb(3, 3, 3);
+    font-weight: bolder;
+    font-weight: 3000;
+    margin-top: 30px;
+    margin-bottom: 1px;
+    position:absolute;
+    top: 215px;
+    left: 40px;
+}
+
+h3{
+    padding-top: 40px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    font-family: 'Parisienne', cursive;
+    font-size: 50px;
+    font-weight: bolder;
+    width: 890px;
+    height: 330px;
+    position: absolute;
+    top: 470px;
+    left: 20%;
+}
+
+.questions{
+    /* padding: 8px 12px; */
+    border: 15px solid whitesmoke;
+    border-radius: 10px;
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: rgb(234, 234, 234);
+    text-align: center;
+    letter-spacing: 0.05em;
+    font-family: 'Parisienne', cursive;
+    font-size: 30px;
+    font-weight: bolder;
+    width: 600px;
+    height: 300px;
+    /* position: relative;
+    top: 240px;
+    left: 50%; */
+    position: absolute;
+    top: 860px;
+    left: 28%;
+}
+
+input[name="attending"]{
+    display: block;
+    margin: 20px 0;
+    padding: 10px 10px 10px 10px ;
+    border: 0;
+    border-radius: 4px;
+    width: 60px;
+}
+
+input[name="entree"]{
+    display: block;
+    margin: 20px 0;
+    padding: 10px 10px 10px 10px ;
+    border: 0;
+    border-radius: 4px;
+    width: 60px;
+
+}
+
+input[name="name"]{
+    display: inline-block;
+    padding: 10px 10px 10px 10px;
+    border: 0;
+    border-radius: 4px;
+}
+
+/*input[name="submit-button"]{*/
+/*   text-align: center;*/
+/*   background: #aed9ff;*/
+/*   padding: 3px;*/
+/*   border-radius: 3px;*/
+/*   text-decoration: none;*/
+/*   color: black;*/
+/*   border: 1px solid rgb(248, 245, 245);*/
+/*   cursor: pointer; */
+/* } */
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Parisienne', cursive;;
+}
+
+.nav{
+    background-color: whitesmoke;
+    color: #050404;
+    list-style: none;
+    text-align: right;
+    padding: 20px 0 10px 0;
+}
+
+.nav > li {
+    display: inline-block;
+    padding: 0 25px 0 25px;
+    font-size: 30px;
+}
+
+.nav > li > a{
+    text-decoration: none;
+    color: black;
+}
+
+.nav > li > a:hover {
+    color:rgb(174, 30, 30);
+}
+
+.banner{
+    width: 100%;
+    display: block;
+}
+
+.banner > .banner-image{
+    border-top: 15px solid rgb(201, 198, 198);
+    border-radius: 10px;
+    border-bottom: 15px solid rgb(201, 198, 198);
+    width: 100%;
+    display: block;
+    opacity: .7;
+}
+
+.banner1{
+    width: 50%;
+    display: block;
+}
+
+.banner1 > .flower-image1{
+    width: 50%;
+    display: block;
+    /* height: 700px; */
+    position: absolute;
+    left: 0px;
+}
+
+.banner2{
+    width: 50%;
+    display: block;
+}
+
+.banner2 > .flower-image2{
+    width: 50%;
+    display: block;
+    /* height: 700px; */
+    position: absolute;
+    right: 0px;
+}
