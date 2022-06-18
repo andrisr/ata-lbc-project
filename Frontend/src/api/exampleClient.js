@@ -13,7 +13,8 @@ export default class rsvpClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getRsvpByAttending', 'getRsvp', 'updateRsvp', 'deleteRsvp'];
+        const methodsToBind = ['clientLoaded', 'getRsvpByAttending', 'getRsvp', 'updateRsvp',
+            'deleteRsvp', 'createRsvp'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -30,12 +31,19 @@ export default class rsvpClient extends BaseClass {
         }
     }
 
-    /**
-     * Gets the concert for the given ID.
-     * @param id Unique identifier for a concert
-     * @param errorCallback (Optional) A function to execute if the call fails.
-     * @returns The concert
-     */
+    async createRsvp(firstName, lastName, email, errorCallback) {
+        try {
+            const response = await this.client.post(`rsvp`, {
+                firstName: firstName,
+                lastName: lastName,
+                email: email
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError("createRsvp", error, errorCallback)
+        }
+    }
+
     async getRsvp(id, errorCallback) {
         try {
             const response = await this.client.get(`/rsvp/${id}`);
@@ -56,7 +64,7 @@ export default class rsvpClient extends BaseClass {
 
     async updateRsvp(name, errorCallback) {
         try {
-            const response = await this.client.post(`rsvp`, {
+            const response = await this.client.put(`rsvp`, {
                 name: name
             });
             return response.data;
