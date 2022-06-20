@@ -14,7 +14,7 @@ export default class rsvpClient extends BaseClass {
     constructor(props = {}){
         super();
         const methodsToBind = ['clientLoaded', 'getRsvpByAttending', 'getRsvp', 'updateRsvp',
-            'deleteRsvp', 'createRsvp'];
+            'deleteRsvp', 'createRsvp', 'login'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -28,6 +28,18 @@ export default class rsvpClient extends BaseClass {
         this.client = client;
         if (this.props.hasOwnProperty("onReady")){
             this.props.onReady();
+        }
+    }
+
+    async login(username, password, errorCallback) {
+        try {
+            const response = await this.client.get(`login`, {
+                username: username,
+                password: password
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError("brideLogin", error, errorCallback)
         }
     }
 
