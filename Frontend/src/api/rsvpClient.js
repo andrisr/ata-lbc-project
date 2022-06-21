@@ -14,7 +14,7 @@ export default class rsvpClient extends BaseClass {
     constructor(props = {}){
         super();
         const methodsToBind = ['clientLoaded', 'getRsvpByAttending', 'getRsvp', 'updateRsvp',
-            'deleteRsvp', 'createRsvp', 'login'];
+            'deleteRsvp', 'createRsvp', 'brideLogin'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -31,34 +31,9 @@ export default class rsvpClient extends BaseClass {
         }
     }
 
-    async login(username, password, errorCallback) {
+    async getRsvp(name, errorCallback) {
         try {
-            const response = await this.client.get(`login`, {
-                username: username,
-                password: password
-            });
-            return response.data;
-        } catch (error) {
-            this.handleError("brideLogin", error, errorCallback)
-        }
-    }
-
-    async createRsvp(firstName, lastName, email, errorCallback) {
-        try {
-            const response = await this.client.post(`rsvp`, {
-                firstName: firstName,
-                lastName: lastName,
-                email: email
-            });
-            return response.data;
-        } catch (error) {
-            this.handleError("createRsvp", error, errorCallback)
-        }
-    }
-
-    async getRsvp(id, errorCallback) {
-        try {
-            const response = await this.client.get(`/rsvp/${id}`);
+            const response = await this.client.get(`/rsvp/${name}`);
             return response.data;
         } catch (error) {
             this.handleError("getRsvp", error, errorCallback)
@@ -71,6 +46,18 @@ export default class rsvpClient extends BaseClass {
             return response.data;
         } catch (error) {
             this.handleError("getRsvpByAttending", error, errorCallback)
+        }
+    }
+
+    async createRsvp(name, email, errorCallback) {
+        try {
+            const response = await this.client.post(`rsvp`, {
+                name: name,
+                email: email
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError("createRsvp", error, errorCallback)
         }
     }
 
@@ -111,6 +98,7 @@ export default class rsvpClient extends BaseClass {
 
     /**
      * Helper method to log the error and run any error functions.
+     * @param method
      * @param error The error received from the server.
      * @param errorCallback (Optional) A function to execute if the call fails.
      */
