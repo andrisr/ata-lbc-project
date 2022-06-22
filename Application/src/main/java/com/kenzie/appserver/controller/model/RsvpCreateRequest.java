@@ -20,6 +20,16 @@ public class RsvpCreateRequest {
     @JsonProperty("plus1MealChoice")
     private String plus1MealChoice;
 
+    public RsvpCreateRequest (String name, String email, boolean isAttending,
+                              String mealChoice, String plus1Name, String plus1MealChoice) {
+        this.name = name;
+        this.email = email;
+        this.isAttending = isAttending;
+        this.mealChoice = mealChoice;
+        this.plus1Name = plus1Name;
+        this.plus1MealChoice = plus1MealChoice;
+    }
+
     public String getName() {
         return name;
     }
