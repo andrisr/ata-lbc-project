@@ -13,7 +13,7 @@ export default class rsvpClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getRsvpByAttending', 'getRsvp', 'updateRsvp', 'deleteRsvp'];
+        const methodsToBind = ['clientLoaded', 'getRsvpByAttending', 'getRsvp', 'updateRsvp', 'deleteRsvp', 'createRsvp'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -73,6 +73,19 @@ export default class rsvpClient extends BaseClass {
             return response.data;
         } catch (error) {
             this.handleError("deleteRsvp", error, errorCallback);
+        }
+    }
+
+    async createRsvp(name, attending, entree, errorCallback) {
+        try {
+            const response = await this.client.post(`rsvp`, {
+                "name": name,
+                "attending": attending,
+                "entree": entree
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError("createRsvp", error, errorCallback)
         }
     }
 

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Home Page</title>
 
+    <script type="text/javascript" src="pages/homePage.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
@@ -40,11 +41,11 @@
 
     <h3>Come Celebrate <br> A new chapter with Shelly and Bobby, <br> June 25th, The Philadelphia Art Museum</h3>
 
-    <form class="questions" action="loading.html" method="post">
+    <form class="questions" id="questions-form" action="home.html">
         <!-- <div class="questions"> -->
         <div>
             <label for="name">Who is checking in?</label>
-            <input type="text" name="name" placeholder="first and last name" id="name" required>
+            <input type="text" name="name" autofocus="autofocus" autocomplete="off" placeholder="First and Last name" id="name" required>
         </div>
         <p></p>
         <div>
@@ -76,6 +77,11 @@
         <button type="submit"> Submit </button>
 
     </form>
+
+    <div class="card" id="result">
+        <h2> <u> Your Guest List: </u> </h2>
+        <p id="result-info"></p>
+    </div>
 
 </footer>
 
