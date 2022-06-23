@@ -1,6 +1,6 @@
 import BaseClass from "../util/baseClass.js";
 import DataStore from "../util/DataStore.js";
-import exampleClient from "../api/exampleClient";
+import rsvpClient from "../api/rsvpClient";
 
 class HomePage extends BaseClass {
 
@@ -12,7 +12,7 @@ class HomePage extends BaseClass {
 
     async mount() {
         document.getElementById('questions-form').addEventListener('submit', this.onCreate);
-        this.client = new exampleClient();
+        this.client = new rsvpClient();
         await this.onGetComments();
 
         this.dataStore.addChangeListener(this.renderComments)
@@ -62,7 +62,7 @@ class HomePage extends BaseClass {
         let attending = document.getElementById("attending").value;
         let entree = document.getElementById("entree").value;
 
-        const createdComment = await this.client.createRsvp(name, attending, entree, this.onGetComments());
+        const createdComment = await this.client.updateRsvp(name, this.onGetComments());
 
         if (createdComment) {
             this.showMessage(`Posted a rsvp!`)
@@ -72,12 +72,12 @@ class HomePage extends BaseClass {
     }
 }
 
-/**
- * Main method to run when the page contents have loaded.
- */
-const main = async () => {
-    const homePage = new HomePage();
-    await homePage.mount();
-};
+    /**
+     * Main method to run when the page contents have loaded.
+     */
+    const main = async () => {
+        const homePage = new HomePage();
+        await homePage.mount();
+    };
 
-window.addEventListener('DOMContentLoaded', main);
+    window.addEventListener('DOMContentLoaded', main);
