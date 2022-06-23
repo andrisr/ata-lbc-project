@@ -1,6 +1,6 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
-import ExampleClient from "../api/exampleClient";
+import ExampleClient from "../api/rsvpClient";
 
 /**
  * Logic needed for the view playlist page of the website.
