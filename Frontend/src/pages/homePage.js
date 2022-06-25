@@ -1,6 +1,6 @@
 import BaseClass from "../util/baseClass.js";
 import DataStore from "../util/DataStore.js";
-import exampleClient from "../api/exampleClient";
+import RsvpClient from "../api/rsvpClient";
 
 class HomePage extends BaseClass {
 
@@ -12,10 +12,10 @@ class HomePage extends BaseClass {
 
     async mount() {
         document.getElementById('questions-form').addEventListener('submit', this.onCreate);
-        this.client = new exampleClient();
-        await this.onGetComments();
+        this.client = new RsvpClient();
+        // await this.onGetComments();
 
-        this.dataStore.addChangeListener(this.renderComments)
+        // this.dataStore.addChangeListener(this.renderComments)
     }
 
     /** Render Methods -----------------------------------------------------------------------------------------------*/
@@ -65,7 +65,7 @@ class HomePage extends BaseClass {
         const createdComment = await this.client.createRsvp(name, attending, entree, this.onGetComments());
 
         if (createdComment) {
-            this.showMessage(`Posted a rsvp!`)
+            this.showMessage(`Posted an rsvp!`)
         } else {
             this.errorHandler("Error creating!  Try again...");
         }
@@ -77,7 +77,7 @@ class HomePage extends BaseClass {
  */
 const main = async () => {
     const homePage = new HomePage();
-    await homePage.mount();
+    // await homePage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);
