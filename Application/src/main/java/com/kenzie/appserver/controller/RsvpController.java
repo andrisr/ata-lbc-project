@@ -37,11 +37,13 @@ public class RsvpController {
         return ResponseEntity.ok(rsvpResponse);
     }
 
-    // todo complete this method
     @GetMapping("/{attending}")
     public List<ResponseEntity<RsvpResponse>> get(@PathVariable("attending") boolean isAttending) {
         List<ResponseEntity<RsvpResponse>> responseEntities = new ArrayList<>();
         List<Rsvp> rsvpList= rsvpService.findByAttending(isAttending);
+        for (Rsvp rsvp : rsvpList) {
+            responseEntities.add(ResponseEntity.ok(createRsvpResponse(rsvp)));
+        }
 
         return responseEntities;
     }
@@ -69,6 +71,22 @@ public class RsvpController {
         return ResponseEntity.ok(createRsvpResponse(rsvpCreateRequest));
     }
 
+    @DeleteMapping("/{name}")
+    public ResponseEntity<RsvpResponse> delete(@PathVariable("name") String name) {
+
+        Rsvp rsvp = rsvpService.findByName(name);
+        if (rsvp == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        RsvpResponse rsvpResponse = new RsvpResponse();
+        rsvpResponse.setName(rsvp.getName());
+
+        rsvpService.deleteRsvp(rsvp);
+
+        return ResponseEntity.ok(rsvpResponse);
+    }
+
     public RsvpResponse createRsvpResponse(RsvpCreateRequest rsvpCreateRequest) {
         RsvpResponse rsvpResponse = new RsvpResponse();
         rsvpResponse.setName(rsvpCreateRequest.getName());
@@ -79,5 +97,15 @@ public class RsvpController {
         rsvpResponse.setPlus1MealChoice(rsvpCreateRequest.getPlus1MealChoice());
 
         return rsvpResponse;
+    }
+
+    public RsvpResponse createRsvpResponse(Rsvp rsvp) {
+        return createRsvpResponse(new RsvpCreateRequest(
+                rsvp.getName(),
+                rsvp.getEmail(),
+                rsvp.isAttending(),
+                rsvp.getMealChoice(),
+                rsvp.getPlus1Name(),
+                rsvp.getPlus1MealChoice()));
     }
 }

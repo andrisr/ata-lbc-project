@@ -77,16 +77,16 @@ input[name="name"]{
     border-radius: 4px;
 }
 
-/*input[name="submit-button"]{*/
-/*   text-align: center;*/
-/*   background: #aed9ff;*/
-/*   padding: 3px;*/
-/*   border-radius: 3px;*/
-/*   text-decoration: none;*/
-/*   color: black;*/
-/*   border: 1px solid rgb(248, 245, 245);*/
-/*   cursor: pointer; */
-/* } */
+button{
+    text-align: left;
+    background: whitesmoke;
+    padding: 10px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+    border: 1px solid white;
+    cursor: pointer;
+}
 
 body{
     margin: 0;
@@ -155,4 +155,26 @@ body{
     /* height: 700px; */
     position: absolute;
     right: 0px;
+}
+
+.card {
+    width: 800px;
+    height: 260px;
+
+    margin: 1rem;
+    padding: 2rem;
+
+    border: 15px solid whitesmoke;
+    border-radius: 10px;
+    background-color: rgb(234, 234, 234);
+
+    text-align: center;
+    letter-spacing: 0.05em;
+    font-family: 'Parisienne', cursive;
+    font-size: 25px;
+    font-weight: bolder;
+
+    position: relative;
+    top: 750px;
+    left: 20%;
 }

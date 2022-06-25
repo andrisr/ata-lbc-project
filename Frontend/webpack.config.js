@@ -8,17 +8,18 @@ module.exports = {
   },
   entry: {
     examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+    examplePage: path.resolve(__dirname, 'src', 'pages', 'homePage.js')
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
   },
   devServer: {
-    https: true,
-    port: 8000,
+    https: false,
+    port: 8080,
     open: true,
-    openPage: 'https://localhost:8000',
-    // diableHostChecks, otherwise we get an error about headers and the page won't render
+    openPage: 'http://localhost:8080',
+    // disableHostChecks, otherwise we get an error about headers and the page won't render
     disableHostCheck: true,
     contentBase: 'packaging_additional_published_artifacts',
     // overlay shows a full-screen overlay in the browser when there are compiler errors or warnings
@@ -30,11 +31,35 @@ module.exports = {
       filename: 'index.html',
       inject: false
     }),
+    new HtmlWebpackPlugin({
+      template: './src/home.html',
+      filename: 'home.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/directions.html',
+      filename: 'directions.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/bridalLogin.html',
+      filename: 'bridalLogin.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/registry.html',
+      filename: 'registry.html',
+      inject: false
+    }),
     new CopyPlugin({
       patterns: [
         {
           from: path.resolve('src/css'),
           to: path.resolve("dist/css")
+        },
+        {
+          from: path.resolve('src/images'),
+          to: path.resolve("dist/images")
         }
       ]
     })

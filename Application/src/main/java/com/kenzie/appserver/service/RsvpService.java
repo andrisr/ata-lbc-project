@@ -31,4 +31,10 @@ public class RsvpService {
         rsvpRecord.setName(rsvp.getName());
         rsvpRepository.save(rsvpRecord);
     }
+
+    public void deleteRsvp(Rsvp rsvp) {
+        RsvpRecord rsvpRecord = new RsvpRecord();
+        rsvpRecord.setName(rsvp.getName());
+        rsvpRepository.delete(rsvpRecord);
+    }
 }
