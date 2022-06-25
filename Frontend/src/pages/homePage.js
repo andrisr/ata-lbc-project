@@ -12,10 +12,10 @@ class HomePage extends BaseClass {
 
     async mount() {
         document.getElementById('questions-form').addEventListener('submit', this.onCreate);
-        this.client = new RsvpClient();
-        // await this.onGetComments();
 
-        // this.dataStore.addChangeListener(this.renderComments)
+        this.client = new RsvpClient();
+        await this.onGetComments();
+        this.dataStore.addChangeListener(this.renderComments)
     }
 
     /** Render Methods -----------------------------------------------------------------------------------------------*/
@@ -62,7 +62,7 @@ class HomePage extends BaseClass {
         let attending = document.getElementById("attending").value;
         let entree = document.getElementById("entree").value;
 
-        const createdComment = await this.client.createRsvp(name, attending, entree, this.onGetComments());
+        const createdComment = await this.client.updateRsvp(name, this.onGetComments());
 
         if (createdComment) {
             this.showMessage(`Posted an rsvp!`)
@@ -72,12 +72,13 @@ class HomePage extends BaseClass {
     }
 }
 
-/**
- * Main method to run when the page contents have loaded.
- */
-const main = async () => {
-    const homePage = new HomePage();
-    // await homePage.mount();
-};
 
-window.addEventListener('DOMContentLoaded', main);
+    /**
+     * Main method to run when the page contents have loaded.
+     */
+    const main = async () => {
+        const homePage = new HomePage();
+        await homePage.mount();
+    };
+
+    window.addEventListener('DOMContentLoaded', main);
