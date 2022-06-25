@@ -7,8 +7,7 @@ module.exports = {
     usedExports: true
   },
   entry: {
-    examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
-    examplePage: path.resolve(__dirname, 'src', 'pages', 'homePage.js')
+    homePage: path.resolve(__dirname, 'src', 'pages', 'homePage.js')
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -18,38 +17,45 @@ module.exports = {
     https: false,
     port: 8080,
     open: true,
-    openPage: 'http://localhost:8080',
+    openPage: 'http://localhost:8080/home.html',
     // disableHostChecks, otherwise we get an error about headers and the page won't render
     disableHostCheck: true,
     contentBase: 'packaging_additional_published_artifacts',
     // overlay shows a full-screen overlay in the browser when there are compiler errors or warnings
-    overlay: true
+    overlay: true,
+    proxy:[
+      {
+        context: [
+          '/rsvp'
+        ],
+        target: 'http://localhost:5001'
+      }
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-      filename: 'index.html',
-      inject: false
-    }),
-    new HtmlWebpackPlugin({
       template: './src/home.html',
       filename: 'home.html',
-      inject: false
+      inject: false,
+      minify: false
     }),
     new HtmlWebpackPlugin({
       template: './src/directions.html',
       filename: 'directions.html',
-      inject: false
+      inject: false,
+      minify: false
     }),
     new HtmlWebpackPlugin({
       template: './src/bridalLogin.html',
       filename: 'bridalLogin.html',
-      inject: false
+      inject: false,
+      minify: false
     }),
     new HtmlWebpackPlugin({
       template: './src/registry.html',
       filename: 'registry.html',
-      inject: false
+      inject: false,
+      minify: false
     }),
     new CopyPlugin({
       patterns: [

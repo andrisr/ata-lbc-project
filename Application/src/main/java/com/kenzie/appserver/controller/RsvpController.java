@@ -37,23 +37,32 @@ public class RsvpController {
         return ResponseEntity.ok(rsvpResponse);
     }
 
-    @GetMapping("/{attending}")
+    @GetMapping("/attending/{attending}")
     public List<ResponseEntity<RsvpResponse>> get(@PathVariable("attending") boolean isAttending) {
         List<ResponseEntity<RsvpResponse>> responseEntities = new ArrayList<>();
         List<Rsvp> rsvpList= rsvpService.findByAttending(isAttending);
+
         for (Rsvp rsvp : rsvpList) {
-            responseEntities.add(ResponseEntity.ok(createRsvpResponse(rsvp)));
+            RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest(
+                    rsvp.getName(),
+                    rsvp.getEmail(),
+                    rsvp.isAttending(),
+                    rsvp.getMealChoice(),
+                    rsvp.getPlus1Name(),
+                    rsvp.getPlus1MealChoice());
+            responseEntities.add(ResponseEntity.ok(createRsvpResponse(rsvpCreateRequest)));
         }
 
         return responseEntities;
     }
 
     @PostMapping
-    public ResponseEntity<RsvpResponse> addNewRsvp(@RequestBody RsvpCreateRequest rsvpCreateRequest) {
+    public ResponseEntity<RsvpResponse> createRsvp(@RequestBody RsvpCreateRequest rsvpCreateRequest) {
         Rsvp rsvp = new Rsvp(rsvpCreateRequest.getName());
         rsvp.setName(rsvpCreateRequest.getName());
+        rsvp.setEmail((rsvpCreateRequest.getEmail()));
 
-        rsvpService.addNewRsvp(rsvp);
+        rsvpService.createRsvp(rsvp);
 
         return ResponseEntity.ok(createRsvpResponse(rsvpCreateRequest));
     }
@@ -67,6 +76,8 @@ public class RsvpController {
         rsvp.setMealChoice(rsvpCreateRequest.getMealChoice());
         rsvp.setPlus1Name(rsvpCreateRequest.getPlus1Name());
         rsvp.setPlus1MealChoice(rsvpCreateRequest.getPlus1MealChoice());
+
+        rsvpService.updateRsvp(rsvp);
 
         return ResponseEntity.ok(createRsvpResponse(rsvpCreateRequest));
     }
@@ -99,13 +110,4 @@ public class RsvpController {
         return rsvpResponse;
     }
 
-    public RsvpResponse createRsvpResponse(Rsvp rsvp) {
-        return createRsvpResponse(new RsvpCreateRequest(
-                rsvp.getName(),
-                rsvp.getEmail(),
-                rsvp.isAttending(),
-                rsvp.getMealChoice(),
-                rsvp.getPlus1Name(),
-                rsvp.getPlus1MealChoice()));
-    }
 }
