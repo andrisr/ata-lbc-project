@@ -1,6 +1,6 @@
 import BaseClass from "../util/baseClass.js";
 import DataStore from "../util/DataStore.js";
-import rsvpClient from "../api/rsvpClient";
+import RsvpClient from "../api/rsvpClient";
 
 class HomePage extends BaseClass {
 
@@ -12,9 +12,9 @@ class HomePage extends BaseClass {
 
     async mount() {
         document.getElementById('questions-form').addEventListener('submit', this.onCreate);
-        this.client = new rsvpClient();
-        await this.onGetComments();
 
+        this.client = new RsvpClient();
+        await this.onGetComments();
         this.dataStore.addChangeListener(this.renderComments)
     }
 
@@ -65,12 +65,13 @@ class HomePage extends BaseClass {
         const createdComment = await this.client.updateRsvp(name, this.onGetComments());
 
         if (createdComment) {
-            this.showMessage(`Posted a rsvp!`)
+            this.showMessage(`Posted an rsvp!`)
         } else {
             this.errorHandler("Error creating!  Try again...");
         }
     }
 }
+
 
     /**
      * Main method to run when the page contents have loaded.

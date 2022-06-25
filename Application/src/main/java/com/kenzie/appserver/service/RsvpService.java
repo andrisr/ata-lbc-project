@@ -26,15 +26,30 @@ public class RsvpService {
         return rsvpRepository.findByAttending(isAttending);
     }
 
-    public void addNewRsvp(Rsvp rsvp) {
+    public void createRsvp(Rsvp rsvp) {
         RsvpRecord rsvpRecord = new RsvpRecord();
         rsvpRecord.setName(rsvp.getName());
+        rsvpRecord.setEmail(rsvpRecord.getEmail());
+
+        rsvpRepository.save(rsvpRecord);
+    }
+
+    public void updateRsvp(Rsvp rsvp) {
+        RsvpRecord rsvpRecord = new RsvpRecord();
+        rsvpRecord.setName(rsvp.getName());
+        rsvpRecord.setEmail(findByName(rsvp.getName()).getEmail());
+        rsvpRecord.setAttending(rsvp.isAttending());
+        rsvpRecord.setMealChoice(rsvp.getMealChoice());
+        rsvpRecord.setPlus1Name(rsvp.getPlus1Name());
+        rsvpRecord.setPlus1MealChoice(rsvp.getPlus1MealChoice());
+
         rsvpRepository.save(rsvpRecord);
     }
 
     public void deleteRsvp(Rsvp rsvp) {
         RsvpRecord rsvpRecord = new RsvpRecord();
         rsvpRecord.setName(rsvp.getName());
+
         rsvpRepository.delete(rsvpRecord);
     }
 }

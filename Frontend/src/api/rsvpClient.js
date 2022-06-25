@@ -42,7 +42,7 @@ export default class rsvpClient extends BaseClass {
 
     async getRsvpByAttending(attending, errorCallback) {
         try {
-            const response = await this.client.get(`/rsvp/${attending}`);
+            const response = await this.client.get(`/rsvp/attending/${attending}`);
             return response.data;
         } catch (error) {
             this.handleError("getRsvpByAttending", error, errorCallback)
@@ -61,10 +61,15 @@ export default class rsvpClient extends BaseClass {
         }
     }
 
-    async updateRsvp(name, errorCallback) {
+    async updateRsvp(name, email, isAttending, mealChoice, plus1Name, plus1MealChoice, errorCallback) {
         try {
             const response = await this.client.put(`rsvp`, {
-                name: name
+                name: name,
+                email: email,
+                isAttending: isAttending,
+                mealChoice: mealChoice,
+                plus1Name: plus1Name,
+                plus1MealChoice: plus1MealChoice
             });
             return response.data;
         } catch (error) {
