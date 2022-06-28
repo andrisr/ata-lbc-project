@@ -35,13 +35,12 @@ class RsvpControllerTest {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void getByName_Exists() throws Exception {
-        String id = UUID.randomUUID().toString();
+    public void getByName_validName_isSuccessful() throws Exception {
         String name = mockNeat.strings().valStr();
 
         Rsvp rsvp = new Rsvp(name);
         Rsvp persistedRsvp = rsvpService.createRsvp(rsvp);
-        mvc.perform(get("/rsvp/{name}", persistedRsvp.getId())
+        mvc.perform(get("/rsvp/{name}", persistedRsvp.getName())
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("name")
                         .value(is(name)))
@@ -61,10 +60,8 @@ class RsvpControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(rsvpCreateRequest)))
-                .andExpect(jsonPath("id")
-                        .exists())
                 .andExpect(jsonPath("name")
                         .value(is(name)))
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
     }
 }

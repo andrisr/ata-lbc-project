@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface RsvpRepository extends CrudRepository<RsvpRecord, String> {
 
-    Rsvp findByName(String name);
+    RsvpRecord findByName(String name);
 
     List<Rsvp> findByAttending(boolean isAttending);
 }
