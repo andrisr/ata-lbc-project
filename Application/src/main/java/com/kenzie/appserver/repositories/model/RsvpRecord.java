@@ -11,7 +11,7 @@ import java.util.Objects;
 public class RsvpRecord {
     private String name;
     private String email;
-    private boolean attending;
+    private boolean isAttending;
     private String mealChoice;
     private String plus1Name;
     private String plus1MealChoice;
@@ -36,11 +36,11 @@ public class RsvpRecord {
 
     @DynamoDBAttribute(attributeName = "Attending")
     public boolean isAttending() {
-        return attending;
+        return isAttending;
     }
 
     public void setAttending(boolean attending) {
-        this.attending = attending;
+        this.isAttending = attending;
     }
 
     @DynamoDBAttribute(attributeName = "Meal Choice")
