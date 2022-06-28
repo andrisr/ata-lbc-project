@@ -7,7 +7,9 @@ module.exports = {
     usedExports: true
   },
   entry: {
-    homePage: path.resolve(__dirname, 'src', 'pages', 'homePage.js')
+    examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+    homePage: path.resolve(__dirname, 'src', 'pages', 'homePage.js'),
+    bridalLogin: path.resolve(__dirname, 'src', 'pages', 'bridalLogin.js')
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -34,28 +36,29 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      template: './src/index.html',
+      filename: 'index.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
       template: './src/home.html',
       filename: 'home.html',
-      inject: false,
-      minify: false
+      inject: false
     }),
     new HtmlWebpackPlugin({
       template: './src/directions.html',
       filename: 'directions.html',
-      inject: false,
-      minify: false
+      inject: false
     }),
     new HtmlWebpackPlugin({
       template: './src/bridalLogin.html',
       filename: 'bridalLogin.html',
-      inject: false,
-      minify: false
+      inject: false
     }),
     new HtmlWebpackPlugin({
       template: './src/registry.html',
       filename: 'registry.html',
-      inject: false,
-      minify: false
+      inject: false
     }),
     new CopyPlugin({
       patterns: [
