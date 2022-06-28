@@ -26,12 +26,13 @@ public class RsvpService {
         return rsvpRepository.findByAttending(isAttending);
     }
 
-    public void createRsvp(Rsvp rsvp) {
+    public Rsvp createRsvp(Rsvp rsvp) {
         RsvpRecord rsvpRecord = new RsvpRecord();
         rsvpRecord.setName(rsvp.getName());
         rsvpRecord.setEmail(rsvpRecord.getEmail());
 
         rsvpRepository.save(rsvpRecord);
+        return rsvp;
     }
 
     public void updateRsvp(Rsvp rsvp) {

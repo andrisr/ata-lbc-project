@@ -2,13 +2,13 @@ package com.kenzie.appserver.repositories.model;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 import java.util.Objects;
 
 @DynamoDBTable(tableName = "Rsvp")
 public class RsvpRecord {
-
     private String name;
     private String email;
     private boolean attending;
@@ -16,7 +16,7 @@ public class RsvpRecord {
     private String plus1Name;
     private String plus1MealChoice;
 
-    @DynamoDBHashKey(attributeName = "Name")
+    @DynamoDBHashKey(attributeName = "Id")
     public String getName() {
         return name;
     }
@@ -72,14 +72,10 @@ public class RsvpRecord {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        RsvpRecord rsvpRecord = (RsvpRecord) o;
-        return Objects.equals(name, rsvpRecord.name);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RsvpRecord that = (RsvpRecord) o;
+        return name.equalsIgnoreCase(that.name);
     }
 
     @Override
