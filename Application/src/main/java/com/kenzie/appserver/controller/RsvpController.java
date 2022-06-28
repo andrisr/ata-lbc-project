@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
 
@@ -58,6 +59,7 @@ public class RsvpController {
 
     @PostMapping
     public ResponseEntity<RsvpResponse> createRsvp(@RequestBody RsvpCreateRequest rsvpCreateRequest) {
+        String id = UUID.randomUUID().toString();
         Rsvp rsvp = new Rsvp(rsvpCreateRequest.getName());
         rsvp.setName(rsvpCreateRequest.getName());
         rsvp.setEmail((rsvpCreateRequest.getEmail()));
