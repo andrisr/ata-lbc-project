@@ -26,3 +26,37 @@ body {
     padding: 0;
     font-family: 'Parisienne', cursive;
 }
+
+.border__imageContainer {
+    text-align: center;
+}
+#border__image {
+    width: 100%;
+    height: 90%;
+}
+
+.attendance__table {
+    box-shadow: 0 0 10px black;
+    border-collapse: collapse;
+    font-family:'Courier New', Courier, monospace;
+    overflow: hidden;
+    font-weight: bold;
+}
+
+.attendance__table thead th {
+    background-color: burlywood;
+    color: #fff;
+}
+
+.attendance__table td,
+.attendance__table th {
+    padding: 10px 20px;
+}
+
+.attendance__table tbody tr:nth-of-type(even) {
+    background-color: #fff;
+}
+
+.attendance__table tbody tr:last-of-type {
+    border-bottom: 2px solid burlywood;
+}
