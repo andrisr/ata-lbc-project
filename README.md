@@ -9,6 +9,13 @@ aws cloudformation create-stack --stack-name rsvp-invitees --template-body file:
 aws cloudformation wait stack-create-complete --stack-name rsvp-invitees
 ```
 
+# RSVP table (check stack name & file://)
+```
+aws cloudformation create-stack --stack-name DynamoDBIndexes-RSVP --template-body file://RSVPTable.yaml --capabilities CAPABILITY_IAM
+aws cloudformation wait stack-create-complete --stack-name DynamoDBIndexes-RSVP
+
+```
+
 Run the application with
 
 ```

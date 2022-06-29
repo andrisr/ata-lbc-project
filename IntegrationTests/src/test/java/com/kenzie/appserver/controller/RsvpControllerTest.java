@@ -11,7 +11,9 @@ import com.kenzie.appserver.service.model.Rsvp;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import net.andreinc.mockneat.MockNeat;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @IntegrationTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class RsvpControllerTest {
     @Autowired
     private MockMvc mvc;
@@ -40,25 +43,153 @@ class RsvpControllerTest {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
-    @Test
-    public void getByName_validName_isSuccessful() throws Exception {
-        String name = mockNeat.strings().valStr();
-        Rsvp rsvp = new Rsvp(name);
-        rsvp.setAttending(true);
-        Rsvp persistedRsvp = rsvpService.createRsvp(rsvp);
+    private QueryUtility queryUtility;
 
-        mvc.perform(get("/rsvp/{name}", persistedRsvp.getName())
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("name")
-                        .value(is(name)))
-                .andExpect(jsonPath("isAttending")
-                        .value(is(true)))
+    @BeforeAll
+    public void setup() {queryUtility = new QueryUtility(mvc);}
+
+
+//    @Test
+//    public void getByName_Exists() throws Exception {
+//        String id = UUID.randomUUID().toString();
+//        String name = mockNeat.strings().valStr();
+//
+//        Rsvp rsvp = new Rsvp(name);
+//        Rsvp persistedRsvp = rsvpService.createRsvp(rsvp);
+//        mvc.perform(get("/rsvp/{name}", persistedRsvp.getId())
+//                        .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("name")
+//                        .value(is(name)))
+//                .andExpect(status().isOk());
+//    }
+
+//    @Test
+//    public void createRsvp_CreateSuccessful() throws Exception {
+//        String name = mockNeat.strings().valStr();
+//
+//        RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
+//        rsvpCreateRequest.setName(name);
+//
+//        mapper.registerModule(new JavaTimeModule());
+//
+//        mvc.perform(post("/rsvp")
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(mapper.writeValueAsString(rsvpCreateRequest)))
+////                .andExpect(jsonPath("id")
+////                        .exists())
+//                .andExpect(jsonPath("name")
+//                        .value(is(name)))
+//                .andExpect(status().isCreated());
+//    }
+
+
+    @Test
+    public void can_get_rsvp() throws Exception {
+        // GIVEN
+        RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
+        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setEmail(mockNeat.strings().get());
+        rsvpCreateRequest.setAttending(true);
+        rsvpCreateRequest.setMealChoice("Beef");
+        rsvpCreateRequest.setPlus1Name(mockNeat.strings().get());
+        rsvpCreateRequest.setPlus1MealChoice("Salmon");
+
+
+        queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
+
+        // WHEN
+        queryUtility.rsvpControllerClient.getRsvp(rsvpCreateRequest.getName())
+                // THEN
                 .andExpect(status().isOk());
+//                .andExpect(jsonPath("name")
+//                        .value(is(rsvpCreateRequest.getName())))
+//                .andExpect(jsonPath("email")
+//                        .value(is(rsvpCreateRequest.getEmail())))
+//                .andExpect(jsonPath("isAttending")
+//                        .value(is(rsvpCreateRequest.isAttending())));
     }
 
     @Test
-    public void createRsvp_CreateSuccessful() throws Exception {
-        String name = mockNeat.strings().valStr();
+    public void can_get_rsvp_by_attending() throws Exception {
+        // GIVEN
+        RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
+        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setEmail(mockNeat.strings().get());
+        rsvpCreateRequest.setAttending(true);
+        rsvpCreateRequest.setMealChoice("Beef");
+        rsvpCreateRequest.setPlus1Name(mockNeat.strings().get());
+        rsvpCreateRequest.setPlus1MealChoice("Salmon");
+
+        queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
+
+        // WHEN
+        queryUtility.rsvpControllerClient.getRsvpByAttending(rsvpCreateRequest.getName())
+                // THEN
+
+                .andExpect(status().isOk());
+//                .andExpect(jsonPath("name")
+//                        .value(is(rsvpCreateRequest.getName())))
+//                .andExpect(jsonPath("email")
+//                        .value(is(rsvpCreateRequest.getEmail())))
+//                .andExpect(jsonPath("isAttending")
+//                        .value(is(rsvpCreateRequest.isAttending())));
+    }
+
+    @Test
+
+    public void can_update_rsvp() throws Exception {
+        // GIVEN
+        RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
+        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setEmail(mockNeat.strings().get());
+//        rsvpCreateRequest.setAttending();
+        rsvpCreateRequest.setMealChoice(null);
+        rsvpCreateRequest.setPlus1Name(null);
+        rsvpCreateRequest.setPlus1MealChoice(null);
+
+        queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
+
+        // WHEN
+        RsvpCreateRequest updateRequest = new RsvpCreateRequest();
+        updateRequest.setName(rsvpCreateRequest.getName());
+        updateRequest.setEmail(rsvpCreateRequest.getEmail());
+        updateRequest.setAttending(true);
+        updateRequest.setMealChoice("Beef");
+        updateRequest.setPlus1Name(mockNeat.strings().get());
+        updateRequest.setPlus1MealChoice("Salmon");
+
+        queryUtility.rsvpControllerClient.updateRsvp(updateRequest)
+
+                // THEN
+                .andExpect(status().isOk());
+//                .andExpect(jsonPath("name")
+//                        .value(is(updateRequest.getName())))
+//                .andExpect(jsonPath("email")
+//                        .value(is(updateRequest.getEmail())))
+//                .andExpect(jsonPath("isAttending")
+//                        .value(is(updateRequest.isAttending())))
+//                .andExpect(jsonPath("mealChoice")
+//                        .value(is(updateRequest.getMealChoice())))
+//                .andExpect(jsonPath("plus1Name")
+//                        .value(is(updateRequest.getPlus1Name())))
+//                .andExpect(jsonPath("plus1MealChoice")
+//                        .value(is(updateRequest.getPlus1MealChoice())));
+    }
+
+    @Test
+    public void can_delete_rsvp() throws Exception {
+        // GIVEN
+        RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
+        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setEmail(mockNeat.strings().get());
+
+        // WHEN
+        queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
+        queryUtility.rsvpControllerClient.deleteRsvp(rsvpCreateRequest.getName())
+                // THEN
+                .andExpect(status().isOk());
+
         RsvpCreateRequest request = new RsvpCreateRequest();
         request.setName(name);
 

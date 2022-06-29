@@ -7,6 +7,7 @@ import com.kenzie.appserver.service.model.Rsvp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,15 +19,44 @@ public class RsvpService {
         this.rsvpRepository = rsvpRepository;
     }
 
-    public RsvpRecord findByName(String name) {
-        RsvpRecord record = rsvpRepository.findByName(name);
-        System.out.println("rsvpService.findByName: " + record.isAttending());
+    public Rsvp findByName(String name) {
 
-        return record;
+        RsvpRecord rsvpRecord = rsvpRepository.findByName(name);
+        if (rsvpRecord == null){
+            return null;
+        }
+        Rsvp rsvp = new Rsvp(rsvpRecord.getName());
+        rsvp.setEmail(rsvpRecord.getEmail());
+        rsvp.setAttending(rsvpRecord.isAttending());
+        rsvp.setMealChoice(rsvpRecord.getMealChoice());
+        rsvp.setPlus1Name(rsvpRecord.getPlus1Name());
+        rsvp.setPlus1MealChoice(rsvpRecord.getPlus1MealChoice());
+
+        return rsvp;
     }
 
-    public List<RsvpRecord> findByAttending(boolean isAttending) {
-        return rsvpRepository.findByAttending(isAttending);
+    public List<Rsvp> findByAttending(boolean isAttending) {
+
+        List<RsvpRecord> rsvpRecord = rsvpRepository.findByAttending(isAttending);
+        if (rsvpRecord == null){
+            return null;
+        }
+        List<Rsvp> attendingList = new ArrayList<>();
+
+        for (RsvpRecord record : rsvpRecord){
+            if (record.isAttending()){
+                 Rsvp rsvp = new Rsvp(record.getName());
+                 rsvp.setEmail(record.getEmail());
+                 rsvp.setAttending(record.isAttending());
+                 rsvp.setMealChoice(record.getMealChoice());
+                 rsvp.setPlus1Name(record.getPlus1Name());
+                 rsvp.setPlus1MealChoice(record.getPlus1MealChoice());
+
+                 attendingList.add(rsvp);
+            }
+        }
+        return attendingList;
+
     }
 
     public Rsvp createRsvp(Rsvp rsvp) {
