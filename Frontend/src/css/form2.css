@@ -1,0 +1,93 @@
+
+
+h1[id="rsvp"]{
+    font-family: sans-serif;
+    color: lightslategrey;
+    font-size: 60px;
+    /*color: rgb(5, 4, 4);*/
+
+    position:absolute;
+    top: 910px;
+    left: 44.5%;
+
+}
+
+
+h3[id="user_Response"]{
+    font-family: sans-serif;
+    color: #999;
+    font-weight: lighter;
+    font-size: 30px;
+
+    position:absolute;
+    top: 950px;
+    left: 19%;
+}
+
+
+div[class = rsvp_check]{
+    font-size: 30px;
+    position:absolute;
+    top: 1150px;
+    left: 40%;
+}
+
+div[class = rsvp_check2] {
+    position: absolute;
+    top: 1325px;
+    left: 40%;
+}
+
+div[class = attending] {
+    position: absolute;
+    top: 1410px;
+    left: 40%;
+}
+
+
+div[class = entree] {
+    position: absolute;
+    top: 1460px;
+    left: 40%;
+}
+
+div[class = rsvp_plus_one] {
+    position: absolute;
+    top: 1500px;
+    left: 40%;
+}
+
+div[class = guest_entree] {
+    position: absolute;
+    top: 1590px;
+    left: 40%;
+}
+
+body{
+    /*background-color: #eaeaea;*/
+    background-color: white;
+}
+
+footer{
+    background-color: #eaeaea;
+    backgound-color: white;
+}
+
+div[class = contact]{
+    font-family: sans-serif;
+    color: lightgray;
+    position: absolute;
+    top: 2200px;
+    left: 2%;
+}
+
+h3[class="credits"]{
+    font-family: 'Parisienne', cursive;
+    color: lightgray;
+    font-weight: lighter;
+    font-size: 45px;
+
+    text-align: center;
+    position: absolute;
+    top: 1750px;
+}

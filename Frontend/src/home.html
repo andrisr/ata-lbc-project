@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <title>Home Page</title>
 
-    <script type="text/javascript" src="pages/homePage.js"></script>
+    <script type="text/javascript" src="homePage.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
 
     <link href="css/css-home.css" rel="stylesheet" type="text/css">
+    <link href="css/button.css" rel="stylesheet" type="text/css">
+    <link href="css/name.css" rel="stylesheet" type="text/css">
+    <link href="css/form2.css" rel="stylesheet" type="text/css">
 
-    <ul class="nav">
+
+    <ul class="nav2">
         <li><a href="home.html">Home</a></li>
         <li><a href="directions.html">Directions</a></li>
         <li><a href="registry.html">Registry</a></li>
@@ -35,52 +39,176 @@
     <img class="flower-image2" src="images/rightside-banner.png">
 </div>
 
+<h3 id="Celebrate">Come Celebrate<br>A new chapter with Shelly and Bobby,<br>June 25th, at The Philadelphia Art Museum</h3>
+
+<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+<h1 id="rsvp"> RSVP </h1>
+<h3 id="user_Response"> If your responding for you and a guest, you'll be able to <br> RSVP for your entire party.</h3>
+<!-- <form id="loginForm" > -->
+
+<div class="rsvp_check">
+    <input id="name" type="text" onkeyup="EnableDisable(this, button)" autocomplete="off" autofocus="autofocus" required >
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>Name</label>
+    <div id="sub_text" class="sub_text"> </div>
+</div>
+
+<input value="Find Your Invitation" id="button"  type="submit" disabled="" color="grey"
+       class="button" style="margin-bottom: 20px;"> </input>
+
+<br> <br> <br> <br> <br> <br> <br> <br>
+
+<div >
+    <form id="RsvpForm" class="RsvpForm" style="display: none;">
+
+        <div class="rsvp_check2">
+            <input id="user_name" type="user_name" autocomplete="off" autofocus="autofocus" required >
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Name</label>
+            <div id="sub_text1" class="sub_text"> </div>
+        </div> <br>
+        <div class="attending" id="attending">
+            <label id="attending_label "for="attending">Do you plan on attending?</label>
+            <select id="attendingOptions" onchange= "show()">
+                <option disabled selected> yes/no </option>
+                <option value="yes">yes</option>
+                <option value="no">no</option>
+            </select>
+        </div>
+        <br>
+        <div id = "part2" style="display:none">
+            <div class="entree" id="entree" >
+                <label for="entree">What would you prefer?</label>
+                <select id="entreeOption">
+                    <option disabled selected> Entree </option>
+                    <option value="chicken">Chicken</option>
+                    <option value="beef">Beef</option>
+                    <option value="salmon">Salmon</option>
+                    <option value="vegetarian">Vegetarian</option>
+                </select>
+            </div>
+            <br><br>
+            <div class="rsvp_plus_one" >
+                <input id="user_plus_one" type="user_plus_one" autocomplete="off" >
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Guest First and Last Name</label>
+                <div id="sub_textone" class="sub_text"> </div>
+            </div>
+            <br>
+            <div class="guest_entree">
+                <label for="guest_entree">What would they prefer?</label>
+                <select id="guest_entree">
+                    <option disabled selected> N/A </option>
+                    <option value="chicken">Chicken</option>
+                    <option value="beef">Beef</option>
+                    <option value="salmon">Salmon</option>
+                    <option value="vegetarian">Vegetarian</option>
+                </select>
+
+            </div>
+        </div>
+        <br>
+
+        <input id="button2" value= "Submit RSVP" type="submit" disabled="disabled" color="grey"
+               class="button2" style="margin-bottom: 20px;">  </input>
+
+        <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+        <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+        <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+    </form>
+</div>
+
+<script>
+
+    function EnableDisable(textBox, button) {
+
+        if(textBox.value.trim() !== "" || textBox.value.length > 0) {
+            button.disabled = false;
+        } else {
+            button.disabled = true;
+        }
+    };
+
+    const button = document.getElementById('button');
+
+    function onButtonClick() {
+        // button.addEventListener('click', () => {
+        const form = document.getElementById('RsvpForm');
+
+        if (form.style.display === 'none') {
+            form.style.display = 'block';
+
+            let name = document.getElementById('name').value;
+            document.getElementById('user_name').value = name;
+
+        } else {
+            form.style.display = 'none';
+        }
+    }
+
+    function show() {
+        var a = document.querySelector("#attendingOptions");
+        var b = document.getElementById("part2");
+        var c = document.getElementById("button2");
+
+        if (a.options[a.selectedIndex].value === "yes") {
+            b.style.display = "block";
+            c.disabled = false;
+
+        } else {
+            b.style.display = "none";
+            c.disabled = false;
+        }
+    };
+
+    function displayError() {
+        alert("We're having trouble finding your invitation. Please try again, remember to use the exact spelling that is on your invitation.");
+    }
+
+    function displayErrorRsvp() {
+        alert("We are sorry for any inconvenience, please try again and make sure to include the exact spelling that is on your invitation.")
+    }
+
+    function displaySuccessfulInvite() {
+        let name = document.getElementById('name').value;
+
+        alert( name + " your invitation has been found, follow the steps below to complete your rsvp.")
+    }
+
+    function displaySuccessfulRsvp() {
+
+        let isAttending = document.getElementById('attending').value;
+
+        if (isAttending === "yes"){
+            alert("We are so glad that you're able to make it, and we're looking forward to seeing you there!")
+        }
+        if (isAttending === "no"){
+            alert("We are so sorry that your unable to make it")
+        }
+    }
+
+</script>
+
 </body>
 
 <footer>
 
-    <h3>Come Celebrate <br> A new chapter with Shelly and Bobby, <br> June 25th, The Philadelphia Art Museum</h3>
+    <p> <h3 class="credits"> -♥- S&B 2021 -♥- </h3> </p>
 
-    <form class="questions" id="questions-form" action="home.html">
-        <!-- <div class="questions"> -->
-        <div>
-            <label for="name">Who is checking in?</label>
-            <input type="text" name="name" autofocus="autofocus" autocomplete="off" placeholder="First and Last name" id="name" required>
-        </div>
-        <p></p>
-        <div>
-            <!-- <form action="attending-dropdown"> -->
-            <label for="attending">Do you plan on attending?</label>
-            <select name="attending" id="attending">
-                <option disabled selected> yes/no </option>
-                <option>yes</option>
-                <option>no</option>
-            </select>
-            <!-- </form> -->
-        </div>
-        <p></p>
-        <div>
-            <!-- <form action="entree-dropdown"> -->
-            <label for="entree">What would you prefer?</label>
-            <select name="entree" id="entree">
-                <option disabled selected> Entree </option>
-                <option>Chicken</option>
-                <option>Beef</option>
-                <option>Salmon</option>
-                <option>Vegetarian</option>
-            </select>
-            <!-- </form> -->
-        </div>
-        <p></p>
-        <!-- </div> -->
-
-        <button type="submit"> Submit </button>
-
-    </form>
-
-    <div class="card" id="result">
-        <h2> <u> Your Guest List: </u> </h2>
-        <p id="result-info"></p>
+    <div class="contact">
+        <h4>
+            <strong>  Contact  </strong> <br>
+            Phone: 317.644.4973 <br>
+            Email: info@kenzie.academy <br>
+            Address: 47 South Meridian Street
+            <br> Indianapolis, IN, 46204
+            <br> United States
+        </h4>
     </div>
 
 </footer>

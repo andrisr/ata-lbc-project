@@ -18,7 +18,8 @@ public class RsvpService {
         this.rsvpRepository = rsvpRepository;
     }
 
-    public Rsvp findByName(String name) {
+    public RsvpRecord findByName(String name) {
+
         return rsvpRepository.findByName(name);
     }
 
@@ -26,15 +27,22 @@ public class RsvpService {
         return rsvpRepository.findByAttending(isAttending);
     }
 
-    public void addNewRsvp(Rsvp rsvp) {
+    public Rsvp createRsvp(Rsvp rsvp) {
         RsvpRecord rsvpRecord = new RsvpRecord();
         rsvpRecord.setName(rsvp.getName());
+        rsvpRecord.setEmail(rsvpRecord.getEmail());
+
+        rsvpRepository.save(rsvpRecord);
+        return rsvp;
+    }
+
+    public void updateRsvp(RsvpRecord rsvpRecord) {
+
         rsvpRepository.save(rsvpRecord);
     }
 
-    public void deleteRsvp(Rsvp rsvp) {
-        RsvpRecord rsvpRecord = new RsvpRecord();
-        rsvpRecord.setName(rsvp.getName());
+    public void deleteRsvp(RsvpRecord rsvpRecord) {
+
         rsvpRepository.delete(rsvpRecord);
     }
 }

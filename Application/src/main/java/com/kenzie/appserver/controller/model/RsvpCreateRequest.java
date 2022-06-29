@@ -1,6 +1,7 @@
 package com.kenzie.appserver.controller.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.kenzie.appserver.service.model.Rsvp;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -19,6 +20,8 @@ public class RsvpCreateRequest {
     private String plus1Name;
     @JsonProperty("plus1MealChoice")
     private String plus1MealChoice;
+
+    public RsvpCreateRequest() {};
 
     public RsvpCreateRequest (String name, String email, boolean isAttending,
                               String mealChoice, String plus1Name, String plus1MealChoice) {
