@@ -5,11 +5,8 @@ Follow the instructions in the course for completing the group LBC project.
 Deploy the DynamoDB tables using the following Cloudformation commands:
 
 ```
-aws cloudformation create-stack --stack-name kenziechat-users --template-body file://UserTable.yaml --capabilities CAPABILITY_IAM
-aws cloudformation wait stack-create-complete --stack-name kenziechat-users
-
-aws cloudformation create-stack --stack-name kenziechat-comments --template-body file://CommentTable.yaml --capabilities CAPABILITY_IAM
-aws cloudformation wait stack-create-complete --stack-name kenziechat-comments
+aws cloudformation create-stack --stack-name rsvp-invitees --template-body file://RsvpTable.yaml --capabilities CAPABILITY_IAM
+aws cloudformation wait stack-create-complete --stack-name rsvp-invitees
 ```
 
 Run the application with

@@ -15,5 +15,5 @@ public interface RsvpRepository extends CrudRepository<RsvpRecord, String> {
 
     RsvpRecord findByName(String name);
 
-    List<Rsvp> findByAttending(boolean isAttending);
+    List<RsvpRecord> findByAttending(boolean isAttending);
 }
