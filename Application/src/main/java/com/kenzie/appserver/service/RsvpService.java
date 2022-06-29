@@ -19,7 +19,6 @@ public class RsvpService {
         this.rsvpRepository = rsvpRepository;
     }
 
-
     public Rsvp findByName(String name) {
 
         RsvpRecord rsvpRecord = rsvpRepository.findByName(name);
