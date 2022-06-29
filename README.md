@@ -12,6 +12,13 @@ aws cloudformation create-stack --stack-name kenziechat-comments --template-body
 aws cloudformation wait stack-create-complete --stack-name kenziechat-comments
 ```
 
+# RSVP table (check stack name & file://)
+```
+aws cloudformation create-stack --stack-name DynamoDBIndexes-RSVP --template-body file://RSVPTable.yaml --capabilities CAPABILITY_IAM
+aws cloudformation wait stack-create-complete --stack-name DynamoDBIndexes-RSVP
+
+```
+
 Run the application with
 
 ```
