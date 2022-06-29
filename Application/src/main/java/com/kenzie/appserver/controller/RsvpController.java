@@ -28,14 +28,21 @@ public class RsvpController {
 
     @GetMapping("/{name}")
     public ResponseEntity<RsvpResponse> get(@PathVariable("name") String name) {
-        RsvpRecord rsvpRecord = rsvpService.findByName(name);
-        if (rsvpRecord == null) {
+        RsvpRecord record = rsvpService.findByName(name);
+        if (record == null) {
             return ResponseEntity.notFound().build();
         }
 
-        RsvpResponse rsvpResponse = new RsvpResponse();
-        rsvpResponse.setName(rsvpRecord.getName());
-        return ResponseEntity.ok(rsvpResponse);
+        RsvpCreateRequest request = new RsvpCreateRequest(
+                record.getName(),
+                record.getEmail(),
+                record.isAttending(),
+                record.getMealChoice(),
+                record.getPlus1Name(),
+                record.getPlus1MealChoice());
+
+        RsvpResponse response = createRsvpResponse(request);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/attending/{attending}")

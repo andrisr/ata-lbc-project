@@ -1,8 +1,10 @@
 package com.kenzie.appserver.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.kenzie.appserver.IntegrationTest;
 import com.kenzie.appserver.controller.model.RsvpCreateRequest;
 import com.kenzie.appserver.controller.model.RsvpResponse;
+import com.kenzie.appserver.repositories.model.RsvpRecord;
 import com.kenzie.appserver.service.RsvpService;
 import com.kenzie.appserver.service.model.Rsvp;
 
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
@@ -40,20 +43,22 @@ class RsvpControllerTest {
     @Test
     public void getByName_validName_isSuccessful() throws Exception {
         String name = mockNeat.strings().valStr();
-
         Rsvp rsvp = new Rsvp(name);
+        rsvp.setAttending(true);
         Rsvp persistedRsvp = rsvpService.createRsvp(rsvp);
+
         mvc.perform(get("/rsvp/{name}", persistedRsvp.getName())
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("name")
                         .value(is(name)))
+                .andExpect(jsonPath("isAttending")
+                        .value(is(true)))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void createRsvp_CreateSuccessful() throws Exception {
         String name = mockNeat.strings().valStr();
-
         RsvpCreateRequest request = new RsvpCreateRequest();
         request.setName(name);
 
@@ -109,6 +114,37 @@ class RsvpControllerTest {
 
         ResultActions rsvpList = mvc
                 .perform(get("/rsvp/{name}", rsvp1.getName()));
+
+        System.out.println("response: " + rsvpList.andReturn().getResponse().getContentAsString());
+    }
+
+    @Test
+    public void updateRsvp_validRsvp_isSuccessful() throws Exception {
+        String name = mockNeat.strings().valStr();
+        Rsvp rsvp = new Rsvp(name);
+        rsvp.setAttending(true);
+        Rsvp persistedRsvp = rsvpService.createRsvp(rsvp);
+
+        RsvpCreateRequest request = new RsvpCreateRequest();
+        request.setName(name);
+        request.setAttending(true);
+        request.setPlus1Name("plus 1 name");
+
+        mvc.perform(put("/rsvp")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(request)));
+
+        mvc.perform(get("/rsvp/{name}", persistedRsvp.getName())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("name")
+                        .value(is(name)))
+                .andExpect(jsonPath("plus1Name")
+                        .value(is("plus 1 name")))
+                .andExpect(status().isOk());
+
+        ResultActions rsvpList = mvc
+                .perform(get("/rsvp/{name}", persistedRsvp.getName()));
 
         System.out.println("response: " + rsvpList.andReturn().getResponse().getContentAsString());
     }

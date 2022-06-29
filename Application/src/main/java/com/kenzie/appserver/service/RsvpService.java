@@ -20,7 +20,7 @@ public class RsvpService {
 
     public RsvpRecord findByName(String name) {
         RsvpRecord record = rsvpRepository.findByName(name);
-        System.out.println("rsvp.findByName: " + record.isAttending());
+        System.out.println("rsvpService.findByName: " + record.isAttending());
 
         return record;
     }
