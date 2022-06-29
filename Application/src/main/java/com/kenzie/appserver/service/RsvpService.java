@@ -19,18 +19,26 @@ public class RsvpService {
     }
 
     public RsvpRecord findByName(String name) {
+        RsvpRecord record = rsvpRepository.findByName(name);
+        System.out.println("rsvp.findByName: " + record.isAttending());
 
-        return rsvpRepository.findByName(name);
+        return record;
     }
 
-    public List<Rsvp> findByAttending(boolean isAttending) {
+    public List<RsvpRecord> findByAttending(boolean isAttending) {
         return rsvpRepository.findByAttending(isAttending);
     }
 
     public Rsvp createRsvp(Rsvp rsvp) {
         RsvpRecord rsvpRecord = new RsvpRecord();
         rsvpRecord.setName(rsvp.getName());
-        rsvpRecord.setEmail(rsvpRecord.getEmail());
+        rsvpRecord.setEmail(rsvp.getEmail());
+        rsvpRecord.setAttending(rsvp.isAttending());
+        rsvpRecord.setMealChoice(rsvp.getMealChoice());
+        rsvpRecord.setPlus1Name(rsvp.getPlus1Name());
+        rsvpRecord.setPlus1MealChoice(rsvp.getPlus1MealChoice());
+
+        System.out.println("rsvpService.createRsvp: " + rsvpRecord.isAttending());
 
         rsvpRepository.save(rsvpRecord);
         return rsvp;

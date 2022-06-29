@@ -32,7 +32,9 @@ public class Rsvp {
         return isAttending;
     }
 
+
     public void setAttending(boolean isAttending) {
+        System.out.println("rsvp.setAttending: " + isAttending);
         this.isAttending = isAttending;
     }
 
