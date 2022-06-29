@@ -2,6 +2,7 @@ package com.kenzie.appserver.controller;
 
 import com.kenzie.appserver.controller.model.RsvpCreateRequest;
 import com.kenzie.appserver.controller.model.RsvpResponse;
+import com.kenzie.appserver.repositories.model.RsvpRecord;
 import com.kenzie.appserver.service.RsvpService;
 
 import com.kenzie.appserver.service.model.Rsvp;
@@ -27,30 +28,29 @@ public class RsvpController {
 
     @GetMapping("/{name}")
     public ResponseEntity<RsvpResponse> get(@PathVariable("name") String name) {
-
-        Rsvp rsvp = rsvpService.findByName(name);
-        if (rsvp == null) {
+        RsvpRecord rsvpRecord = rsvpService.findByName(name);
+        if (rsvpRecord == null) {
             return ResponseEntity.notFound().build();
         }
 
         RsvpResponse rsvpResponse = new RsvpResponse();
-        rsvpResponse.setName(rsvp.getName());
+        rsvpResponse.setName(rsvpRecord.getName());
         return ResponseEntity.ok(rsvpResponse);
     }
 
     @GetMapping("/attending/{attending}")
     public List<ResponseEntity<RsvpResponse>> get(@PathVariable("attending") boolean isAttending) {
         List<ResponseEntity<RsvpResponse>> responseEntities = new ArrayList<>();
-        List<Rsvp> rsvpList= rsvpService.findByAttending(isAttending);
+        List<RsvpRecord> rsvpList= rsvpService.findByAttending(isAttending);
 
-        for (Rsvp rsvp : rsvpList) {
+        for (RsvpRecord record : rsvpList) {
             RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest(
-                    rsvp.getName(),
-                    rsvp.getEmail(),
-                    rsvp.isAttending(),
-                    rsvp.getMealChoice(),
-                    rsvp.getPlus1Name(),
-                    rsvp.getPlus1MealChoice());
+                    record.getName(),
+                    record.getEmail(),
+                    record.isAttending(),
+                    record.getMealChoice(),
+                    record.getPlus1Name(),
+                    record.getPlus1MealChoice());
             responseEntities.add(ResponseEntity.ok(createRsvpResponse(rsvpCreateRequest)));
         }
 
@@ -59,7 +59,6 @@ public class RsvpController {
 
     @PostMapping
     public ResponseEntity<RsvpResponse> createRsvp(@RequestBody RsvpCreateRequest rsvpCreateRequest) {
-        String id = UUID.randomUUID().toString();
         Rsvp rsvp = new Rsvp(rsvpCreateRequest.getName());
         rsvp.setName(rsvpCreateRequest.getName());
         rsvp.setEmail((rsvpCreateRequest.getEmail()));
@@ -71,15 +70,14 @@ public class RsvpController {
 
     @PutMapping
     public ResponseEntity<RsvpResponse> updateRsvp(@RequestBody RsvpCreateRequest rsvpCreateRequest) {
-        Rsvp rsvp = rsvpService.findByName(rsvpCreateRequest.getName());
-        rsvp.setName(rsvpCreateRequest.getName());
-        rsvp.setEmail(rsvpCreateRequest.getEmail());
-        rsvp.setAttending(rsvpCreateRequest.isAttending());
-        rsvp.setMealChoice(rsvpCreateRequest.getMealChoice());
-        rsvp.setPlus1Name(rsvpCreateRequest.getPlus1Name());
-        rsvp.setPlus1MealChoice(rsvpCreateRequest.getPlus1MealChoice());
+        RsvpRecord rsvpRecord = rsvpService.findByName(rsvpCreateRequest.getName());
+        rsvpRecord.setName(rsvpCreateRequest.getName());
+        rsvpRecord.setAttending(rsvpCreateRequest.isAttending());
+        rsvpRecord.setMealChoice(rsvpCreateRequest.getMealChoice());
+        rsvpRecord.setPlus1Name(rsvpCreateRequest.getPlus1Name());
+        rsvpRecord.setPlus1MealChoice(rsvpCreateRequest.getPlus1MealChoice());
 
-        rsvpService.updateRsvp(rsvp);
+        rsvpService.updateRsvp(rsvpRecord);
 
         return ResponseEntity.ok(createRsvpResponse(rsvpCreateRequest));
     }
@@ -87,15 +85,15 @@ public class RsvpController {
     @DeleteMapping("/{name}")
     public ResponseEntity<RsvpResponse> delete(@PathVariable("name") String name) {
 
-        Rsvp rsvp = rsvpService.findByName(name);
-        if (rsvp == null) {
+        RsvpRecord rsvpRecord = rsvpService.findByName(name);
+        if (rsvpRecord == null) {
             return ResponseEntity.notFound().build();
         }
 
         RsvpResponse rsvpResponse = new RsvpResponse();
-        rsvpResponse.setName(rsvp.getName());
+        rsvpResponse.setName(rsvpRecord.getName());
 
-        rsvpService.deleteRsvp(rsvp);
+        rsvpService.deleteRsvp(rsvpRecord);
 
         return ResponseEntity.ok(rsvpResponse);
     }
