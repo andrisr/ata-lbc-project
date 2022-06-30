@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.util.UUID.randomUUID;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class RsvpServiceTest {
@@ -79,23 +80,20 @@ public class RsvpServiceTest {
         rsvpList.add(record2);
 
         // WHEN
-        when(rsvpRepository.findByAttending(true)).thenReturn(rsvpList);
-        List<Rsvp> rsvp = rsvpService.findByAttending(true);
+        when(rsvpRepository.findAll()).thenReturn(rsvpList);
+        List<Rsvp> rsvpTrue = rsvpService.findByAttending(true);
+        List<Rsvp> rsvpFalse = rsvpService.findByAttending(false);
 
         // THEN
-        Assertions.assertNotNull(rsvp, "Rsvp list has been returned");
-        Assertions.assertEquals(1, rsvp.size(), "List should have one value");
+        Assertions.assertNotNull(rsvpTrue, "Rsvp list has been returned");
+        Assertions.assertEquals(1, rsvpTrue.size(), "List should have one value");
+        Assertions.assertEquals(record.getName(), rsvpTrue.get(0).getName());
 
-        for (Rsvp guest: rsvp){
-            if (guest.isAttending()){
-                Assertions.assertEquals(guest.getEmail(), record.getEmail(), "Email matches");
-                Assertions.assertEquals(guest.isAttending(), record.isAttending(), "Attending matches");
-                Assertions.assertEquals(guest.getMealChoice(), record.getMealChoice(), "MealChoice matches");
-                Assertions.assertEquals(guest.getPlus1Name(), record.getPlus1Name(), "plus1Name matches");
-                Assertions.assertEquals(guest.getPlus1MealChoice(), record.getPlus1MealChoice(), "plus1MealChoice matches");
-            }
-        }
+        Assertions.assertNotNull(rsvpFalse, "Rsvp list has been returned");
+        Assertions.assertEquals(1, rsvpFalse.size(), "List should have one value");
+        Assertions.assertEquals(record2.getName(), rsvpFalse.get(0).getName());
     }
+
 
     @Test
     void createRsvp() {
@@ -109,9 +107,16 @@ public class RsvpServiceTest {
         rsvp.setPlus1Name(mockNeat.strings().get());
         rsvp.setPlus1MealChoice(mockNeat.strings().get());
 
+        RsvpRecord rsvpRecord = new RsvpRecord();
+        rsvpRecord.setName(rsvp.getName());
+        rsvpRecord.setEmail(rsvp.getEmail());
+        rsvpRecord.setAttending(rsvp.isAttending());
+        rsvpRecord.setMealChoice(rsvp.getMealChoice());
+        rsvpRecord.setPlus1MealChoice(rsvp.getPlus1MealChoice());
+
         // WHEN
-        when(rsvpService.createRsvp(rsvp)).thenReturn(rsvp);
-        Rsvp createdRsvp = rsvpService.createRsvp(rsvp);
+        when(rsvpService.createRsvp(rsvp)).thenReturn(rsvpRecord);
+        RsvpRecord createdRsvp = rsvpService.createRsvp(rsvp);
 
         // THEN
         Assertions.assertNotNull(createdRsvp, "Rsvp has been returned");
@@ -127,35 +132,36 @@ public class RsvpServiceTest {
         // GIVEN
         String name = mockNeat.strings().get();
 
-        Rsvp rsvp = new Rsvp(name);
-        rsvp.setEmail(mockNeat.strings().get());
-        rsvp.setAttending(true);
-        rsvp.setMealChoice(null);
-        rsvp.setPlus1Name(null);
-        rsvp.setPlus1MealChoice(null);
-
         RsvpRecord rsvpRecord = new RsvpRecord();
         rsvpRecord.setName(name);
-        rsvpRecord.setEmail(rsvp.getEmail());
+        rsvpRecord.setEmail(mockNeat.strings().get());
         rsvpRecord.setAttending(true);
         rsvpRecord.setMealChoice("Beef");
         rsvpRecord.setPlus1Name(mockNeat.strings().get());
         rsvpRecord.setPlus1MealChoice("Salmon");
 
-        when(rsvpService.createRsvp(rsvp)).thenReturn();
-        RsvpRecord rsvpRecords = rsvpService.createRsvp(rsvp);
+        when(rsvpRepository.save(rsvpRecord)).thenReturn(rsvpRecord);
         rsvpService.updateRsvp(rsvpRecord);
 
-        verify(rsvpRepository).save(rsvpRecord);
+        verify(rsvpRepository, times(1)).save(rsvpRecord);
+    }
 
-//        RsvpRecord findRecord = rsvpRepository.findByName(rsvpRecord.getName());
-//        // THEN
-//        Assertions.assertNotNull(findRecord, "Rsvp has been returned");
-//        Assertions.assertEquals(findRecord.getEmail(), rsvpRecord.getEmail(), "Email matches");
-//        Assertions.assertEquals(findRecord.isAttending(), rsvpRecord.isAttending(), "Attending matches");
-//        Assertions.assertEquals(findRecord.getMealChoice(), rsvpRecord.getMealChoice(), "MealChoice matches");
-//        Assertions.assertEquals(findRecord.getPlus1Name(), rsvpRecord.getPlus1Name(), "plus1Name matches");
-//        Assertions.assertEquals(findRecord.getPlus1MealChoice(), rsvpRecord.getPlus1MealChoice(),"plus1MealChoice matches");
+    @Test
+    void deleteRsvp() {
+        // GIVEN
+        String name = mockNeat.strings().get();
+
+        RsvpRecord rsvpRecord = new RsvpRecord();
+        rsvpRecord.setName(name);
+        rsvpRecord.setEmail(mockNeat.strings().get());
+        rsvpRecord.setAttending(true);
+        rsvpRecord.setMealChoice("Beef");
+        rsvpRecord.setPlus1Name(mockNeat.strings().get());
+        rsvpRecord.setPlus1MealChoice("Salmon");
+
+        // WHEN
+        rsvpService.deleteRsvp(rsvpRecord);
+        verify(rsvpRepository).delete(rsvpRecord);
     }
 
 

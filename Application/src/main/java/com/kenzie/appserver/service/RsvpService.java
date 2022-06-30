@@ -34,7 +34,7 @@ public class RsvpService {
 
         for (RsvpRecord record : recordList){
             System.out.println("inside attending loop");
-            if (record.isAttending()){
+            if (record.isAttending() == isAttending){
                  Rsvp rsvp = new Rsvp(record.getName());
                  rsvp.setEmail(record.getEmail());
                  rsvp.setAttending(record.isAttending());
@@ -45,9 +45,7 @@ public class RsvpService {
                  attendingList.add(rsvp);
             }
         }
-
         return attendingList;
-
     }
 
     public RsvpRecord createRsvp(Rsvp rsvp) {
@@ -64,12 +62,6 @@ public class RsvpService {
     }
 
     public void updateRsvp(RsvpRecord rsvpRecord) {
-
-//        RsvpRecord record = rsvpRepository.findByName(rsvpRecord.getName());
-//        record.setAttending(rsvpRecord.isAttending());
-//        record.setMealChoice(rsvpRecord.getMealChoice());
-//        record.setPlus1Name(rsvpRecord.getPlus1Name());
-//        record.setPlus1MealChoice(rsvpRecord.getPlus1MealChoice());
 
         rsvpRepository.save(rsvpRecord);
     }
