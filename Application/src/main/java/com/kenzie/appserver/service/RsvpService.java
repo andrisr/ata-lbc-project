@@ -50,7 +50,7 @@ public class RsvpService {
 
     }
 
-    public Rsvp createRsvp(Rsvp rsvp) {
+    public RsvpRecord createRsvp(Rsvp rsvp) {
         RsvpRecord rsvpRecord = new RsvpRecord();
         rsvpRecord.setName(rsvp.getName());
         rsvpRecord.setEmail(rsvp.getEmail());
@@ -60,10 +60,16 @@ public class RsvpService {
         rsvpRecord.setPlus1MealChoice(rsvp.getPlus1MealChoice());
 
         rsvpRepository.save(rsvpRecord);
-        return rsvp;
+        return rsvpRecord;
     }
 
     public void updateRsvp(RsvpRecord rsvpRecord) {
+
+//        RsvpRecord record = rsvpRepository.findByName(rsvpRecord.getName());
+//        record.setAttending(rsvpRecord.isAttending());
+//        record.setMealChoice(rsvpRecord.getMealChoice());
+//        record.setPlus1Name(rsvpRecord.getPlus1Name());
+//        record.setPlus1MealChoice(rsvpRecord.getPlus1MealChoice());
 
         rsvpRepository.save(rsvpRecord);
     }
