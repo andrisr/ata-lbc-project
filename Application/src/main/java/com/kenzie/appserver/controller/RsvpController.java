@@ -48,16 +48,16 @@ public class RsvpController {
     @GetMapping("/attending/{attending}")
     public List<ResponseEntity<RsvpResponse>> get(@PathVariable("attending") boolean isAttending) {
         List<ResponseEntity<RsvpResponse>> responseEntities = new ArrayList<>();
-        List<RsvpRecord> rsvpList= rsvpService.findByAttending(isAttending);
+        List<Rsvp> rsvpList= rsvpService.findByAttending(isAttending);
 
-        for (RsvpRecord record : rsvpList) {
+        for (Rsvp rsvp : rsvpList) {
             RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest(
-                    record.getName(),
-                    record.getEmail(),
-                    record.isAttending(),
-                    record.getMealChoice(),
-                    record.getPlus1Name(),
-                    record.getPlus1MealChoice());
+                    rsvp.getName(),
+                    rsvp.getEmail(),
+                    rsvp.isAttending(),
+                    rsvp.getMealChoice(),
+                    rsvp.getPlus1Name(),
+                    rsvp.getPlus1MealChoice());
             responseEntities.add(ResponseEntity.ok(createRsvpResponse(rsvpCreateRequest)));
         }
 
@@ -77,14 +77,14 @@ public class RsvpController {
 
     @PutMapping
     public ResponseEntity<RsvpResponse> updateRsvp(@RequestBody RsvpCreateRequest rsvpCreateRequest) {
-        RsvpRecord rsvpRecord = rsvpService.findByName(rsvpCreateRequest.getName());
-        rsvpRecord.setName(rsvpCreateRequest.getName());
-        rsvpRecord.setAttending(rsvpCreateRequest.isAttending());
-        rsvpRecord.setMealChoice(rsvpCreateRequest.getMealChoice());
-        rsvpRecord.setPlus1Name(rsvpCreateRequest.getPlus1Name());
-        rsvpRecord.setPlus1MealChoice(rsvpCreateRequest.getPlus1MealChoice());
+        RsvpRecord record = rsvpService.findByName(rsvpCreateRequest.getName());
+        record.setName(rsvpCreateRequest.getName());
+        record.setAttending(rsvpCreateRequest.isAttending());
+        record.setMealChoice(rsvpCreateRequest.getMealChoice());
+        record.setPlus1Name(rsvpCreateRequest.getPlus1Name());
+        record.setPlus1MealChoice(rsvpCreateRequest.getPlus1MealChoice());
 
-        rsvpService.updateRsvp(rsvpRecord);
+        rsvpService.updateRsvp(record);
 
         return ResponseEntity.ok(createRsvpResponse(rsvpCreateRequest));
     }
