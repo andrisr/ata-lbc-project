@@ -19,20 +19,19 @@ public class RsvpService {
         this.rsvpRepository = rsvpRepository;
     }
 
-    public Rsvp findByName(String name) {
+    public RsvpRecord findByName(String name) {
 
         RsvpRecord rsvpRecord = rsvpRepository.findByName(name);
         if (rsvpRecord == null){
             return null;
         }
-        Rsvp rsvp = new Rsvp(rsvpRecord.getName());
-        rsvp.setEmail(rsvpRecord.getEmail());
-        rsvp.setAttending(rsvpRecord.isAttending());
-        rsvp.setMealChoice(rsvpRecord.getMealChoice());
-        rsvp.setPlus1Name(rsvpRecord.getPlus1Name());
-        rsvp.setPlus1MealChoice(rsvpRecord.getPlus1MealChoice());
+        rsvpRecord.setEmail(rsvpRecord.getEmail());
+        rsvpRecord.setAttending(rsvpRecord.isAttending());
+        rsvpRecord.setMealChoice(rsvpRecord.getMealChoice());
+        rsvpRecord.setPlus1Name(rsvpRecord.getPlus1Name());
+        rsvpRecord.setPlus1MealChoice(rsvpRecord.getPlus1MealChoice());
 
-        return rsvp;
+        return rsvpRecord;
     }
 
     public List<Rsvp> findByAttending(boolean isAttending) {
@@ -67,8 +66,6 @@ public class RsvpService {
         rsvpRecord.setMealChoice(rsvp.getMealChoice());
         rsvpRecord.setPlus1Name(rsvp.getPlus1Name());
         rsvpRecord.setPlus1MealChoice(rsvp.getPlus1MealChoice());
-
-        System.out.println("rsvpService.createRsvp: " + rsvpRecord.isAttending());
 
         rsvpRepository.save(rsvpRecord);
         return rsvp;

@@ -1,14 +1,108 @@
 Resources:
-  UserTable:
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: "/"
+      Policies:
+        - PolicyName: dynamodbAccessRole
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:*
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - logs:*
+                Resource: "*"
+  DynamoDBIndexesLeagueMatches:
     Type: AWS::DynamoDB::Table
     Properties:
-      "AttributeDefinitions":
-        - "AttributeName": "name"
-          "AttributeType": "S"
-      "KeySchema":
-        - "AttributeName": "name"
-          "KeyType": "HASH"
+      TableName: "DynamoDBIndexes-RSVP"
+      AttributeDefinitions:
+        - AttributeName: "name"
+          AttributeType: "S"
+        - AttributeName: "email"
+          AttributeType: "S"
+        - AttributeName: "isAttending"
+          AttributeType: "BOOL"
+        - AttributeName: "mealChoice"
+          AttributeType: "S"
+        - AttributeName: "plus1Name"
+          AttributeType: "S"
+        - AttributeName: "plus1MealChoice"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "name"
+          KeyType: "HASH"
       PointInTimeRecoverySpecification:
         PointInTimeRecoveryEnabled: false
       BillingMode: PAY_PER_REQUEST
-      TableName: "Rsvp-invitees"
+  InitFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile: >
+          const AWS = require("aws-sdk");
+          const response = require('./cfn-response');
+          const docClient = new AWS.DynamoDB.DocumentClient();
+          exports.handler = function(event, context) {
+            console.log(JSON.stringify(event,null,2));
+            var params = {
+              RequestItems: {
+                "DynamoDBIndexes-RSVP": [
+                  {
+                    PutRequest: {
+                      Item: {
+                        name: "Mr Kenzie",
+                        email: "kenzie@academy",
+                        isAttending: "",
+                        mealChoice: "",
+                        plus1Name: "",
+                        plus1MealChoice: ""
+                      }
+                    }
+                  },
+                  {
+                    PutRequest: {
+                      Item: {
+                        name: "Mrs Kenzie",
+                        email: "kenzie@academy",
+                        isAttending: "",
+                        mealChoice: "",
+                        plus1Name: "",
+                        plus1MealChoice: ""
+                      }
+                    }
+                  },
+            docClient.batchWrite(params, function(err, data) {
+              if (err) {
+                response.send(event, context, "FAILED", {});
+              } else {
+                response.send(event, context, "SUCCESS", {});
+              }
+            });
+          };
+      Handler: index.handler
+      Role:
+        Fn::GetAtt: [ LambdaRole , "Arn" ]
+      Runtime: nodejs12.x
+      Timeout: 60
+  InitializeLeagueMatchesTable:
+    Type: Custom::InitFunction
+    DependsOn: DynamoDBIndexes-RSVP
+    Properties:
+      ServiceToken:
+        Fn::GetAtt: [ InitFunction , "Arn" ]
+      DynamoTableName:
+        Ref: DynamoDBIndexes-RSVP
