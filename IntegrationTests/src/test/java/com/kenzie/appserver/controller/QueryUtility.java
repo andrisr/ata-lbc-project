@@ -25,8 +25,9 @@ public class QueryUtility {
                     .accept(MediaType.APPLICATION_JSON));
         }
 
-        public ResultActions getRsvpByAttending(String attending) throws Exception {
-            return mvc.perform(get("/rsvp/{attending}", attending)
+        public ResultActions getRsvpByAttending(boolean attending) throws Exception {
+            System.out.println("query get by attending");
+            return mvc.perform(get("/rsvp/attending/{attending}", attending)
                     .accept(MediaType.APPLICATION_JSON));
         }
 

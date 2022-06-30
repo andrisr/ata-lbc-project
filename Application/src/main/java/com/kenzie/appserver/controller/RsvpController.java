@@ -47,6 +47,8 @@ public class RsvpController {
 
     @GetMapping("/attending/{attending}")
     public List<ResponseEntity<RsvpResponse>> get(@PathVariable("attending") boolean isAttending) {
+        System.out.println("controller attending");
+
         List<ResponseEntity<RsvpResponse>> responseEntities = new ArrayList<>();
         List<Rsvp> rsvpList= rsvpService.findByAttending(isAttending);
 
@@ -79,6 +81,7 @@ public class RsvpController {
     public ResponseEntity<RsvpResponse> updateRsvp(@RequestBody RsvpCreateRequest rsvpCreateRequest) {
         RsvpRecord record = rsvpService.findByName(rsvpCreateRequest.getName());
         record.setName(rsvpCreateRequest.getName());
+        record.setEmail((rsvpCreateRequest.getEmail()));
         record.setAttending(rsvpCreateRequest.isAttending());
         record.setMealChoice(rsvpCreateRequest.getMealChoice());
         record.setPlus1Name(rsvpCreateRequest.getPlus1Name());
