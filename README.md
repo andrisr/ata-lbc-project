@@ -4,11 +4,6 @@ Follow the instructions in the course for completing the group LBC project.
 
 Deploy the DynamoDB tables using the following Cloudformation commands:
 
-```
-aws cloudformation create-stack --stack-name rsvp-invitees --template-body file://RsvpTable.yaml --capabilities CAPABILITY_IAM
-aws cloudformation wait stack-create-complete --stack-name rsvp-invitees
-```
-
 # RSVP table (check stack name & file://)
 ```
 aws cloudformation create-stack --stack-name DynamoDBIndexes-RSVP --template-body file://RSVPTable.yaml --capabilities CAPABILITY_IAM

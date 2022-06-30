@@ -17,8 +17,11 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static org.junit.Assert.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.web.util.NestedServletException;
 
 import java.util.List;
 import java.util.UUID;
@@ -56,23 +59,21 @@ class RsvpControllerTest {
         rsvpCreateRequest.setName(mockNeat.strings().get());
         rsvpCreateRequest.setEmail(mockNeat.strings().get());
         rsvpCreateRequest.setAttending(true);
-        rsvpCreateRequest.setMealChoice("Beef");
-        rsvpCreateRequest.setPlus1Name(mockNeat.strings().get());
-        rsvpCreateRequest.setPlus1MealChoice("Salmon");
-
 
         queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
 
         // WHEN
         queryUtility.rsvpControllerClient.getRsvp(rsvpCreateRequest.getName())
                 // THEN
-                .andExpect(status().isOk());
-//                .andExpect(jsonPath("name")
-//                        .value(is(rsvpCreateRequest.getName())))
-//                .andExpect(jsonPath("email")
-//                        .value(is(rsvpCreateRequest.getEmail())))
-//                .andExpect(jsonPath("isAttending")
-//                        .value(is(rsvpCreateRequest.isAttending())));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("name")
+                        .value(is(rsvpCreateRequest.getName())))
+                .andExpect(jsonPath("email")
+                        .value(is(rsvpCreateRequest.getEmail())));
+
+        assertThrows(NestedServletException.class, () -> {
+            queryUtility.rsvpControllerClient.getRsvp("George");
+        });
     }
 
     @Test
@@ -85,6 +86,10 @@ class RsvpControllerTest {
         // WHEN
         queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest)
                 // THEN
+                .andExpect(jsonPath("name")
+                        .value(is(rsvpCreateRequest.getName())))
+                .andExpect(jsonPath("email")
+                        .value(is(rsvpCreateRequest.getEmail())))
                 .andExpect(status().isOk());
     }
 
@@ -94,24 +99,25 @@ class RsvpControllerTest {
         RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
         rsvpCreateRequest.setName(mockNeat.strings().get());
         rsvpCreateRequest.setEmail(mockNeat.strings().get());
-        rsvpCreateRequest.setAttending(true);
-        rsvpCreateRequest.setMealChoice("Beef");
-        rsvpCreateRequest.setPlus1Name(mockNeat.strings().get());
-        rsvpCreateRequest.setPlus1MealChoice("Salmon");
-
         queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
 
+        RsvpCreateRequest updateRequest = new RsvpCreateRequest();
+        updateRequest.setName(rsvpCreateRequest.getName());
+        updateRequest.setEmail(rsvpCreateRequest.getEmail());
+        updateRequest.setAttending(true);
+        updateRequest.setMealChoice("Beef");
+        updateRequest.setPlus1Name(mockNeat.strings().get());
+        updateRequest.setPlus1MealChoice("Salmon");
+        queryUtility.rsvpControllerClient.updateRsvp(updateRequest);
+
         // WHEN
-        queryUtility.rsvpControllerClient.getRsvpByAttending(rsvpCreateRequest.getName())
+        queryUtility.rsvpControllerClient.getRsvpByAttending(true)
                 // THEN
 
+                .andExpectAll(jsonPath("isAttending")
+                        .value(is(true)))
                 .andExpect(status().isOk());
-//                .andExpect(jsonPath("name")
-//                        .value(is(rsvpCreateRequest.getName())))
-//                .andExpect(jsonPath("email")
-//                        .value(is(rsvpCreateRequest.getEmail())))
-//                .andExpect(jsonPath("isAttending")
-//                        .value(is(rsvpCreateRequest.isAttending())));
+
     }
 
     @Test
@@ -121,10 +127,6 @@ class RsvpControllerTest {
         RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
         rsvpCreateRequest.setName(mockNeat.strings().get());
         rsvpCreateRequest.setEmail(mockNeat.strings().get());
-//        rsvpCreateRequest.setAttending();
-        rsvpCreateRequest.setMealChoice(null);
-        rsvpCreateRequest.setPlus1Name(null);
-        rsvpCreateRequest.setPlus1MealChoice(null);
 
         queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
 
@@ -137,22 +139,25 @@ class RsvpControllerTest {
         updateRequest.setPlus1Name(mockNeat.strings().get());
         updateRequest.setPlus1MealChoice("Salmon");
 
-        queryUtility.rsvpControllerClient.updateRsvp(updateRequest)
+        queryUtility.rsvpControllerClient.updateRsvp(updateRequest);
 
+        queryUtility.rsvpControllerClient.getRsvp(rsvpCreateRequest.getName())
                 // THEN
+                .andExpect(jsonPath("name")
+                        .value(is(rsvpCreateRequest.getName())))
+                .andExpect(jsonPath("name")
+                        .value(is(updateRequest.getName())))
+                .andExpect(jsonPath("email")
+                        .value(is(updateRequest.getEmail())))
+                .andExpect(jsonPath("isAttending")
+                        .value(is(updateRequest.isAttending())))
+                .andExpect(jsonPath("mealChoice")
+                        .value(is(updateRequest.getMealChoice())))
+                .andExpect(jsonPath("plus1Name")
+                        .value(is(updateRequest.getPlus1Name())))
+                .andExpect(jsonPath("plus1MealChoice")
+                        .value(is(updateRequest.getPlus1MealChoice())))
                 .andExpect(status().isOk());
-//                .andExpect(jsonPath("name")
-//                        .value(is(updateRequest.getName())))
-//                .andExpect(jsonPath("email")
-//                        .value(is(updateRequest.getEmail())))
-//                .andExpect(jsonPath("isAttending")
-//                        .value(is(updateRequest.isAttending())))
-//                .andExpect(jsonPath("mealChoice")
-//                        .value(is(updateRequest.getMealChoice())))
-//                .andExpect(jsonPath("plus1Name")
-//                        .value(is(updateRequest.getPlus1Name())))
-//                .andExpect(jsonPath("plus1MealChoice")
-//                        .value(is(updateRequest.getPlus1MealChoice())));
     }
 
     @Test
@@ -165,8 +170,13 @@ class RsvpControllerTest {
 
         // WHEN
         queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
+
         queryUtility.rsvpControllerClient.deleteRsvp(rsvpCreateRequest.getName())
                 // THEN
                 .andExpect(status().isOk());
+
+        assertThrows(NestedServletException.class, () -> {
+            queryUtility.rsvpControllerClient.getRsvp("George");
+        });
     }
 }

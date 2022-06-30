@@ -21,28 +21,19 @@ public class RsvpService {
 
     public RsvpRecord findByName(String name) {
 
-        RsvpRecord rsvpRecord = rsvpRepository.findByName(name);
-        if (rsvpRecord == null){
-            return null;
-        }
-        rsvpRecord.setEmail(rsvpRecord.getEmail());
-        rsvpRecord.setAttending(rsvpRecord.isAttending());
-        rsvpRecord.setMealChoice(rsvpRecord.getMealChoice());
-        rsvpRecord.setPlus1Name(rsvpRecord.getPlus1Name());
-        rsvpRecord.setPlus1MealChoice(rsvpRecord.getPlus1MealChoice());
-
-        return rsvpRecord;
+        return rsvpRepository.findByName(name);
     }
 
     public List<Rsvp> findByAttending(boolean isAttending) {
 
-        List<RsvpRecord> rsvpRecord = rsvpRepository.findByAttending(isAttending);
-        if (rsvpRecord == null){
-            return null;
-        }
+        Iterable<RsvpRecord> recordList = rsvpRepository.findAll();
+
+        System.out.println("service findByAttending");
+
         List<Rsvp> attendingList = new ArrayList<>();
 
-        for (RsvpRecord record : rsvpRecord){
+        for (RsvpRecord record : recordList){
+            System.out.println("inside attending loop");
             if (record.isAttending()){
                  Rsvp rsvp = new Rsvp(record.getName());
                  rsvp.setEmail(record.getEmail());
@@ -54,6 +45,7 @@ public class RsvpService {
                  attendingList.add(rsvp);
             }
         }
+
         return attendingList;
 
     }
