@@ -36,7 +36,9 @@ public class RsvpService {
         List<Rsvp> attendingList = new ArrayList<>();
 
         for (RsvpRecord record : recordList){
+
             if (record.isAttending()){
+
                  Rsvp rsvp = new Rsvp(record.getName());
                  rsvp.setEmail(record.getEmail());
                  rsvp.setAttending(record.isAttending());
@@ -47,10 +49,9 @@ public class RsvpService {
                  attendingList.add(rsvp);
             }
         }
-
         return attendingList;
-
     }
+
 
     public Rsvp createRsvp(Rsvp rsvp) {
         if (rsvp.getName() == null || rsvp.getEmail() == null
@@ -58,12 +59,13 @@ public class RsvpService {
             throw new IllegalArgumentException("Name and email cannot be null");
         }
 
+
         RsvpRecord rsvpRecord = new RsvpRecord();
         rsvpRecord.setName(rsvp.getName());
         rsvpRecord.setEmail(rsvp.getEmail());
 
         rsvpRepository.save(rsvpRecord);
-        return rsvp;
+        return rsvpRecord;
     }
 
     public void updateRsvp(RsvpRecord rsvpRecord) {
