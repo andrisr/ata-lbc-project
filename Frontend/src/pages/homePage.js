@@ -28,6 +28,7 @@ class HomePage extends BaseClass {
         if (findRSVP) {
             displaySuccessfulInvite()
             onButtonClick();
+            onButtonClickHideNameField();
         } else {
             displayError();
         }
@@ -38,15 +39,27 @@ class HomePage extends BaseClass {
         event.preventDefault();
 
         let name = document.getElementById("name").value;
-        let attending = document.getElementById("attending").value;
-        let entree = document.getElementById("entree").value;
-        let guest = document.getElementById("user_plus_one").value;
-        let guestEntree = document.getElementById("guest_entree").value;
+        const findRSVP = await this.client.getRsvp(name, this.errorHandler);
 
-        const updateRSVP = await this.client.updateRsvp(name, attending, entree, guest, guestEntree, this.errorHandler);
+        let email = "";
+        for (const property in findRSVP){
+            if (property === 'email'){
+                email = property.value
+            }
+        }
+
+        let names = document.getElementById("name").value;
+        let isAttending = document.getElementById("attending").value;
+        let mealChoice = document.getElementById("entree").value;
+        let plus1Name = document.getElementById("user_plus_one").value;
+        let plus1MealChoice = document.getElementById("guest_entree").value;
+
+        const updateRSVP = await this.client.updateRsvp(names, email, isAttending, mealChoice, plus1Name, plus1MealChoice, this.errorHandler);
 
         if (updateRSVP) {
+            onButtonClick();
             displaySuccessfulRsvp();
+            onButtonClickThanks();
         } else {
             displayErrorRsvp();
         }

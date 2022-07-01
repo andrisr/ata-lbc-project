@@ -41,13 +41,20 @@
 
 <h3 id="Celebrate">Come Celebrate<br>A new chapter with Shelly and Bobby,<br>June 25th, at The Philadelphia Art Museum</h3>
 
+<h2 id="final" style="display: none"> Thank you,</h2>
+<h4 id="final2" style="display: none">Don't forget to check out our registry page</h4>
+
+<div class="weddingRings" id="weddingRings" style="display: none">
+    <img class="weddingRings" src="images/weddingRings.png">
+</div>
+
 <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
 
 <h1 id="rsvp"> RSVP </h1>
 <h3 id="user_Response"> If your responding for you and a guest, you'll be able to <br> RSVP for your entire party.</h3>
 <!-- <form id="loginForm" > -->
 
-<div class="rsvp_check">
+<div class="rsvp_check" id="rsvp_check">
     <input id="name" type="text" onkeyup="EnableDisable(this, button)" autocomplete="off" autofocus="autofocus" required >
     <span class="highlight"></span>
     <span class="bar"></span>
@@ -74,8 +81,8 @@
             <label id="attending_label "for="attending">Do you plan on attending?</label>
             <select id="attendingOptions" onchange= "show()">
                 <option disabled selected> yes/no </option>
-                <option value="yes">yes</option>
-                <option value="no">no</option>
+                <option value="true">yes</option>
+                <option value="false">no</option>
             </select>
         </div>
         <br>
@@ -156,7 +163,7 @@
         var b = document.getElementById("part2");
         var c = document.getElementById("button2");
 
-        if (a.options[a.selectedIndex].value === "yes") {
+        if (a.options[a.selectedIndex].value === "true") {
             b.style.display = "block";
             c.disabled = false;
 
@@ -168,17 +175,17 @@
 
     function displayError() {
         alert("We're having trouble finding your invitation. Please try again, remember to use the exact spelling that is on your invitation.");
-    }
+    };
 
     function displayErrorRsvp() {
         alert("We are sorry for any inconvenience, please try again and make sure to include the exact spelling that is on your invitation.")
-    }
+    };
 
     function displaySuccessfulInvite() {
         let name = document.getElementById('name').value;
 
         alert( name + " your invitation has been found, follow the steps below to complete your rsvp.")
-    }
+    };
 
     function displaySuccessfulRsvp() {
 
@@ -190,7 +197,40 @@
         if (isAttending === "no"){
             alert("We are so sorry that your unable to make it")
         }
+    };
+
+    function onButtonClickHideNameField() {
+
+        const nameField = document.getElementById('rsvp_check');
+        let firstButton = document.getElementById("button");
+
+        nameField.style.display = 'none';
+        firstButton.style.visibility = 'hidden';
     }
+
+    function onButtonClickThanks(){
+
+        const HideComeCelebrate = document.getElementById('Celebrate');
+        const rsvpTitleField= document.getElementById('rsvp');
+        const rsvpDirectionsField = document.getElementById('user_Response');
+        const thankYou = document.getElementById('final');
+        const dontForget = document.getElementById('final2');
+        const picture = document.getElementById('weddingRings');
+        const credits = document.getElementById('credits');
+
+
+        if (thankYou.style.display === 'none') {
+            thankYou.style.display = 'block';
+            dontForget.style.display = 'block';
+            picture.style.display = 'block';
+            credits.style.display = 'block';
+        }
+        rsvpTitleField.style.display = 'none';
+        rsvpDirectionsField.style.display = 'none';
+        HideComeCelebrate.style.display = 'none';
+
+    }
+
 
 </script>
 
@@ -198,7 +238,7 @@
 
 <footer>
 
-    <p> <h3 class="credits"> -♥- S&B 2021 -♥- </h3> </p>
+    <p> <h3 class="credits" id="credits" style="display: none"> -♥- S&B 2023 -♥- </h3> </p>
 
     <div class="contact">
         <h4>
