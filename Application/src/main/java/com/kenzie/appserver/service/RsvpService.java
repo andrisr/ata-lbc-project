@@ -20,20 +20,22 @@ public class RsvpService {
     }
 
     public RsvpRecord findByName(String name) {
+        RsvpRecord record = rsvpRepository.findByName(name);
 
-        return rsvpRepository.findByName(name);
+        if (record == null) {
+            throw new IllegalArgumentException("No RSVP found");
+        }
+
+        return record;
     }
 
     public List<Rsvp> findByAttending(boolean isAttending) {
 
         Iterable<RsvpRecord> recordList = rsvpRepository.findAll();
 
-        System.out.println("service findByAttending");
-
         List<Rsvp> attendingList = new ArrayList<>();
 
         for (RsvpRecord record : recordList){
-            System.out.println("inside attending loop");
             if (record.isAttending()){
                  Rsvp rsvp = new Rsvp(record.getName());
                  rsvp.setEmail(record.getEmail());
@@ -51,25 +53,33 @@ public class RsvpService {
     }
 
     public Rsvp createRsvp(Rsvp rsvp) {
+        if (rsvp.getName() == null || rsvp.getEmail() == null
+                || rsvp.getName().trim().isEmpty() || rsvp.getEmail().trim().isEmpty()) {
+            throw new IllegalArgumentException("Name and email cannot be null");
+        }
+
         RsvpRecord rsvpRecord = new RsvpRecord();
         rsvpRecord.setName(rsvp.getName());
         rsvpRecord.setEmail(rsvp.getEmail());
-        rsvpRecord.setAttending(rsvp.isAttending());
-        rsvpRecord.setMealChoice(rsvp.getMealChoice());
-        rsvpRecord.setPlus1Name(rsvp.getPlus1Name());
-        rsvpRecord.setPlus1MealChoice(rsvp.getPlus1MealChoice());
 
         rsvpRepository.save(rsvpRecord);
         return rsvp;
     }
 
     public void updateRsvp(RsvpRecord rsvpRecord) {
+        RsvpRecord record = findByName(rsvpRecord.getName());
+
+        if (rsvpRecord.getName() == null || rsvpRecord.getEmail() == null
+                || rsvpRecord.getName().trim().isEmpty() || rsvpRecord.getEmail().trim().isEmpty()) {
+            throw new IllegalArgumentException("Name and email cannot be null");
+        }
 
         rsvpRepository.save(rsvpRecord);
     }
 
     public void deleteRsvp(RsvpRecord rsvpRecord) {
+        RsvpRecord record = findByName(rsvpRecord.getName());
 
-        rsvpRepository.delete(rsvpRecord);
+        rsvpRepository.delete(record);
     }
 }
