@@ -58,7 +58,7 @@ class RsvpControllerTest {
         RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
         rsvpCreateRequest.setName(mockNeat.strings().get());
         rsvpCreateRequest.setEmail(mockNeat.strings().get());
-        rsvpCreateRequest.setAttending(true);
+//        rsvpCreateRequest.setAttending(true);
 
         queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
 
@@ -179,7 +179,7 @@ class RsvpControllerTest {
         queryUtility.rsvpControllerClient.getRsvp(rsvpCreateRequest.getName())
                 // THEN
                 .andExpect(jsonPath("name")
-                        .value(is(rsvpCreateRequest.getName())))
+                        .value(is(updateRequest.getName())))
                 .andExpect(jsonPath("name")
                         .value(is(updateRequest.getName())))
                 .andExpect(jsonPath("email")
