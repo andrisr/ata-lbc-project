@@ -67,14 +67,14 @@ public class RsvpController {
     }
 
     @PostMapping
-    public ResponseEntity<RsvpResponse> createRsvp(@RequestBody RsvpCreateRequest rsvpCreateRequest) {
-        Rsvp rsvp = new Rsvp(rsvpCreateRequest.getName());
-        rsvp.setName(rsvpCreateRequest.getName());
-        rsvp.setEmail((rsvpCreateRequest.getEmail()));
+    public ResponseEntity<RsvpResponse> createRsvp(@RequestBody RsvpCreateRequest request) {
+        Rsvp rsvp = new Rsvp(request.getName());
+        rsvp.setName(request.getName());
+        rsvp.setEmail((request.getEmail()));
 
         rsvpService.createRsvp(rsvp);
 
-        return ResponseEntity.ok(createRsvpResponse(rsvpCreateRequest));
+        return ResponseEntity.ok(createRsvpResponse(request));
     }
 
     @PutMapping
@@ -82,7 +82,7 @@ public class RsvpController {
         RsvpRecord record = rsvpService.findByName(rsvpCreateRequest.getName());
         record.setName(rsvpCreateRequest.getName());
         record.setEmail((rsvpCreateRequest.getEmail()));
-        record.setAttending(rsvpCreateRequest.isAttending());
+        record.setAttending(rsvpCreateRequest.getIsAttending());
         record.setMealChoice(rsvpCreateRequest.getMealChoice());
         record.setPlus1Name(rsvpCreateRequest.getPlus1Name());
         record.setPlus1MealChoice(rsvpCreateRequest.getPlus1MealChoice());
@@ -112,7 +112,7 @@ public class RsvpController {
         RsvpResponse rsvpResponse = new RsvpResponse();
         rsvpResponse.setName(rsvpCreateRequest.getName());
         rsvpResponse.setEmail(rsvpCreateRequest.getEmail());
-        rsvpResponse.setAttending(rsvpCreateRequest.isAttending());
+        rsvpResponse.setAttending(rsvpCreateRequest.getIsAttending());
         rsvpResponse.setMealChoice(rsvpCreateRequest.getMealChoice());
         rsvpResponse.setPlus1Name(rsvpCreateRequest.getPlus1Name());
         rsvpResponse.setPlus1MealChoice(rsvpCreateRequest.getPlus1MealChoice());

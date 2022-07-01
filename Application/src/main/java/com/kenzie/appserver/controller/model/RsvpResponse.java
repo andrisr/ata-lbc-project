@@ -35,7 +35,7 @@ public class RsvpResponse {
         this.email = email;
     }
 
-    public boolean isAttending() {
+    public boolean getIsAttending() {
         return isAttending;
     }
 
