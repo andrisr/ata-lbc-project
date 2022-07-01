@@ -46,10 +46,10 @@ public class RsvpController {
     }
 
     @GetMapping("/attending/{attending}")
-    public List<ResponseEntity<RsvpResponse>> get(@PathVariable("attending") boolean isAttending) {
+    public ResponseEntity<List<RsvpResponse>> get(@PathVariable("attending") boolean isAttending) {
         System.out.println("controller attending");
 
-        List<ResponseEntity<RsvpResponse>> responseEntities = new ArrayList<>();
+        List<RsvpResponse> responses = new ArrayList<>();
         List<Rsvp> rsvpList= rsvpService.findByAttending(isAttending);
 
         for (Rsvp rsvp : rsvpList) {
@@ -60,10 +60,10 @@ public class RsvpController {
                     rsvp.getMealChoice(),
                     rsvp.getPlus1Name(),
                     rsvp.getPlus1MealChoice());
-            responseEntities.add(ResponseEntity.ok(createRsvpResponse(rsvpCreateRequest)));
+            responses.add(createRsvpResponse(rsvpCreateRequest));
         }
 
-        return responseEntities;
+        return ResponseEntity.ok(responses);
     }
 
     @PostMapping
