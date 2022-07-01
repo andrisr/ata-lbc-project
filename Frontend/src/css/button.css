@@ -27,7 +27,7 @@
     font-weight: 600;
     position: absolute;
     top: 1230px;
-    left: 30%;
+    left: 32%;
 
     margin-top: 20px;
     background-color: rgb(35, 31, 32);
@@ -55,7 +55,6 @@
 
 .button2{
     text-align: center;
-
     line-height: 2.75rem;
     min-width: 180px;
     padding-left: 1.25rem;
@@ -70,8 +69,11 @@
     font-size: 16px;
     font-weight: 600;
     position: absolute;
-    top: 1640px;
-    left: 30%;
+    /*top: 1640px;*/
+    /*left: 30%;*/
+
+    top: 1440px;
+    left: 32%;
 
     margin-top: 20px;
     background-color: rgb(35, 31, 32);

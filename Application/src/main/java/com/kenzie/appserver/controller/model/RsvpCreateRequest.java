@@ -49,7 +49,7 @@ public class RsvpCreateRequest {
         this.email = email;
     }
 
-    public boolean isAttending() {
+    public boolean getIsAttending() {
         return isAttending;
     }
 

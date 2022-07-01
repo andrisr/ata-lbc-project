@@ -1,9 +1,6 @@
 package com.kenzie.appserver.repositories.model;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
 import java.util.Objects;
 
@@ -16,7 +13,7 @@ public class RsvpRecord {
     private String plus1Name;
     private String plus1MealChoice;
 
-    @DynamoDBHashKey(attributeName = "Id")
+    @DynamoDBHashKey(attributeName = "name")
     public String getName() {
         return name;
     }
@@ -34,7 +31,8 @@ public class RsvpRecord {
         this.email = email;
     }
 
-    @DynamoDBAttribute(attributeName = "Attending")
+
+    @DynamoDBAttribute(attributeName = "attending")
     public boolean isAttending() {
         return isAttending;
     }
@@ -43,7 +41,7 @@ public class RsvpRecord {
         this.isAttending = attending;
     }
 
-    @DynamoDBAttribute(attributeName = "Meal Choice")
+    @DynamoDBAttribute(attributeName = "meal choice")
     public String getMealChoice() {
         return mealChoice;
     }
@@ -52,7 +50,7 @@ public class RsvpRecord {
         this.mealChoice = mealChoice;
     }
 
-    @DynamoDBAttribute(attributeName = "Plus 1 Name")
+    @DynamoDBAttribute(attributeName = "plus 1 name")
     public String getPlus1Name() {
         return plus1Name;
     }
@@ -61,7 +59,7 @@ public class RsvpRecord {
         this.plus1Name = plus1Name;
     }
 
-    @DynamoDBAttribute(attributeName = "Plus 1 Meal Choice")
+    @DynamoDBAttribute(attributeName = "plus 1 meal choice")
     public String getPlus1MealChoice() {
         return plus1MealChoice;
     }
