@@ -21,6 +21,10 @@
     color:rgb(174, 30, 30);
 }
 
+h1 {
+    align-items: center;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -35,28 +39,29 @@ body {
     height: 90%;
 }
 
-.attendance__table {
+.table {
     box-shadow: 0 0 10px black;
     border-collapse: collapse;
     font-family:'Courier New', Courier, monospace;
     overflow: hidden;
     font-weight: bold;
+    position: absolute;
 }
 
-.attendance__table thead th {
+.table thead th {
     background-color: burlywood;
-    color: #fff;
+    color: #000;
 }
 
-.attendance__table td,
-.attendance__table th {
+.table td,
+.table th {
     padding: 10px 20px;
 }
 
-.attendance__table tbody tr:nth-of-type(even) {
+.table tbody tr:nth-of-type(even) {
     background-color: #fff;
 }
 
-.attendance__table tbody tr:last-of-type {
+.table tbody tr:last-of-type {
     border-bottom: 2px solid burlywood;
 }
