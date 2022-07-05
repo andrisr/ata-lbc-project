@@ -190,7 +190,7 @@ class RsvpControllerTest {
 
 //        List<RsvpResponse> rsvpResponses = mapper.readValue(resultActions, RsvpResponse.class);
 
-        System.out.println("restultActions: " + resultActions);
+        System.out.println("resultActions: " + resultActions);
 
         int resultActionsSize = resultActions.getContentLength();
 

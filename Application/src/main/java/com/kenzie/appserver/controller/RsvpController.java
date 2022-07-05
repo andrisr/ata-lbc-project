@@ -43,7 +43,7 @@ public class RsvpController {
 
     // todo keep for now just in case
 //    @GetMapping("/attending/{attending}")
-//    public ResponseEntity<List<RsvpResponse>> get(@PathVariable("attending") boolean isAttending) {
+//    public ResponseEntity<List<RsvpResponse>> get(@PathVariable("attending") Boolean isAttending) {
 //        List<RsvpResponse> responses = new ArrayList<>();
 //        List<RsvpRecord> rsvpList= rsvpService.findByAttending(isAttending);
 //
@@ -78,12 +78,12 @@ public class RsvpController {
                     record.getPlus1Name(),
                     record.getPlus1MealChoice());
 
-            if (record.isAttending()) {
-                isAttendingTrue.add(createRsvpResponse(request));
-            } else if (!record.isAttending()) {
-                isAttendingFalse.add(createRsvpResponse(request));
-            } else {
+            if (record.isAttending() == null) {
                 isAttendingNull.add(createRsvpResponse(request));
+            } else if (record.isAttending()) {
+                isAttendingTrue.add(createRsvpResponse(request));
+            } else {
+                isAttendingFalse.add(createRsvpResponse(request));
             }
         }
 
