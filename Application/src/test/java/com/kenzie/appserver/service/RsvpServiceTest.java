@@ -94,7 +94,7 @@ public class RsvpServiceTest {
         Assertions.assertEquals(record2.getName(), rsvpFalse.get(0).getName());
     }
 
-
+//TODO Have to wait for service to be completed then fix test, add alternative cases.
     @Test
     void createRsvp() {
         // GIVEN
@@ -107,16 +107,16 @@ public class RsvpServiceTest {
         rsvp.setPlus1Name(mockNeat.strings().get());
         rsvp.setPlus1MealChoice(mockNeat.strings().get());
 
-        RsvpRecord rsvpRecord = new RsvpRecord();
-        rsvpRecord.setName(rsvp.getName());
-        rsvpRecord.setEmail(rsvp.getEmail());
-        rsvpRecord.setAttending(rsvp.isAttending());
-        rsvpRecord.setMealChoice(rsvp.getMealChoice());
-        rsvpRecord.setPlus1MealChoice(rsvp.getPlus1MealChoice());
+//        RsvpRecord rsvpRecord = new RsvpRecord();
+//        rsvpRecord.setName(rsvp.getName());
+//        rsvpRecord.setEmail(rsvp.getEmail());
+//        rsvpRecord.setAttending(rsvp.isAttending());
+//        rsvpRecord.setMealChoice(rsvp.getMealChoice());
+//        rsvpRecord.setPlus1MealChoice(rsvp.getPlus1MealChoice());
 
         // WHEN
-        when(rsvpService.createRsvp(rsvp)).thenReturn(rsvpRecord);
-        RsvpRecord createdRsvp = rsvpService.createRsvp(rsvp);
+        when(rsvpService.createRsvp(rsvp)).thenReturn(rsvp);
+        Rsvp createdRsvp = rsvpService.createRsvp(rsvp);
 
         // THEN
         Assertions.assertNotNull(createdRsvp, "Rsvp has been returned");
@@ -127,6 +127,7 @@ public class RsvpServiceTest {
         Assertions.assertEquals(createdRsvp.getPlus1MealChoice(), rsvp.getPlus1MealChoice(),"plus1MealChoice matches");
     }
 
+    //TODO add alternative tests for update
     @Test
     void updateRsvp() {
         // GIVEN

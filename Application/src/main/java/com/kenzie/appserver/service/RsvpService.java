@@ -52,20 +52,19 @@ public class RsvpService {
         return attendingList;
     }
 
-
+//TODO return was a rsvpRecord
     public Rsvp createRsvp(Rsvp rsvp) {
         if (rsvp.getName() == null || rsvp.getEmail() == null
                 || rsvp.getName().trim().isEmpty() || rsvp.getEmail().trim().isEmpty()) {
             throw new IllegalArgumentException("Name and email cannot be null");
         }
 
-
         RsvpRecord rsvpRecord = new RsvpRecord();
         rsvpRecord.setName(rsvp.getName());
         rsvpRecord.setEmail(rsvp.getEmail());
 
         rsvpRepository.save(rsvpRecord);
-        return rsvpRecord;
+        return rsvp;
     }
 
     public void updateRsvp(RsvpRecord rsvpRecord) {
