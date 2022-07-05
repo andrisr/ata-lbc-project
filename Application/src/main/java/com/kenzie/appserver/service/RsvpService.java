@@ -68,15 +68,13 @@ public class RsvpService {
         rsvpRecord.setAttending(null);
 
         rsvpRepository.save(rsvpRecord);
-        return rsvp;
+        return rsvpRecord;
     }
 
     public void updateRsvp(RsvpRecord rsvpRecord) {
         RsvpRecord record = findByName(rsvpRecord.getName());
-
-        if (rsvpRecord.getName() == null || rsvpRecord.getEmail() == null
-                || rsvpRecord.getName().trim().isEmpty() || rsvpRecord.getEmail().trim().isEmpty()) {
-            throw new IllegalArgumentException("Name and email cannot be null");
+        if (record == null) {
+            throw new IllegalArgumentException("RSVP not found");
         }
 
         rsvpRepository.save(rsvpRecord);
