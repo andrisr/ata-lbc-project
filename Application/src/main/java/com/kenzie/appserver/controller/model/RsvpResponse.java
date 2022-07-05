@@ -66,4 +66,16 @@ public class RsvpResponse {
     public void setPlus1MealChoice(String plus1MealChoice) {
         this.plus1MealChoice = plus1MealChoice;
     }
+
+    @Override
+    public String toString() {
+        return "RsvpResponse{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", isAttending=" + isAttending +
+                ", mealChoice='" + mealChoice + '\'' +
+                ", plus1Name='" + plus1Name + '\'' +
+                ", plus1MealChoice='" + plus1MealChoice + '\'' +
+                '}';
+    }
 }

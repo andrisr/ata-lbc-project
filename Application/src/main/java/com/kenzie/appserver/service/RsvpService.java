@@ -29,40 +29,41 @@ public class RsvpService {
         return record;
     }
 
-    public List<Rsvp> findByAttending(boolean isAttending) {
+//    public List<RsvpRecord> findAll(boolean isAttending) {
+//        Iterable<RsvpRecord> recordList = rsvpRepository.findByAttending(isAttending);
+//        List<RsvpRecord> attendingList = new ArrayList<>();
+//
+//        for (RsvpRecord record : recordList){
+//            if (record.isAttending()){
+//                 attendingList.add(record);
+//            }
+//        }
+//
+//        return attendingList;
+//    }
 
+    public List<RsvpRecord> findAll() {
         Iterable<RsvpRecord> recordList = rsvpRepository.findAll();
-
-        List<Rsvp> attendingList = new ArrayList<>();
+        List<RsvpRecord> attendingList = new ArrayList<>();
 
         for (RsvpRecord record : recordList){
+            attendingList.add(record);
 
-            if (record.isAttending()){
-
-                 Rsvp rsvp = new Rsvp(record.getName());
-                 rsvp.setEmail(record.getEmail());
-                 rsvp.setAttending(record.isAttending());
-                 rsvp.setMealChoice(record.getMealChoice());
-                 rsvp.setPlus1Name(record.getPlus1Name());
-                 rsvp.setPlus1MealChoice(record.getPlus1MealChoice());
-
-                 attendingList.add(rsvp);
-            }
         }
+
         return attendingList;
     }
 
-
-    public Rsvp createRsvp(Rsvp rsvp) {
+    public RsvpRecord createRsvp(Rsvp rsvp) {
         if (rsvp.getName() == null || rsvp.getEmail() == null
                 || rsvp.getName().trim().isEmpty() || rsvp.getEmail().trim().isEmpty()) {
             throw new IllegalArgumentException("Name and email cannot be null");
         }
 
-
         RsvpRecord rsvpRecord = new RsvpRecord();
         rsvpRecord.setName(rsvp.getName());
         rsvpRecord.setEmail(rsvp.getEmail());
+        rsvpRecord.setAttending(null);
 
         rsvpRepository.save(rsvpRecord);
         return rsvpRecord;

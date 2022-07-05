@@ -40,6 +40,15 @@ export default class rsvpClient extends BaseClass {
         }
     }
 
+    async getAllRsvps(attending, errorCallback) {
+        try {
+            const response = await this.client.get(`/rsvp/all`);
+            return response.data;
+        } catch (error) {
+            this.handleError("getAllRsvps", error, errorCallback)
+        }
+    }
+
     async getRsvpByAttending(attending, errorCallback) {
         try {
             const response = await this.client.get(`/rsvp/attending/${attending}`);

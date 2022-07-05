@@ -3,7 +3,7 @@ package com.kenzie.appserver.service.model;
 public class Rsvp {
     private String name;
     private String email;
-    private boolean isAttending;
+    private Boolean isAttending;
     private String mealChoice;
     private String plus1Name;
     private String plus1MealChoice;
