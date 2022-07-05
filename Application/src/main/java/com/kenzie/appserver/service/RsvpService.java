@@ -54,7 +54,9 @@ public class RsvpService {
         return attendingList;
     }
 
+
     public RsvpRecord createRsvp(Rsvp rsvp) {
+
         if (rsvp.getName() == null || rsvp.getEmail() == null
                 || rsvp.getName().trim().isEmpty() || rsvp.getEmail().trim().isEmpty()) {
             throw new IllegalArgumentException("Name and email cannot be null");
@@ -66,7 +68,7 @@ public class RsvpService {
         rsvpRecord.setAttending(null);
 
         rsvpRepository.save(rsvpRecord);
-        return rsvpRecord;
+        return rsvp;
     }
 
     public void updateRsvp(RsvpRecord rsvpRecord) {
