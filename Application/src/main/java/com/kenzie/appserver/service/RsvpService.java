@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RsvpService {
@@ -63,7 +64,7 @@ public class RsvpService {
         RsvpRecord rsvpRecord = new RsvpRecord();
         rsvpRecord.setName(rsvp.getName());
         rsvpRecord.setEmail(rsvp.getEmail());
-        rsvpRecord.setAttending(null);
+        rsvpRecord.setAttending(false);
 
         rsvpRepository.save(rsvpRecord);
         return rsvpRecord;
@@ -75,8 +76,7 @@ public class RsvpService {
     }
 
     public void deleteRsvp(RsvpRecord rsvpRecord) {
-        RsvpRecord record = findByName(rsvpRecord.getName());
 
-        rsvpRepository.delete(record);
+        rsvpRepository.delete(rsvpRecord);
     }
 }
