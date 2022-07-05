@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RsvpService {
@@ -48,7 +49,6 @@ public class RsvpService {
 
         for (RsvpRecord record : recordList){
             attendingList.add(record);
-
         }
 
         return attendingList;
@@ -65,26 +65,19 @@ public class RsvpService {
         RsvpRecord rsvpRecord = new RsvpRecord();
         rsvpRecord.setName(rsvp.getName());
         rsvpRecord.setEmail(rsvp.getEmail());
-        rsvpRecord.setAttending(null);
+        rsvpRecord.setAttending(false);
 
         rsvpRepository.save(rsvpRecord);
-        return rsvp;
+        return rsvpRecord;
     }
 
     public void updateRsvp(RsvpRecord rsvpRecord) {
-        RsvpRecord record = findByName(rsvpRecord.getName());
-
-        if (rsvpRecord.getName() == null || rsvpRecord.getEmail() == null
-                || rsvpRecord.getName().trim().isEmpty() || rsvpRecord.getEmail().trim().isEmpty()) {
-            throw new IllegalArgumentException("Name and email cannot be null");
-        }
 
         rsvpRepository.save(rsvpRecord);
     }
 
     public void deleteRsvp(RsvpRecord rsvpRecord) {
-        RsvpRecord record = findByName(rsvpRecord.getName());
 
-        rsvpRepository.delete(record);
+        rsvpRepository.delete(rsvpRecord);
     }
 }

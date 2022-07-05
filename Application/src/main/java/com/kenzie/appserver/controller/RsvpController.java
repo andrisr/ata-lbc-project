@@ -9,12 +9,8 @@ import com.kenzie.appserver.service.model.Rsvp;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
-import static java.util.UUID.randomUUID;
 
 @RestController
 @RequestMapping("/rsvp")
