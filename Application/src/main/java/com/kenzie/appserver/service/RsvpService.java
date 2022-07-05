@@ -29,7 +29,7 @@ public class RsvpService {
         return record;
     }
 
-//    public List<RsvpRecord> findAll(boolean isAttending) {
+//    public List<RsvpRecord> findAll(Boolean isAttending) {
 //        Iterable<RsvpRecord> recordList = rsvpRepository.findByAttending(isAttending);
 //        List<RsvpRecord> attendingList = new ArrayList<>();
 //
@@ -48,12 +48,10 @@ public class RsvpService {
 
         for (RsvpRecord record : recordList){
             attendingList.add(record);
-
         }
 
         return attendingList;
     }
-
 
     public RsvpRecord createRsvp(Rsvp rsvp) {
 
@@ -72,10 +70,6 @@ public class RsvpService {
     }
 
     public void updateRsvp(RsvpRecord rsvpRecord) {
-        RsvpRecord record = findByName(rsvpRecord.getName());
-        if (record == null) {
-            throw new IllegalArgumentException("RSVP not found");
-        }
 
         rsvpRepository.save(rsvpRecord);
     }
