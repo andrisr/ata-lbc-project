@@ -60,6 +60,11 @@ module.exports = {
       filename: 'registry.html',
       inject: false
     }),
+    new HtmlWebpackPlugin({
+      template: './src/brideGuestInfo.html',
+      filename: 'brideGuestInfo.html',
+      inject: false
+    }),
     new CopyPlugin({
       patterns: [
         {

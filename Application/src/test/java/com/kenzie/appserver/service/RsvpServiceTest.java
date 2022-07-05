@@ -105,6 +105,7 @@ public class RsvpServiceTest {
 
         Rsvp rsvp = new Rsvp(name);
         rsvp.setEmail(mockNeat.strings().get());
+
         rsvp.setAttending(false);
         rsvp.setMealChoice(null);
         rsvp.setPlus1Name(null);
@@ -118,7 +119,9 @@ public class RsvpServiceTest {
         rsvpRecord.setPlus1MealChoice(rsvp.getPlus1MealChoice());
 
         // WHEN
+
         when(rsvpRepository.save(rsvpRecord)).thenReturn(rsvpRecord);
+
         RsvpRecord createdRsvp = rsvpService.createRsvp(rsvp);
 
         // THEN

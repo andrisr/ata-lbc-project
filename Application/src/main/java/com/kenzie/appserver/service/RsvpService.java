@@ -30,7 +30,7 @@ public class RsvpService {
         return record;
     }
 
-//    public List<RsvpRecord> findAll(boolean isAttending) {
+//    public List<RsvpRecord> findAll(Boolean isAttending) {
 //        Iterable<RsvpRecord> recordList = rsvpRepository.findByAttending(isAttending);
 //        List<RsvpRecord> attendingList = new ArrayList<>();
 //
@@ -53,7 +53,6 @@ public class RsvpService {
 
         return attendingList;
     }
-
 
     public RsvpRecord createRsvp(Rsvp rsvp) {
 

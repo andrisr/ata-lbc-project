@@ -33,7 +33,7 @@ public class RsvpRecord {
 
 
     @DynamoDBAttribute(attributeName = "attending")
-    public boolean isAttending() {
+    public Boolean isAttending() {
         return isAttending;
     }
 

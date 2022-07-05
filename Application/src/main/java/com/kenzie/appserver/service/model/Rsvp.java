@@ -28,12 +28,12 @@ public class Rsvp {
         this.name = name;
     }
 
-    public boolean isAttending() {
+    public Boolean isAttending() {
         return isAttending;
     }
 
 
-    public void setAttending(boolean isAttending) {
+    public void setAttending(Boolean isAttending) {
 
         this.isAttending = isAttending;
     }
