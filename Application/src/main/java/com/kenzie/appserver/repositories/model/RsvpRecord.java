@@ -8,7 +8,7 @@ import java.util.Objects;
 public class RsvpRecord {
     private String name;
     private String email;
-    private boolean isAttending;
+    private Boolean isAttending;
     private String mealChoice;
     private String plus1Name;
     private String plus1MealChoice;
@@ -37,7 +37,7 @@ public class RsvpRecord {
         return isAttending;
     }
 
-    public void setAttending(boolean attending) {
+    public void setAttending(Boolean attending) {
         this.isAttending = attending;
     }
 
@@ -66,6 +66,18 @@ public class RsvpRecord {
 
     public void setPlus1MealChoice(String plus1MealChoice) {
         this.plus1MealChoice = plus1MealChoice;
+    }
+
+    @Override
+    public String toString() {
+        return "RsvpRecord{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", isAttending=" + isAttending +
+                ", mealChoice='" + mealChoice + '\'' +
+                ", plus1Name='" + plus1Name + '\'' +
+                ", plus1MealChoice='" + plus1MealChoice + '\'' +
+                '}';
     }
 
     @Override

@@ -11,13 +11,17 @@ import com.kenzie.appserver.service.model.Rsvp;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import net.andreinc.mockneat.MockNeat;
+import net.minidev.json.JSONArray;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import org.springframework.test.web.servlet.ResultActions;
@@ -58,7 +62,6 @@ class RsvpControllerTest {
         RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
         rsvpCreateRequest.setName(mockNeat.strings().get());
         rsvpCreateRequest.setEmail(mockNeat.strings().get());
-//        rsvpCreateRequest.setAttending(true);
 
         queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
 
@@ -129,7 +132,7 @@ class RsvpControllerTest {
     }
 
     @Test
-    public void can_get_rsvp_by_attending() throws Exception {
+    public void findAllRsvps() throws Exception {
         // GIVEN
         RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
         rsvpCreateRequest.setName(mockNeat.strings().get());
@@ -139,24 +142,62 @@ class RsvpControllerTest {
         RsvpCreateRequest updateRequest = new RsvpCreateRequest();
         updateRequest.setName(rsvpCreateRequest.getName());
         updateRequest.setEmail(rsvpCreateRequest.getEmail());
-        updateRequest.setAttending(false);
-        updateRequest.setMealChoice("Beef");
-        updateRequest.setPlus1Name(mockNeat.strings().get());
-        updateRequest.setPlus1MealChoice("Salmon");
+        updateRequest.setAttending(true);
         queryUtility.rsvpControllerClient.updateRsvp(updateRequest);
 
-        // WHEN
-        queryUtility.rsvpControllerClient.getRsvpByAttending(false)
-                // THEN
+        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setEmail(mockNeat.strings().get());
+        queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
 
-                .andExpectAll(jsonPath("isAttending")
-                        .value(is(false)))
-                .andExpect(status().isOk());
+        updateRequest.setName(rsvpCreateRequest.getName());
+        updateRequest.setEmail(rsvpCreateRequest.getEmail());
+        updateRequest.setAttending(false);
+        queryUtility.rsvpControllerClient.updateRsvp(updateRequest);
 
+        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setEmail(mockNeat.strings().get());
+        queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
+
+        updateRequest.setName(rsvpCreateRequest.getName());
+        updateRequest.setEmail(rsvpCreateRequest.getEmail());
+        updateRequest.setAttending(true);
+        queryUtility.rsvpControllerClient.updateRsvp(updateRequest);
+
+        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setEmail(mockNeat.strings().get());
+        queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
+
+        updateRequest.setName(rsvpCreateRequest.getName());
+        updateRequest.setEmail(rsvpCreateRequest.getEmail());
+        updateRequest.setAttending(true);
+        queryUtility.rsvpControllerClient.updateRsvp(updateRequest);
+
+        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setEmail(mockNeat.strings().get());
+        queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
+
+        updateRequest.setName(rsvpCreateRequest.getName());
+        updateRequest.setEmail(rsvpCreateRequest.getEmail());
+        updateRequest.setAttending(false);
+        queryUtility.rsvpControllerClient.updateRsvp(updateRequest);
+
+        // WHEN/THEN
+
+        int serviceLength = rsvpService.findAll().size();
+
+        MockHttpServletResponse resultActions = queryUtility.rsvpControllerClient.getAllRsvps()
+                .andReturn().getResponse();
+
+//        List<RsvpResponse> rsvpResponses = mapper.readValue(resultActions, RsvpResponse.class);
+
+        System.out.println("restultActions: " + resultActions);
+
+        int resultActionsSize = resultActions.getContentLength();
+
+        Assertions.assertEquals(serviceLength, resultActionsSize);
     }
 
     @Test
-
     public void updateRsvp_validInput_isSuccessful() throws Exception {
         // GIVEN
         RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
@@ -195,7 +236,13 @@ class RsvpControllerTest {
                 .andExpect(status().isOk());
 
         RsvpRecord record = rsvpService.findByName(rsvpCreateRequest.getName());
-        System.out.println("record: " + record);
+    }
+
+    @Test
+    public void updateRsvp_invalidName_throwsException() {
+        assertThrows(NestedServletException.class, () -> {
+            queryUtility.rsvpControllerClient.getRsvp("invalidName");
+        });
     }
 
     @Test
@@ -215,6 +262,12 @@ class RsvpControllerTest {
         assertThrows(NestedServletException.class, () -> {
             queryUtility.rsvpControllerClient.getRsvp("invalidName");
         });
+    }
 
+    @Test
+    public void deleteRsvp_invalidName_throwsException() {
+        assertThrows(NestedServletException.class, () -> {
+            queryUtility.rsvpControllerClient.getRsvp("invalidName");
+        });
     }
 }
