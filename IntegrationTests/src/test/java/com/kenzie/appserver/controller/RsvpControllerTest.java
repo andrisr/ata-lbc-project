@@ -1,34 +1,29 @@
 package com.kenzie.appserver.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.kenzie.appserver.IntegrationTest;
 import com.kenzie.appserver.controller.model.RsvpCreateRequest;
 import com.kenzie.appserver.controller.model.RsvpResponse;
 import com.kenzie.appserver.repositories.model.RsvpRecord;
 import com.kenzie.appserver.service.RsvpService;
-import com.kenzie.appserver.service.model.Rsvp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.core.type.TypeReference;
 import net.andreinc.mockneat.MockNeat;
-import net.minidev.json.JSONArray;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import org.springframework.test.web.servlet.ResultActions;
+
 import org.springframework.web.util.NestedServletException;
+//import org.testcontainers.shaded.com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.List;
-import java.util.UUID;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -185,16 +180,13 @@ class RsvpControllerTest {
 
         int serviceLength = rsvpService.findAll().size();
 
-        MockHttpServletResponse resultActions = queryUtility.rsvpControllerClient.getAllRsvps()
-                .andReturn().getResponse();
+        String resultActions = queryUtility.rsvpControllerClient.getAllRsvps()
+                .andReturn().getResponse().getContentAsString();
 
-//        List<RsvpResponse> rsvpResponses = mapper.readValue(resultActions, RsvpResponse.class);
+        TypeReference<List<RsvpResponse>> type = new TypeReference<List<RsvpResponse>>(){};
+        List<RsvpResponse> responses = mapper.readValue(resultActions, type);
 
-        System.out.println("resultActions: " + resultActions);
-
-        int resultActionsSize = resultActions.getContentLength();
-
-        Assertions.assertEquals(serviceLength, resultActionsSize);
+        Assertions.assertEquals(serviceLength, responses.size());
     }
 
     @Test
