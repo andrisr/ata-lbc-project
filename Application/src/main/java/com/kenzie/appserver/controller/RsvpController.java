@@ -28,28 +28,19 @@ public class RsvpController {
 
     @GetMapping("/{name}")
     public ResponseEntity<RsvpResponse> get(@PathVariable("name") String name) {
-        RsvpRecord record = rsvpService.findByName(name);
-        if (record == null) {
+        RsvpRecord rsvpRecord = rsvpService.findByName(name);
+        if (rsvpRecord == null) {
             return ResponseEntity.notFound().build();
         }
 
-        RsvpCreateRequest request = new RsvpCreateRequest(
-                record.getName(),
-                record.getEmail(),
-                record.isAttending(),
-                record.getMealChoice(),
-                record.getPlus1Name(),
-                record.getPlus1MealChoice());
-
-        RsvpResponse response = createRsvpResponse(request);
-        return ResponseEntity.ok(response);
+        RsvpResponse rsvpResponse = new RsvpResponse();
+        rsvpResponse.setName(rsvpRecord.getName());
+        return ResponseEntity.ok(rsvpResponse);
     }
 
     @GetMapping("/attending/{attending}")
-    public ResponseEntity<List<RsvpResponse>> get(@PathVariable("attending") boolean isAttending) {
-        System.out.println("controller attending");
-
-        List<RsvpResponse> responses = new ArrayList<>();
+    public List<ResponseEntity<RsvpResponse>> get(@PathVariable("attending") boolean isAttending) {
+        List<ResponseEntity<RsvpResponse>> responseEntities = new ArrayList<>();
         List<Rsvp> rsvpList= rsvpService.findByAttending(isAttending);
 
         for (Rsvp rsvp : rsvpList) {
@@ -60,34 +51,32 @@ public class RsvpController {
                     rsvp.getMealChoice(),
                     rsvp.getPlus1Name(),
                     rsvp.getPlus1MealChoice());
-            responses.add(createRsvpResponse(rsvpCreateRequest));
+            responseEntities.add(ResponseEntity.ok(createRsvpResponse(rsvpCreateRequest)));
         }
-
-        return ResponseEntity.ok(responses);
+        return responseEntities;
     }
 
     @PostMapping
-    public ResponseEntity<RsvpResponse> createRsvp(@RequestBody RsvpCreateRequest request) {
-        Rsvp rsvp = new Rsvp(request.getName());
-        rsvp.setName(request.getName());
-        rsvp.setEmail((request.getEmail()));
+    public ResponseEntity<RsvpResponse> createRsvp(@RequestBody RsvpCreateRequest rsvpCreateRequest) {
+        Rsvp rsvp = new Rsvp(rsvpCreateRequest.getName());
+        rsvp.setName(rsvpCreateRequest.getName());
+        rsvp.setEmail((rsvpCreateRequest.getEmail()));
 
         rsvpService.createRsvp(rsvp);
 
-        return ResponseEntity.ok(createRsvpResponse(request));
+        return ResponseEntity.ok(createRsvpResponse(rsvpCreateRequest));
     }
 
     @PutMapping
     public ResponseEntity<RsvpResponse> updateRsvp(@RequestBody RsvpCreateRequest rsvpCreateRequest) {
-        RsvpRecord record = rsvpService.findByName(rsvpCreateRequest.getName());
-        record.setName(rsvpCreateRequest.getName());
-        record.setEmail((rsvpCreateRequest.getEmail()));
-        record.setAttending(rsvpCreateRequest.getIsAttending());
-        record.setMealChoice(rsvpCreateRequest.getMealChoice());
-        record.setPlus1Name(rsvpCreateRequest.getPlus1Name());
-        record.setPlus1MealChoice(rsvpCreateRequest.getPlus1MealChoice());
+        RsvpRecord rsvpRecord = rsvpService.findByName(rsvpCreateRequest.getName());
+        rsvpRecord.setName(rsvpCreateRequest.getName());
+        rsvpRecord.setAttending(rsvpCreateRequest.isAttending());
+        rsvpRecord.setMealChoice(rsvpCreateRequest.getMealChoice());
+        rsvpRecord.setPlus1Name(rsvpCreateRequest.getPlus1Name());
+        rsvpRecord.setPlus1MealChoice(rsvpCreateRequest.getPlus1MealChoice());
 
-        rsvpService.updateRsvp(record);
+        rsvpService.updateRsvp(rsvpRecord);
 
         return ResponseEntity.ok(createRsvpResponse(rsvpCreateRequest));
     }
@@ -112,7 +101,7 @@ public class RsvpController {
         RsvpResponse rsvpResponse = new RsvpResponse();
         rsvpResponse.setName(rsvpCreateRequest.getName());
         rsvpResponse.setEmail(rsvpCreateRequest.getEmail());
-        rsvpResponse.setAttending(rsvpCreateRequest.getIsAttending());
+        rsvpResponse.setAttending(rsvpCreateRequest.isAttending());
         rsvpResponse.setMealChoice(rsvpCreateRequest.getMealChoice());
         rsvpResponse.setPlus1Name(rsvpCreateRequest.getPlus1Name());
         rsvpResponse.setPlus1MealChoice(rsvpCreateRequest.getPlus1MealChoice());

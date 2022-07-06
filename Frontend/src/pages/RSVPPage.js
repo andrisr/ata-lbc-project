@@ -5,8 +5,41 @@ import rsvpClient from "../api/rsvpClient";
 class RSVPPage extends BaseClass {
     constructor() {
         super();
-        this.bindClassMethods(['onGetTable', 'loadIntoTable'], this);
+        this.bindClassMethods(['onCreateGuest', 'onDeleteGuest', 'onGetTable', 'loadIntoTable'], this);
         this.dataStore = new DataStore();
+        
+    }
+
+    async onCreateGuest(event) {
+        // Prevent the page from refreshing on form submit
+        event.preventDefault();
+        this.dataStore.set("name", null);
+
+        let name = document.getElementById("create-name-field").value;
+        let email = document.getElementById("create-email-field").value;
+
+        const createdGuest = await this.client.createRsvp(name, email, this.errorHandler);
+        this.dataStore.set("name", "email", createdGuest);
+
+        if (createdGuest) {
+            this.showMessage(`You just invited ${createdGuest.name} to your wedding!`)
+        } else {
+            this.errorHandler("Error inviting!  Try again...");
+        }
+    }
+
+    async onDeleteGuest(event) {
+        event.preventDefault();
+        let name = document.getElementById("create-name-field").value;
+        let email = document.getElementById("create-email-field").value;
+    
+        const deletedGuest = await this.client.deleteRsvp(name, email, this.errorHandler);
+
+        if(deletedGuest) {
+            this.showMessage(`You just removed ${deletedGuest.name} from your guest list.`)
+        } else {
+            this.errorHandler("Error removing guest. Try again...");
+        }
         
     }
 
@@ -14,6 +47,7 @@ class RSVPPage extends BaseClass {
         let result = await this.client.getRsvpByAttending(true, this.errorHandler);
         this.dataStore.set("attending", result);
     }
+
 
     async loadIntoTable() {
         const tableHead = table.querySelector("thead");
@@ -58,8 +92,10 @@ class RSVPPage extends BaseClass {
 
     async mount() {
         this.client = new rsvpClient();
+        document.getElementById('inviteNewGuest-form').addEventListener('submit', this.onCreateGuest);
         this.dataStore.addChangeListener(this.loadIntoTable);
         this.onGetTable();
+        
 
     }
 }

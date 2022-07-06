@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
 
     <link href="css/css-brideGuestInfo.css" rel="stylesheet" type="text/css">
+    <script src="RSVPPage.js"></script>
 
     <ul class="nav">
 
@@ -23,18 +24,35 @@
 
 
 <body>
-    <div class="main">
-        <div class="border__imageContainer">
+    <!-- <div class="main">
+        <div class="background__imageContainer">
             <div class="main__content">
                 <div class ="border__imageContainer">
                     <img src="images/transparentIvy.png" alt="ivy" id="border__image">
                 </div>
             </div>
         </div>
+    </div> -->
+
+    <div class="formBox">
+        <div style="float:left;">
+            <label for="Guest Name">Guest Name</label>
+            <input type="text" name="" placeholder="Enter Guest Name"/>
+          </div>
+          
+          <div style="float:left;">
+            <label for=" Email">Email</label>
+            <input type="text" name="" placeholder="Enter Guest Email"/>
+          </div>
+          <div style="clear:both;">&nbsp;</div>
+          <input type="button" name="" value="Create Invite">
+          <input type="button" name="" value="Remove Invite">
+        </div>
     </div>
     
+    <div class="tableBox">
     <h1>Look who's attending... </h1>
-    <table class="table">
+    <table class="table" id="attendance__table">
         <thead>
             
         </thead>
@@ -42,6 +60,6 @@
             
         </tbody>
     </table>
-    <script src="js-brideGuestInfo.js"></script>
+    </div>
 </body>
 </html>
