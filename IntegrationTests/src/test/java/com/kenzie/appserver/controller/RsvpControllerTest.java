@@ -48,7 +48,9 @@ class RsvpControllerTest {
     private QueryUtility queryUtility;
 
     @BeforeAll
-    public void setup() {queryUtility = new QueryUtility(mvc);}
+    public void setup() {
+        queryUtility = new QueryUtility(mvc);
+    }
 
 
    @Test
@@ -81,7 +83,7 @@ class RsvpControllerTest {
     public void createRsvp_validInput_isSuccessful() throws Exception {
         // GIVEN
         RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
-        rsvpCreateRequest.setName("Eric Bergan");
+        rsvpCreateRequest.setName(mockNeat.strings().get());
         rsvpCreateRequest.setEmail(mockNeat.strings().get());
 
         // WHEN
@@ -92,6 +94,12 @@ class RsvpControllerTest {
                 .andExpect(jsonPath("email")
                         .value(is(rsvpCreateRequest.getEmail())))
                 .andExpect(status().isOk());
+
+        RsvpRecord rsvpRecord = new RsvpRecord();
+        rsvpRecord.setName(rsvpCreateRequest.getName());
+        rsvpRecord.setEmail(rsvpCreateRequest.getEmail());
+
+        rsvpService.deleteRsvp(rsvpRecord);
     }
 
     @Test
