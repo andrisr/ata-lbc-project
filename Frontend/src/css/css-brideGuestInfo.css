@@ -44,6 +44,7 @@ body {
 
 
 .formBox {
+    position: relative;
     width: 530px;
     height: 100px;
     background: #000;
@@ -66,7 +67,6 @@ body {
     font-family:'Courier New', Courier, monospace;
     overflow: hidden;
     font-weight: bold;
-    position: absolute;
 }
 
 .table thead th {
