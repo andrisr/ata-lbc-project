@@ -3,7 +3,7 @@ package com.kenzie.appserver.service.model;
 public class Rsvp {
     private String name;
     private String email;
-    private boolean isAttending;
+    private Boolean isAttending;
     private String mealChoice;
     private String plus1Name;
     private String plus1MealChoice;
@@ -28,12 +28,12 @@ public class Rsvp {
         this.name = name;
     }
 
-    public boolean isAttending() {
+    public Boolean isAttending() {
         return isAttending;
     }
 
 
-    public void setAttending(boolean isAttending) {
+    public void setAttending(Boolean isAttending) {
 
         this.isAttending = isAttending;
     }

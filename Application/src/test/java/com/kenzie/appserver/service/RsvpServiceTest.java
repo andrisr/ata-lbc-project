@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.util.UUID.randomUUID;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class RsvpServiceTest {
@@ -56,9 +56,8 @@ public class RsvpServiceTest {
     }
 
     @Test
-    void findByAttending() {
+    void findAll() {
         // GIVEN
-
         RsvpRecord record = new RsvpRecord();
         record.setName("Mr.Kenzie");
         record.setEmail(mockNeat.strings().get());
@@ -81,31 +80,36 @@ public class RsvpServiceTest {
 
         // WHEN
         when(rsvpRepository.findAll()).thenReturn(rsvpList);
-        List<Rsvp> rsvpTrue = rsvpService.findByAttending(true);
-        List<Rsvp> rsvpFalse = rsvpService.findByAttending(false);
+        List<RsvpRecord> returnedList = rsvpService.findAll();
+        assertNotNull(returnedList, "List is not null");
+        assertEquals(rsvpList.get(0).getName(), returnedList.get(0).getName());
+        assertEquals(rsvpList.get(1).getName(), returnedList.get(1).getName());
+
+//        List<RsvpRecord> rsvpTrue = rsvpService.findByAttending(true);
+//        List<RsvpRecord> rsvpFalse = rsvpService.findByAttending(false);
 
         // THEN
-        Assertions.assertNotNull(rsvpTrue, "Rsvp list has been returned");
-        Assertions.assertEquals(1, rsvpTrue.size(), "List should have one value");
-        Assertions.assertEquals(record.getName(), rsvpTrue.get(0).getName());
-
-        Assertions.assertNotNull(rsvpFalse, "Rsvp list has been returned");
-        Assertions.assertEquals(1, rsvpFalse.size(), "List should have one value");
-        Assertions.assertEquals(record2.getName(), rsvpFalse.get(0).getName());
+//        Assertions.assertNotNull(rsvpTrue, "Rsvp list has been returned");
+//        Assertions.assertEquals(1, rsvpTrue.size(), "List should have one value");
+//        Assertions.assertEquals(record.getName(), rsvpTrue.get(0).getName());
+//
+//        Assertions.assertNotNull(rsvpFalse, "Rsvp list has been returned");
+//        Assertions.assertEquals(1, rsvpFalse.size(), "List should have one value");
+//        Assertions.assertEquals(record2.getName(), rsvpFalse.get(0).getName());
     }
 
-
     @Test
-    void createRsvp() {
+    void createRsvp(){
         // GIVEN
         String name = mockNeat.strings().get();
 
         Rsvp rsvp = new Rsvp(name);
         rsvp.setEmail(mockNeat.strings().get());
-        rsvp.setAttending(true);
-        rsvp.setMealChoice(mockNeat.strings().get());
-        rsvp.setPlus1Name(mockNeat.strings().get());
-        rsvp.setPlus1MealChoice(mockNeat.strings().get());
+
+        rsvp.setAttending(false);
+        rsvp.setMealChoice(null);
+        rsvp.setPlus1Name(null);
+        rsvp.setPlus1MealChoice(null);
 
         RsvpRecord rsvpRecord = new RsvpRecord();
         rsvpRecord.setName(rsvp.getName());
@@ -115,7 +119,9 @@ public class RsvpServiceTest {
         rsvpRecord.setPlus1MealChoice(rsvp.getPlus1MealChoice());
 
         // WHEN
-        when(rsvpService.createRsvp(rsvp)).thenReturn(rsvpRecord);
+
+        when(rsvpRepository.save(rsvpRecord)).thenReturn(rsvpRecord);
+
         RsvpRecord createdRsvp = rsvpService.createRsvp(rsvp);
 
         // THEN
@@ -163,6 +169,4 @@ public class RsvpServiceTest {
         rsvpService.deleteRsvp(rsvpRecord);
         verify(rsvpRepository).delete(rsvpRecord);
     }
-
-
 }

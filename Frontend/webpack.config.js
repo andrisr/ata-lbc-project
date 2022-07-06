@@ -8,7 +8,6 @@ module.exports = {
     usedExports: true
   },
   entry: {
-    examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
     homePage: path.resolve(__dirname, 'src', 'pages', 'homePage.js'),
     bridalLogin: path.resolve(__dirname, 'src', 'pages', 'bridalLogin.js')
   },
@@ -59,6 +58,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/registry.html',
       filename: 'registry.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/brideGuestInfo.html',
+      filename: 'brideGuestInfo.html',
       inject: false
     }),
     new CopyPlugin({

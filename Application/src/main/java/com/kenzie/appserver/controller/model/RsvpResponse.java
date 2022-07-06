@@ -11,7 +11,7 @@ public class RsvpResponse {
     @JsonProperty("email")
     private String email;
     @JsonProperty("isAttending")
-    private boolean isAttending;
+    private Boolean isAttending;
     @JsonProperty("mealChoice")
     private String mealChoice;
     @JsonProperty("plus1Name")
@@ -35,11 +35,11 @@ public class RsvpResponse {
         this.email = email;
     }
 
-    public boolean getIsAttending() {
+    public Boolean getIsAttending() {
         return isAttending;
     }
 
-    public void setAttending(boolean attending) {
+    public void setAttending(Boolean attending) {
         isAttending = attending;
     }
 
@@ -65,5 +65,17 @@ public class RsvpResponse {
 
     public void setPlus1MealChoice(String plus1MealChoice) {
         this.plus1MealChoice = plus1MealChoice;
+    }
+
+    @Override
+    public String toString() {
+        return "RsvpResponse{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", isAttending=" + isAttending +
+                ", mealChoice='" + mealChoice + '\'' +
+                ", plus1Name='" + plus1Name + '\'' +
+                ", plus1MealChoice='" + plus1MealChoice + '\'' +
+                '}';
     }
 }
