@@ -9,12 +9,8 @@ import com.kenzie.appserver.service.model.Rsvp;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
-import static java.util.UUID.randomUUID;
 
 @RestController
 @RequestMapping("/rsvp")
@@ -28,32 +24,72 @@ public class RsvpController {
 
     @GetMapping("/{name}")
     public ResponseEntity<RsvpResponse> get(@PathVariable("name") String name) {
-        RsvpRecord rsvpRecord = rsvpService.findByName(name);
-        if (rsvpRecord == null) {
-            return ResponseEntity.notFound().build();
-        }
 
-        RsvpResponse rsvpResponse = new RsvpResponse();
-        rsvpResponse.setName(rsvpRecord.getName());
-        return ResponseEntity.ok(rsvpResponse);
+        RsvpRecord record = rsvpService.findByName(name);
+        RsvpCreateRequest request = new RsvpCreateRequest(
+                record.getName(),
+                record.getEmail(),
+                record.isAttending(),
+                record.getMealChoice(),
+                record.getPlus1Name(),
+                record.getPlus1MealChoice());
+
+        RsvpResponse response = createRsvpResponse(request);
+        return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/attending/{attending}")
-    public List<ResponseEntity<RsvpResponse>> get(@PathVariable("attending") boolean isAttending) {
-        List<ResponseEntity<RsvpResponse>> responseEntities = new ArrayList<>();
-        List<Rsvp> rsvpList= rsvpService.findByAttending(isAttending);
+    // todo keep for now just in case
+//    @GetMapping("/attending/{attending}")
+//    public ResponseEntity<List<RsvpResponse>> get(@PathVariable("attending") Boolean isAttending) {
+//        List<RsvpResponse> responses = new ArrayList<>();
+//        List<RsvpRecord> rsvpList= rsvpService.findByAttending(isAttending);
+//
+//        for (RsvpRecord record : rsvpList) {
+//            RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest(
+//                    record.getName(),
+//                    record.getEmail(),
+//                    record.isAttending(),
+//                    record.getMealChoice(),
+//                    record.getPlus1Name(),
+//                    record.getPlus1MealChoice());
+//            responses.add(createRsvpResponse(rsvpCreateRequest));
+//        }
+//
+//        return ResponseEntity.ok(responses);
+//    }
 
-        for (Rsvp rsvp : rsvpList) {
-            RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest(
-                    rsvp.getName(),
-                    rsvp.getEmail(),
-                    rsvp.isAttending(),
-                    rsvp.getMealChoice(),
-                    rsvp.getPlus1Name(),
-                    rsvp.getPlus1MealChoice());
-            responseEntities.add(ResponseEntity.ok(createRsvpResponse(rsvpCreateRequest)));
+    @GetMapping("/all")
+    public ResponseEntity<List<RsvpResponse>> getAllRsvps() {
+        List<RsvpResponse> returnedRsvpList = new ArrayList<>();
+        List<RsvpResponse> isAttendingTrue = new ArrayList<>();
+        List<RsvpResponse> isAttendingFalse = new ArrayList<>();
+        List<RsvpResponse> isAttendingNull = new ArrayList<>();
+        List<RsvpRecord> rsvpList= rsvpService.findAll();
+
+        for (RsvpRecord record : rsvpList) {
+            RsvpCreateRequest request = new RsvpCreateRequest(
+                    record.getName(),
+                    record.getEmail(),
+                    record.isAttending(),
+                    record.getMealChoice(),
+                    record.getPlus1Name(),
+                    record.getPlus1MealChoice());
+
+            if (record.isAttending() == null) {
+                isAttendingNull.add(createRsvpResponse(request));
+            } else if (record.isAttending()) {
+                isAttendingTrue.add(createRsvpResponse(request));
+            } else {
+                isAttendingFalse.add(createRsvpResponse(request));
+            }
         }
-        return responseEntities;
+
+            returnedRsvpList.addAll(isAttendingTrue);
+            returnedRsvpList.addAll(isAttendingFalse);
+            returnedRsvpList.addAll(isAttendingNull);
+
+        return ResponseEntity.ok(returnedRsvpList);
+
     }
 
     @PostMapping

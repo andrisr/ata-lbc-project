@@ -13,7 +13,7 @@ public class RsvpCreateRequest {
     @JsonProperty("email")
     private String email;
     @JsonProperty("isAttending")
-    private boolean isAttending;
+    private Boolean isAttending;
     @JsonProperty("mealChoice")
     private String mealChoice;
     @JsonProperty("plus1Name")
@@ -23,7 +23,7 @@ public class RsvpCreateRequest {
 
     public RsvpCreateRequest() {};
 
-    public RsvpCreateRequest (String name, String email, boolean isAttending,
+    public RsvpCreateRequest (String name, String email, Boolean isAttending,
                               String mealChoice, String plus1Name, String plus1MealChoice) {
         this.name = name;
         this.email = email;
@@ -49,11 +49,11 @@ public class RsvpCreateRequest {
         this.email = email;
     }
 
-    public boolean getIsAttending() {
+    public Boolean getIsAttending() {
         return isAttending;
     }
 
-    public void setAttending(boolean attending) {
+    public void setAttending(Boolean attending) {
         isAttending = attending;
     }
 

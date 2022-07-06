@@ -6,7 +6,7 @@ Deploy the DynamoDB tables using the following Cloudformation commands:
 
 # RSVP table (check stack name & file://)
 ```
-aws cloudformation create-stack --stack-name DynamoDBIndexes-RSVP --template-body file://RSVPTable.yaml --capabilities CAPABILITY_IAM
+aws cloudformation create-stack --stack-name rsvp-invitees --template-body file://updatedTable.yaml --capabilities CAPABILITY_IAM
 aws cloudformation wait stack-create-complete --stack-name DynamoDBIndexes-RSVP
 
 ```
