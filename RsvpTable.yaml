@@ -28,9 +28,19 @@ Resources:
   DynamoDBIndexesLeagueMatches:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: "DynamoDBIndexes-RsvpInvitees"
+      TableName: "DynamoDBIndexes-RSVP"
       AttributeDefinitions:
         - AttributeName: "name"
+          AttributeType: "S"
+        - AttributeName: "email"
+          AttributeType: "S"
+        - AttributeName: "isAttending"
+          AttributeType: "BOOL"
+        - AttributeName: "mealChoice"
+          AttributeType: "S"
+        - AttributeName: "plus1Name"
+          AttributeType: "S"
+        - AttributeName: "plus1MealChoice"
           AttributeType: "S"
       KeySchema:
         - AttributeName: "name"
