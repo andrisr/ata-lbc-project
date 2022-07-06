@@ -13,7 +13,7 @@ export default class rsvpClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getRsvpByAttending', 'getRsvp', 'updateRsvp',
+        const methodsToBind = ['clientLoaded', 'getAllRsvps', 'getRsvp', 'updateRsvp',
             'deleteRsvp', 'createRsvp', 'brideLogin'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
