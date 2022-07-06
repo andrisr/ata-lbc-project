@@ -11,7 +11,7 @@ class RSVPPage extends BaseClass {
     }
 
     async onGetTable() {
-        let result = await this.client.getRsvpByAttending(true, this.errorHandler);
+        let result = await this.client.getAllRsvps(this.errorHandler);
         this.dataStore.set("attending", result);
     }
 

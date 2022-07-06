@@ -81,7 +81,7 @@ class RsvpControllerTest {
     public void createRsvp_validInput_isSuccessful() throws Exception {
         // GIVEN
         RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
-        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setName("Eric Bergan");
         rsvpCreateRequest.setEmail(mockNeat.strings().get());
 
         // WHEN
@@ -178,15 +178,14 @@ class RsvpControllerTest {
 
         // WHEN/THEN
 
-        int serviceLength = rsvpService.findAll().size();
+        int serviceSize = rsvpService.findAll().size();
 
         String resultActions = queryUtility.rsvpControllerClient.getAllRsvps()
                 .andReturn().getResponse().getContentAsString();
 
-        TypeReference<List<RsvpResponse>> type = new TypeReference<List<RsvpResponse>>(){};
-        List<RsvpResponse> responses = mapper.readValue(resultActions, type);
+        List<RsvpResponse> responses = mapper.readValue(resultActions, new TypeReference<List<RsvpResponse>>(){});
 
-        Assertions.assertEquals(serviceLength, responses.size());
+        Assertions.assertEquals(serviceSize, responses.size());
     }
 
     @Test
