@@ -29,7 +29,10 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Parisienne', cursive;
+    background-image: url(/Frontend/src/images/pencilStockPhoto.jpg);
+    background-size: 100%;
 }
+
 
 .border__imageContainer {
     text-align: center;
@@ -39,6 +42,25 @@ body {
     height: 90%;
 }
 
+
+
+.formBox {
+    width: 530px;
+    height: 100px;
+    background: #000;
+    color: whitesmoke;
+    top: 60%;
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 15px 30px;
+}
+
+.tableBox {
+    text-align: center;
+}
 .table {
     box-shadow: 0 0 10px black;
     border-collapse: collapse;
