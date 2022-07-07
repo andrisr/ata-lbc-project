@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
     <meta charset="UTF-8">
     <title>Bride Guest Info</title>
@@ -9,8 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
 
     <link href="css/css-brideGuestInfo.css" rel="stylesheet" type="text/css">
-    <script src="RSVPPage.js"></script>
+    <script type="text/javascript" src="./pages/RSVPPage.js"></script>
 
+
+
+</head>
+
+<header>
     <ul class="nav">
 
         <li><a href="home.html">Home</a></li>
@@ -18,25 +23,24 @@
         <li><a href="registry.html">Registry</a></li>
         <li><a href="bridalLogin.html">Bridal Login</a></li>
     </ul>
-
-</head>
-
-
+</header>
 
 <body>
     <div class="formBox">
         <div style="float:left;">
-            <label>Guest Name</label>
-            <input type="text" name="" placeholder="Enter Guest Name"/>
+
+            <label for="create-name-field">Guest Name</label>
+            <input type="text" id="create-name-field" name="" placeholder="Enter Guest Name"/>
           </div>
           
           <div style="float:left;">
-            <label>Email</label>
-            <input type="text" name="" placeholder="Enter Guest Email"/>
+            <label for="create-email-field">Email</label>
+            <input type="text" id="create-email-field" name="" placeholder="Enter Guest Email"/>
           </div>
           <div style="clear:both;">&nbsp;</div>
-          <input type="button" name="" value="Create Invite" onclick="">
-          <input type="button" name="" value="Remove Invite" onclick="">
+          <input type="button" id="inviteNewGuest-form" name="" value="Create Invite">
+          <input type="button" name="" value="Remove Invite">
+
         </div>
     </div>
     

@@ -72,7 +72,7 @@ class RSVPPage extends BaseClass {
                 myHtml += `<tr>
                 <td>${rsvp.name}</td>
                 <td>${rsvp.email}</td>
-                <td>${rsvp.attending}</td>
+                <td>${rsvp.isAttending}</td>
                 <td>${rsvp.mealChoice}</td>
                 <td>${rsvp.plus1Name}</td>
                 <td>${rsvp.plus1MealChoice}</td>
