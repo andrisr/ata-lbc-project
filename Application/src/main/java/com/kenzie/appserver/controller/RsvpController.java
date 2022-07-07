@@ -84,9 +84,9 @@ public class RsvpController {
             }
         }
 
-            returnedRsvpList.addAll(isAttendingTrue);
-            returnedRsvpList.addAll(isAttendingFalse);
-            returnedRsvpList.addAll(isAttendingNull);
+        returnedRsvpList.addAll(isAttendingTrue);
+        returnedRsvpList.addAll(isAttendingFalse);
+        returnedRsvpList.addAll(isAttendingNull);
 
         return ResponseEntity.ok(returnedRsvpList);
 
