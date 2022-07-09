@@ -119,7 +119,7 @@ public class RsvpController {
 
     @DeleteMapping("/{name}")
     public ResponseEntity<RsvpResponse> delete(@PathVariable("name") String name) {
-
+        System.out.println("inside controller delete");
         RsvpRecord rsvpRecord = rsvpService.findByName(name);
         if (rsvpRecord == null) {
             return ResponseEntity.notFound().build();

@@ -88,7 +88,7 @@ export default class rsvpClient extends BaseClass {
 
     async deleteRsvp(name, errorCallback) {
         try {
-            const response = await this.client.delete(`rsvp`, {
+            const response = await this.client.delete(`rsvp/${name}`, {
                 name: name
             });
             return response.data;

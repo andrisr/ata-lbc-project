@@ -9,7 +9,8 @@ module.exports = {
   },
   entry: {
     homePage: path.resolve(__dirname, 'src', 'pages', 'homePage.js'),
-    bridalLogin: path.resolve(__dirname, 'src', 'pages', 'bridalLogin.js')
+    bridalLogin: path.resolve(__dirname, 'src', 'pages', 'bridalLogin.js'),
+    rsvpPage: path.resolve(__dirname, 'src', 'pages', 'rsvpPage.js')
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
