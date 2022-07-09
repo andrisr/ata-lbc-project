@@ -25,9 +25,11 @@
     color: rgb(255, 255, 255);
     font-size: 16px;
     font-weight: 600;
-    position: absolute;
-    top: 1230px;
-    left: 32%;
+
+    position:absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
     margin-top: 20px;
     background-color: rgb(35, 31, 32);
@@ -41,7 +43,6 @@
     border-image: initial;
     border-color: rgb(35, 31, 32);
 }
-
 
 .button2:disabled, .button:hover:disabled {
     opacity: 0.5;
@@ -68,12 +69,11 @@
     color: rgb(255, 255, 255);
     font-size: 16px;
     font-weight: 600;
-    position: absolute;
-    /*top: 1640px;*/
-    /*left: 30%;*/
 
-    top: 1440px;
-    left: 32%;
+    position:absolute;
+    top: 108%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
     margin-top: 20px;
     background-color: rgb(35, 31, 32);
