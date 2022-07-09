@@ -8,23 +8,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
 
-    <link href="css/css-brideGuestInfo.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="./pages/RSVPPage.js"></script>
 
+    <link href="css-brideGuestInfo.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="rsvpPage.js"></script>
 
-
-</head>
-
-<header>
     <ul class="nav">
-
         <li><a href="home.html">Home</a></li>
         <li><a href="directions.html">Directions</a></li>
         <li><a href="registry.html">Registry</a></li>
         <li><a href="bridalLogin.html">Bridal Login</a></li>
     </ul>
-</header>
 
+</head>
 <body>
     <div class="formBox">
         <div style="float:left;">
@@ -34,12 +29,14 @@
           </div>
           
           <div style="float:left;">
+
             <label for="create-email-field">Email</label>
             <input type="text" id="create-email-field" name="" placeholder="Enter Guest Email"/>
+
           </div>
           <div style="clear:both;">&nbsp;</div>
-          <input type="button" id="inviteNewGuest-form" name="" value="Create Invite">
-          <input type="button" name="" value="Remove Invite">
+          <input type="button" id="inviteNewGuest" name="" value="Create Invite">
+          <input type="button" id="removeGuest" name="" value="Remove Invite">
 
         </div>
     </div>
@@ -55,5 +52,6 @@
         </tbody>
     </table>
     </div>
+
 </body>
 </html>

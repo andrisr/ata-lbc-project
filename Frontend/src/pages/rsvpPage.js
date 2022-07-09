@@ -19,9 +19,10 @@ class RSVPPage extends BaseClass {
         let email = document.getElementById("create-email-field").value;
 
         const createdGuest = await this.client.createRsvp(name, email, this.errorHandler);
-        this.dataStore.set("name", "email", createdGuest);
+        this.dataStore.set("name", createdGuest);
 
         if (createdGuest) {
+        this.onGetTable();
             this.showMessage(`You just invited ${createdGuest.name} to your wedding!`)
         } else {
             this.errorHandler("Error inviting!  Try again...");
@@ -36,6 +37,8 @@ class RSVPPage extends BaseClass {
         const deletedGuest = await this.client.deleteRsvp(name, email, this.errorHandler);
 
         if(deletedGuest) {
+        this.onGetTable();
+        this.dataStore.set("name", null);
             this.showMessage(`You just removed ${deletedGuest.name} from your guest list.`)
         } else {
             this.errorHandler("Error removing guest. Try again...");
@@ -44,15 +47,12 @@ class RSVPPage extends BaseClass {
     }
 
     async onGetTable() {
-        let result = await this.client.getAllRsvps(this.errorHandler);
+        let result = await this.client.getAllRsvps("", this.errorHandler);
         this.dataStore.set("attending", result);
     }
 
 
     async loadIntoTable() {
-        const tableHead = table.querySelector("thead");
-        const tableBody = table.querySelector("tbody");
-
         const rsvpInfo = this.dataStore.get("attending");
 
         let attendanceTable = document.getElementById("attendance__table");
@@ -92,7 +92,8 @@ class RSVPPage extends BaseClass {
 
     async mount() {
         this.client = new rsvpClient();
-        document.getElementById('inviteNewGuest-form').addEventListener('submit', this.onCreateGuest);
+        document.getElementById('inviteNewGuest').addEventListener('click', this.onCreateGuest);
+        document.getElementById('removeGuest').addEventListener('click', this.onDeleteGuest);
         this.dataStore.addChangeListener(this.loadIntoTable);
         this.onGetTable();
         
