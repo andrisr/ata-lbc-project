@@ -48,8 +48,8 @@ class HomePage extends BaseClass {
         }
 
         let names = document.getElementById("name").value;
-        let isAttending = document.getElementById("attending").value;
-        let mealChoice = document.getElementById("entree").value;
+        let isAttending = document.getElementById("attendingOptions").value;
+        let mealChoice = document.getElementById("entreeOption").value;
         let plus1Name = document.getElementById("user_plus_one").value;
         let plus1MealChoice = document.getElementById("guest_entree").value;
 
