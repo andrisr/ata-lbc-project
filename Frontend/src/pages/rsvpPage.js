@@ -7,7 +7,6 @@ class RSVPPage extends BaseClass {
         super();
         this.bindClassMethods(['onCreateGuest', 'onDeleteGuest', 'onGetTable', 'loadIntoTable'], this);
         this.dataStore = new DataStore();
-
     }
 
     async onCreateGuest(event) {
@@ -22,7 +21,9 @@ class RSVPPage extends BaseClass {
         this.dataStore.set("name", createdGuest);
 
         if (createdGuest) {
-            this.onGetTable();
+
+        this.onGetTable();
+
             this.showMessage(`You just invited ${createdGuest.name} to your wedding!`)
         } else {
             this.errorHandler("Error inviting!  Try again...");
@@ -34,15 +35,19 @@ class RSVPPage extends BaseClass {
         let name = document.getElementById("create-name-field").value;
         let email = document.getElementById("create-email-field").value;
 
+    
         const deletedGuest = await this.client.deleteRsvp(name, email, this.errorHandler);
 
         if(deletedGuest) {
-            this.onGetTable();
-            this.dataStore.set("name", null);
+        this.onGetTable();
+        this.dataStore.set("name", null);
+
             this.showMessage(`You just removed ${deletedGuest.name} from your guest list.`)
         } else {
             this.errorHandler("Error removing guest. Try again...");
         }
+
+        
 
     }
 
@@ -82,11 +87,15 @@ class RSVPPage extends BaseClass {
             attendanceTable.innerHTML = myHtml;
 
 
+        
+
         }
         else {
             attendanceTable.innerHTML = "<tr><td> no one attending.. </td></tr>"
         }
 
+
+        
 
     }
 
@@ -97,6 +106,8 @@ class RSVPPage extends BaseClass {
         this.dataStore.addChangeListener(this.loadIntoTable);
         this.onGetTable();
 
+        
+
 
     }
 }
@@ -106,4 +117,7 @@ const main = async () => {
     rsvpPage.mount();
 };
 
+
 window.addEventListener('DOMContentLoaded', main);
+
+

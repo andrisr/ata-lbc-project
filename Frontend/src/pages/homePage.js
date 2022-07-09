@@ -2,7 +2,6 @@ import BaseClass from "../util/baseClass.js";
 import DataStore from "../util/DataStore.js";
 import rsvpClient from "../api/rsvpClient";
 
-
 class HomePage extends BaseClass {
 
     constructor() {
@@ -66,12 +65,12 @@ class HomePage extends BaseClass {
     }
 }
 
-/**
- * Main method to run when the page contents have loaded.
- */
-const main = async () => {
-    const homePage = new HomePage();
-    await homePage.mount();
-};
+    /**
+     * Main method to run when the page contents have loaded.
+     */
+    const main = async () => {
+        const homePage = new HomePage();
+        await homePage.mount();
+    };
 
-window.addEventListener('DOMContentLoaded', main);
+    window.addEventListener('DOMContentLoaded', main);

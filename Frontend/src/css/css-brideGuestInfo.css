@@ -62,6 +62,7 @@ body {
     text-align: center;
 }
 .table {
+
     box-shadow: 0 0 10px black;
     border-collapse: collapse;
     font-family:'Courier New', Courier, monospace;

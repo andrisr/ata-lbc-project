@@ -31,6 +31,13 @@ body {
     font-family: 'Parisienne', cursive;
 }
 
+.backgroundImage {
+    align-items: center;
+    background-size: contain;
+    width:1260px;
+    height:500px;
+
+}
 .loginBox {
     width: 300px;
     height: 320px;
