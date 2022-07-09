@@ -57,7 +57,6 @@ class HomePage extends BaseClass {
 
         if (updateRSVP) {
             onButtonClick();
-            displaySuccessfulRsvp();
             onButtonClickThanks();
         } else {
             displayErrorRsvp();
