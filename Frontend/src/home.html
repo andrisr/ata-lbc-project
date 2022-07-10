@@ -5,6 +5,7 @@
     <title>Home Page</title>
 
     <script type="text/javascript" src="homePage.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
@@ -14,6 +15,9 @@
     <link href="css/name.css" rel="stylesheet" type="text/css">
     <link href="css/form2.css" rel="stylesheet" type="text/css">
 
+</head>
+
+<header>
 
     <ul class="nav2">
         <li><a href="home.html">Home</a></li>
@@ -26,48 +30,48 @@
         <img class="banner-image" src="images/wedding-banner2.png">
     </div>
 
-</head>
+</header>
 
 <body>
 <!-- <h1>Do you plan on joining us, <br> on the 25th of June?</h1> -->
 
-<div class="banner1">
-    <img class="flower-image1" src="images/leftside-banner.png">
-</div>
+    <div class="banner1">
+        <img class="flower-image1" src="images/leftside-banner.png">
+    </div>
 
-<div class="banner2">
-    <img class="flower-image2" src="images/rightside-banner.png">
-</div>
+    <div class="banner2">
+        <img class="flower-image2" src="images/rightside-banner.png">
+    </div>
 
-<h3 id="Celebrate">Come Celebrate<br>A new chapter with Shelly and Bobby,<br>June 25th, at The Philadelphia Art Museum</h3>
+    <h3 id="Celebrate">Come Celebrate<br>A new chapter with Shelly and Bobby,<br>June 25th, at The Philadelphia Art Museum</h3>
 
-<h2 id="final" style="display: none"> Thank you,</h2>
-<h4 id="final2" style="display: none">Don't forget to check out our registry page</h4>
+    <h2 id="final" style="display: none"> Thank you,</h2>
+    <h4 id="final2" style="display: none">Don't forget to check out our registry page</h4>
 
-<div class="weddingRings" id="weddingRings" style="display: none">
-    <img class="weddingRings" src="images/weddingRings.png">
-</div>
+    <div class="weddingRings" id="weddingRings" style="display: none">
+        <img class="weddingRings" src="images/weddingRings.png">
+    </div>
 
-<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+    <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
 
-<h1 id="rsvp"> RSVP </h1>
-<h3 id="user_Response"> If your responding for you and a guest, you'll be able to <br> RSVP for your entire party.</h3>
-<!-- <form id="loginForm" > -->
+    <h1 id="rsvp"> RSVP </h1>
+    <h3 id="user_Response"> If your responding for you and a guest, you'll be able to <br> RSVP for your entire party.</h3>
+    <!-- <form id="loginForm" > -->
 
-<div class="rsvp_check" id="rsvp_check">
-    <input id="name" type="text" onkeyup="EnableDisable(this, button)" autocomplete="off" autofocus="autofocus" required >
-    <span class="highlight"></span>
-    <span class="bar"></span>
-    <label>Name</label>
-    <div id="sub_text" class="sub_text"> </div>
-</div>
+    <div class="rsvp_check" id="rsvp_check">
+        <input id="name" type="text" onkeyup="EnableDisable(this, button)" autocomplete="off" autofocus="autofocus" required >
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label>Name</label>
+        <div id="sub_text" class="sub_text"> </div>
+    </div>
 
-<input value="Find Your Invitation" id="button"  type="submit" disabled="" color="grey"
-       class="button" style="margin-bottom: 20px;"> </input>
+    <input value="Find Your Invitation" id="button"  type="submit" disabled="" color="grey"
+           class="button" style="margin-bottom: 20px;"> </input>
 
-<br> <br> <br> <br> <br> <br> <br> <br>
+    <br> <br> <br> <br> <br> <br> <br> <br>
 
-<div >
+    <div >
     <form id="RsvpForm" class="RsvpForm" style="display: none;">
 
         <div class="rsvp_check2">
@@ -88,7 +92,7 @@
         <br>
         <div id = "part2" style="display:none">
             <div class="entree" id="entree" >
-                <label for="entree">What would you prefer?</label>
+                <label for="entreeOption">What would you prefer?</label>
                 <select id="entreeOption">
                     <option disabled selected> Entree </option>
                     <option value="chicken">Chicken</option>
@@ -115,7 +119,6 @@
                     <option value="salmon">Salmon</option>
                     <option value="vegetarian">Vegetarian</option>
                 </select>
-
             </div>
         </div>
         <br>
@@ -174,30 +177,19 @@
     };
 
     function displayError() {
-        alert("We're having trouble finding your invitation. Please try again, remember to use the exact spelling that is on your invitation.");
+        swal("Sorry,","We're having trouble finding your invitation. Please try again, remember to use the exact spelling that is on your invitation.");
     };
 
     function displayErrorRsvp() {
-        alert("We are sorry for any inconvenience, please try again and make sure to include the exact spelling that is on your invitation.")
+        swal("Sorry for any inconvenience,","please try again and make sure to include the exact spelling that is on your invitation.")
     };
 
     function displaySuccessfulInvite() {
         let name = document.getElementById('name').value;
 
-        alert( name + " your invitation has been found, follow the steps below to complete your rsvp.")
+        swal( name + " we found your invitation!", "follow the steps below to complete your rsvp.")
     };
 
-    function displaySuccessfulRsvp() {
-
-        let isAttending = document.getElementById('attending').value;
-
-        if (isAttending === "yes"){
-            alert("We are so glad that you're able to make it, and we're looking forward to seeing you there!")
-        }
-        if (isAttending === "no"){
-            alert("We are so sorry that your unable to make it")
-        }
-    };
 
     function onButtonClickHideNameField() {
 
@@ -228,9 +220,7 @@
         rsvpTitleField.style.display = 'none';
         rsvpDirectionsField.style.display = 'none';
         HideComeCelebrate.style.display = 'none';
-
     }
-
 
 </script>
 

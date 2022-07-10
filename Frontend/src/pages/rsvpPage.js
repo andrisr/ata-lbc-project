@@ -7,7 +7,6 @@ class RSVPPage extends BaseClass {
         super();
         this.bindClassMethods(['onCreateGuest', 'onDeleteGuest', 'onGetTable', 'loadIntoTable'], this);
         this.dataStore = new DataStore();
-        
     }
 
     async onCreateGuest(event) {
@@ -22,7 +21,9 @@ class RSVPPage extends BaseClass {
         this.dataStore.set("name", createdGuest);
 
         if (createdGuest) {
+
         this.onGetTable();
+
             this.showMessage(`You just invited ${createdGuest.name} to your wedding!`)
         } else {
             this.errorHandler("Error inviting!  Try again...");
@@ -33,17 +34,21 @@ class RSVPPage extends BaseClass {
         event.preventDefault();
         let name = document.getElementById("create-name-field").value;
         let email = document.getElementById("create-email-field").value;
+
     
         const deletedGuest = await this.client.deleteRsvp(name, email, this.errorHandler);
 
         if(deletedGuest) {
         this.onGetTable();
         this.dataStore.set("name", null);
+
             this.showMessage(`You just removed ${deletedGuest.name} from your guest list.`)
         } else {
             this.errorHandler("Error removing guest. Try again...");
         }
+
         
+
     }
 
     async onGetTable() {
@@ -79,15 +84,23 @@ class RSVPPage extends BaseClass {
                 </tr>
                 `
             }
-            attendanceTable.innerHTML = myHtml;
+            //Replaces all instances of undefined, entree, and N/A with '' (cleaning up table)
+            const replace = '';
 
-        
+            const newHtml = myHtml
+                .replaceAll('undefined', replace)
+                .replaceAll('Entree', replace)
+                .replaceAll('N/A', replace);
+
+            attendanceTable.innerHTML = newHtml;
+
         }
         else {
             attendanceTable.innerHTML = "<tr><td> no one attending.. </td></tr>"
         }
 
         
+
     }
 
     async mount() {
@@ -96,9 +109,12 @@ class RSVPPage extends BaseClass {
         document.getElementById('removeGuest').addEventListener('click', this.onDeleteGuest);
         this.dataStore.addChangeListener(this.loadIntoTable);
         this.onGetTable();
+
         
 
+
     }
+
 }
 
 const main = async () => {
@@ -106,5 +122,7 @@ const main = async () => {
     rsvpPage.mount();
 };
 
+
 window.addEventListener('DOMContentLoaded', main);
+
 

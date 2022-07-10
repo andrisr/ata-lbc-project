@@ -2,7 +2,6 @@ import BaseClass from "../util/baseClass.js";
 import DataStore from "../util/DataStore.js";
 import rsvpClient from "../api/rsvpClient";
 
-
 class HomePage extends BaseClass {
 
     constructor() {
@@ -49,8 +48,8 @@ class HomePage extends BaseClass {
         }
 
         let names = document.getElementById("name").value;
-        let isAttending = document.getElementById("attending").value;
-        let mealChoice = document.getElementById("entree").value;
+        let isAttending = document.getElementById("attendingOptions").value;
+        let mealChoice = document.getElementById("entreeOption").value;
         let plus1Name = document.getElementById("user_plus_one").value;
         let plus1MealChoice = document.getElementById("guest_entree").value;
 
@@ -58,7 +57,6 @@ class HomePage extends BaseClass {
 
         if (updateRSVP) {
             onButtonClick();
-            displaySuccessfulRsvp();
             onButtonClickThanks();
         } else {
             displayErrorRsvp();
@@ -66,12 +64,12 @@ class HomePage extends BaseClass {
     }
 }
 
-/**
- * Main method to run when the page contents have loaded.
- */
-const main = async () => {
-    const homePage = new HomePage();
-    await homePage.mount();
-};
+    /**
+     * Main method to run when the page contents have loaded.
+     */
+    const main = async () => {
+        const homePage = new HomePage();
+        await homePage.mount();
+    };
 
-window.addEventListener('DOMContentLoaded', main);
+    window.addEventListener('DOMContentLoaded', main);
