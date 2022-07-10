@@ -54,7 +54,7 @@
 
     <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
 
-    <h1 id="rsvp"> RSVP </h1>
+<!--    <h1 id="rsvp"> RSVP </h1>-->
     <h3 id="user_Response"> If your responding for you and a guest, you'll be able to <br> RSVP for your entire party.</h3>
     <!-- <form id="loginForm" > -->
 
@@ -177,17 +177,17 @@
     };
 
     function displayError() {
-        swal("Sorry,","We're having trouble finding your invitation. Please try again, remember to use the exact spelling that is on your invitation.");
+        swal("Sorry","We're having trouble finding your invitation. Please try again, remember to use the exact spelling that is on your invitation.");
     };
 
     function displayErrorRsvp() {
-        swal("Sorry for any inconvenience,","please try again and make sure to include the exact spelling that is on your invitation.")
+        swal("Sorry for any inconvenience,"," but please try again and make sure to include the exact spelling that is on your invitation.")
     };
 
     function displaySuccessfulInvite() {
         let name = document.getElementById('name').value;
 
-        swal( name + " we found your invitation!", "follow the steps below to complete your rsvp.")
+        swal(name + ", we found your invitation!", "Please follow the steps below to complete your rsvp.")
     };
 
 
@@ -203,7 +203,7 @@
     function onButtonClickThanks(){
 
         const HideComeCelebrate = document.getElementById('Celebrate');
-        const rsvpTitleField= document.getElementById('rsvp');
+        // const rsvpTitleField= document.getElementById('rsvp');
         const rsvpDirectionsField = document.getElementById('user_Response');
         const thankYou = document.getElementById('final');
         const dontForget = document.getElementById('final2');
@@ -217,7 +217,7 @@
             picture.style.display = 'block';
             credits.style.display = 'block';
         }
-        rsvpTitleField.style.display = 'none';
+        // rsvpTitleField.style.display = 'none';
         rsvpDirectionsField.style.display = 'none';
         HideComeCelebrate.style.display = 'none';
     }
