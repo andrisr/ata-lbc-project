@@ -138,62 +138,66 @@ class RsvpControllerTest {
     public void findAllRsvps() throws Exception {
         // GIVEN
         RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
-        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setName("testName1");
         rsvpCreateRequest.setEmail(mockNeat.strings().get());
         queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
 
         RsvpCreateRequest updateRequest = new RsvpCreateRequest();
-        updateRequest.setName(rsvpCreateRequest.getName());
+        updateRequest.setName("testName1");
         updateRequest.setEmail(rsvpCreateRequest.getEmail());
         updateRequest.setAttending(true);
         queryUtility.rsvpControllerClient.updateRsvp(updateRequest);
 
-        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setName("testName2");
         rsvpCreateRequest.setEmail(mockNeat.strings().get());
         queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
 
-        updateRequest.setName(rsvpCreateRequest.getName());
+        updateRequest.setName("testName2");
         updateRequest.setEmail(rsvpCreateRequest.getEmail());
         updateRequest.setAttending(false);
         queryUtility.rsvpControllerClient.updateRsvp(updateRequest);
 
-        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setName("testName3");
         rsvpCreateRequest.setEmail(mockNeat.strings().get());
         queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
 
-        updateRequest.setName(rsvpCreateRequest.getName());
+        updateRequest.setName("testName3");
         updateRequest.setEmail(rsvpCreateRequest.getEmail());
         updateRequest.setAttending(true);
         queryUtility.rsvpControllerClient.updateRsvp(updateRequest);
 
-        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setName("testName4");
         rsvpCreateRequest.setEmail(mockNeat.strings().get());
         queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
 
-        updateRequest.setName(rsvpCreateRequest.getName());
+        updateRequest.setName("testName4");
         updateRequest.setEmail(rsvpCreateRequest.getEmail());
         updateRequest.setAttending(true);
         queryUtility.rsvpControllerClient.updateRsvp(updateRequest);
 
-        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setName("testName5");
         rsvpCreateRequest.setEmail(mockNeat.strings().get());
         queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
 
-        updateRequest.setName(rsvpCreateRequest.getName());
+        updateRequest.setName("testName5");
         updateRequest.setEmail(rsvpCreateRequest.getEmail());
         updateRequest.setAttending(false);
         queryUtility.rsvpControllerClient.updateRsvp(updateRequest);
 
         // WHEN/THEN
 
-        int serviceSize = rsvpService.findAll().size();
-
         String resultActions = queryUtility.rsvpControllerClient.getAllRsvps()
                 .andReturn().getResponse().getContentAsString();
 
         List<RsvpResponse> responses = mapper.readValue(resultActions, new TypeReference<List<RsvpResponse>>(){});
 
-        Assertions.assertEquals(serviceSize, responses.size());
+        Assertions.assertEquals(5, responses.size());
+
+        queryUtility.rsvpControllerClient.deleteRsvp("testName1");
+        queryUtility.rsvpControllerClient.deleteRsvp("testName2");
+        queryUtility.rsvpControllerClient.deleteRsvp("testName3");
+        queryUtility.rsvpControllerClient.deleteRsvp("testName4");
+        queryUtility.rsvpControllerClient.deleteRsvp("testName5");
     }
 
     @Test
