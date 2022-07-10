@@ -67,7 +67,7 @@ class RSVPPage extends BaseClass {
             myHtml += `<tr>
                <th>Name</th>
                <th>Email</th>
-               <th>Status</th>
+               <th>Attending</th>
                <th>Meal Choice</th>
                <th>Plus One Name</th>
                <th>Plus One Meal Choice</th>
@@ -90,7 +90,9 @@ class RSVPPage extends BaseClass {
             const newHtml = myHtml
                 .replaceAll('undefined', replace)
                 .replaceAll('Entree', replace)
-                .replaceAll('N/A', replace);
+                .replaceAll('N/A', replace)
+                .replaceAll('true', 'Yes')
+                .replaceAll('false', 'No');
 
             attendanceTable.innerHTML = newHtml;
 

@@ -1,15 +1,15 @@
 
 
-h1[id="rsvp"]{
-    font-family: sans-serif;
-    color: lightslategrey;
-    font-size: 60px;
+/*h1[id="rsvp"]{*/
+/*    font-family: sans-serif;*/
+/*    color: lightslategrey;*/
+/*    font-size: 60px;*/
 
-    position:absolute;
-    top: 65%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+/*    position:absolute;*/
+/*    top: 65%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*}*/
 
 h3[id="user_Response"]{
     font-family: sans-serif;
@@ -18,7 +18,7 @@ h3[id="user_Response"]{
     font-size: 30px;
 
     position:absolute;
-    top: 80%;
+    top: 123%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -26,42 +26,42 @@ h3[id="user_Response"]{
 div[class = rsvp_check]{
     font-size: 30px;
     position:absolute;
-    top: 82%;
+    top: 126%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 div[class = rsvp_check2] {
     position:absolute;
-    top: 82%;
+    top: 126%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 div[class = attending] {
     position:absolute;
-    top: 87%;
+    top: 135%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 div[class = entree] {
     position:absolute;
-    top: 92%;
+    top: 142%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 div[class = rsvp_plus_one] {
     position:absolute;
-    top: 97%;
+    top: 149%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 div[class = guest_entree] {
     position:absolute;
-    top: 103%;
+    top: 158%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -79,7 +79,7 @@ div[class = contact]{
     font-family: sans-serif;
     color: lightgray;
     position: absolute;
-    top: 2200px;
+    top: 190%;
     left: 2%;
 }
 
@@ -91,7 +91,7 @@ h3[class="credits"]{
 
     text-align: center;
     position:absolute;
-    top: 103%;
+    top: 163%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -103,7 +103,7 @@ h2[id="final"]{
     font-size: 100px;
 
     position:absolute;
-    top: 44%;
+    top: 69%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -115,16 +115,18 @@ h4[id="final2"]{
     font-size: 44px;
 
     position:absolute;
-    top: 52%;
+    top: 82%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 .weddingRings{
     display: block;
+    width: 900px;
+    height: auto;
 
     position:absolute;
-    top: 83%;
+    top: 127%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
