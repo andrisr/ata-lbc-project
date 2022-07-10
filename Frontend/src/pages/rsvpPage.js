@@ -56,7 +56,6 @@ class RSVPPage extends BaseClass {
         this.dataStore.set("attending", result);
     }
 
-
     async loadIntoTable() {
         const rsvpInfo = this.dataStore.get("attending");
 
@@ -99,8 +98,6 @@ class RSVPPage extends BaseClass {
             attendanceTable.innerHTML = "<tr><td> no one attending.. </td></tr>"
         }
 
-        
-
     }
 
     async mount() {
@@ -109,10 +106,6 @@ class RSVPPage extends BaseClass {
         document.getElementById('removeGuest').addEventListener('click', this.onDeleteGuest);
         this.dataStore.addChangeListener(this.loadIntoTable);
         this.onGetTable();
-
-        
-
-
     }
 
 }
