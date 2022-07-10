@@ -204,7 +204,7 @@ class RsvpControllerTest {
     public void updateRsvp_validInput_isSuccessful() throws Exception {
         // GIVEN
         RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
-        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setName("update");
         rsvpCreateRequest.setEmail(mockNeat.strings().get());
 
         queryUtility.rsvpControllerClient.createRsvp(rsvpCreateRequest);
@@ -238,7 +238,7 @@ class RsvpControllerTest {
                         .value(is(updateRequest.getPlus1MealChoice())))
                 .andExpect(status().isOk());
 
-        RsvpRecord record = rsvpService.findByName(rsvpCreateRequest.getName());
+        queryUtility.rsvpControllerClient.deleteRsvp("update");
     }
 
     @Test
@@ -252,7 +252,7 @@ class RsvpControllerTest {
     public void deleteRsvp_validName_isSuccessful() throws Exception {
         // GIVEN
         RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
-        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setName("delete");
         rsvpCreateRequest.setEmail(mockNeat.strings().get());
 
         // WHEN
@@ -263,7 +263,7 @@ class RsvpControllerTest {
                 .andExpect(status().isOk());
 
         assertThrows(NestedServletException.class, () -> {
-            queryUtility.rsvpControllerClient.getRsvp("invalidName");
+            queryUtility.rsvpControllerClient.getRsvp("delete");
         });
     }
 
