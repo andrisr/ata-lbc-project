@@ -149,17 +149,12 @@ public class RsvpServiceTest {
     }
 
     @Test
-    void createRsvp_null_throws_IllegalArgumentException() {
+    void createRsvp_name_is_null_throws_IllegalArgumentException() {
 
         Rsvp rsvp = new Rsvp(null);
         rsvp.setEmail(mockNeat.strings().get());
 
         RsvpRecord rsvpRecord = new RsvpRecord();
-        rsvpRecord.setName(rsvp.getName());
-        rsvpRecord.setEmail(rsvp.getEmail());
-        rsvpRecord.setAttending(rsvp.isAttending());
-        rsvpRecord.setMealChoice(rsvp.getMealChoice());
-        rsvpRecord.setPlus1MealChoice(rsvp.getPlus1MealChoice());
 
         // WHEN
         when(rsvpRepository.save(rsvpRecord)).thenReturn(rsvpRecord);
@@ -169,17 +164,42 @@ public class RsvpServiceTest {
     }
 
     @Test
-    void createRsvp_isEmpty_throws_IllegalArgumentException() {
+    void createRsvp_name_isEmpty_throws_IllegalArgumentException() {
 
         Rsvp rsvp = new Rsvp("");
         rsvp.setEmail(mockNeat.strings().get());
 
         RsvpRecord rsvpRecord = new RsvpRecord();
-        rsvpRecord.setName(rsvp.getName());
-        rsvpRecord.setEmail(rsvp.getEmail());
-        rsvpRecord.setAttending(rsvp.isAttending());
-        rsvpRecord.setMealChoice(rsvp.getMealChoice());
-        rsvpRecord.setPlus1MealChoice(rsvp.getPlus1MealChoice());
+
+        // WHEN
+        when(rsvpRepository.save(rsvpRecord)).thenReturn(rsvpRecord);
+
+        assertThrows(IllegalArgumentException.class, () ->
+                rsvpService.createRsvp(rsvp));
+    }
+
+    @Test
+    void createRsvp_email_is_null_throws_IllegalArgumentException() {
+
+        Rsvp rsvp = new Rsvp(mockNeat.strings().get());
+        rsvp.setEmail(null);
+
+        RsvpRecord rsvpRecord = new RsvpRecord();
+
+        // WHEN
+        when(rsvpRepository.save(rsvpRecord)).thenReturn(rsvpRecord);
+
+        assertThrows(IllegalArgumentException.class, () ->
+                rsvpService.createRsvp(rsvp));
+    }
+
+    @Test
+    void createRsvp_email_isEmpty_throws_IllegalArgumentException() {
+
+        Rsvp rsvp = new Rsvp(mockNeat.strings().get());
+        rsvp.setEmail("");
+
+        RsvpRecord rsvpRecord = new RsvpRecord();
 
         // WHEN
         when(rsvpRepository.save(rsvpRecord)).thenReturn(rsvpRecord);
