@@ -83,7 +83,7 @@ class RsvpControllerTest {
     public void createRsvp_validInput_isSuccessful() throws Exception {
         // GIVEN
         RsvpCreateRequest rsvpCreateRequest = new RsvpCreateRequest();
-        rsvpCreateRequest.setName(mockNeat.strings().get());
+        rsvpCreateRequest.setName("create");
         rsvpCreateRequest.setEmail(mockNeat.strings().get());
 
         // WHEN
