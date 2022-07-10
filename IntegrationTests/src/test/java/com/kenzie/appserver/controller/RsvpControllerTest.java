@@ -99,7 +99,7 @@ class RsvpControllerTest {
         rsvpRecord.setName(rsvpCreateRequest.getName());
         rsvpRecord.setEmail(rsvpCreateRequest.getEmail());
 
-//        queryUtility.rsvpControllerClient.deleteRsvp("create");
+        queryUtility.rsvpControllerClient.deleteRsvp("create");
     }
 
     @Test
@@ -189,15 +189,17 @@ class RsvpControllerTest {
         String resultActions = queryUtility.rsvpControllerClient.getAllRsvps()
                 .andReturn().getResponse().getContentAsString();
 
+        List<RsvpRecord> records = rsvpService.findAll();
+
         List<RsvpResponse> responses = mapper.readValue(resultActions, new TypeReference<List<RsvpResponse>>(){});
 
-        Assertions.assertEquals(5, responses.size());
+        Assertions.assertEquals(records.size(), responses.size());
 
-//        queryUtility.rsvpControllerClient.deleteRsvp("testName1");
-//        queryUtility.rsvpControllerClient.deleteRsvp("testName2");
-//        queryUtility.rsvpControllerClient.deleteRsvp("testName3");
-//        queryUtility.rsvpControllerClient.deleteRsvp("testName4");
-//        queryUtility.rsvpControllerClient.deleteRsvp("testName5");
+        queryUtility.rsvpControllerClient.deleteRsvp("testName1");
+        queryUtility.rsvpControllerClient.deleteRsvp("testName2");
+        queryUtility.rsvpControllerClient.deleteRsvp("testName3");
+        queryUtility.rsvpControllerClient.deleteRsvp("testName4");
+        queryUtility.rsvpControllerClient.deleteRsvp("testName5");
     }
 
     @Test
@@ -238,7 +240,7 @@ class RsvpControllerTest {
                         .value(is(updateRequest.getPlus1MealChoice())))
                 .andExpect(status().isOk());
 
-//        queryUtility.rsvpControllerClient.deleteRsvp("update");
+        queryUtility.rsvpControllerClient.deleteRsvp("update");
     }
 
     @Test
