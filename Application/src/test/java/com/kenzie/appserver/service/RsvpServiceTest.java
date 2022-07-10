@@ -8,12 +8,14 @@ import net.andreinc.mockneat.MockNeat;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static java.util.UUID.randomUUID;
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -53,6 +55,19 @@ public class RsvpServiceTest {
         Assertions.assertEquals(rsvpRecord.getMealChoice(), record.getMealChoice(), "MealChoice matches");
         Assertions.assertEquals(rsvpRecord.getPlus1Name(), record.getPlus1Name(), "plus1Name matches");
         Assertions.assertEquals(rsvpRecord.getPlus1MealChoice(), record.getPlus1MealChoice(), "plus1MealChoice matches");
+    }
+
+    @Test
+    void findByName_throws_IllegalArgumentException() {
+
+        RsvpRecord record = new RsvpRecord();
+        record.setName(null);
+
+        // WHEN
+        when(rsvpRepository.findByName(record.getName())).thenReturn(null);
+
+        assertThrows(IllegalArgumentException.class, () ->
+                rsvpService.findByName(record.getName()));
     }
 
     @Test
@@ -134,6 +149,46 @@ public class RsvpServiceTest {
     }
 
     @Test
+    void createRsvp_null_throws_IllegalArgumentException() {
+
+        Rsvp rsvp = new Rsvp(null);
+        rsvp.setEmail(mockNeat.strings().get());
+
+        RsvpRecord rsvpRecord = new RsvpRecord();
+        rsvpRecord.setName(rsvp.getName());
+        rsvpRecord.setEmail(rsvp.getEmail());
+        rsvpRecord.setAttending(rsvp.isAttending());
+        rsvpRecord.setMealChoice(rsvp.getMealChoice());
+        rsvpRecord.setPlus1MealChoice(rsvp.getPlus1MealChoice());
+
+        // WHEN
+        when(rsvpRepository.save(rsvpRecord)).thenReturn(rsvpRecord);
+
+        assertThrows(IllegalArgumentException.class, () ->
+                rsvpService.createRsvp(rsvp));
+    }
+
+    @Test
+    void createRsvp_isEmpty_throws_IllegalArgumentException() {
+
+        Rsvp rsvp = new Rsvp("");
+        rsvp.setEmail(mockNeat.strings().get());
+
+        RsvpRecord rsvpRecord = new RsvpRecord();
+        rsvpRecord.setName(rsvp.getName());
+        rsvpRecord.setEmail(rsvp.getEmail());
+        rsvpRecord.setAttending(rsvp.isAttending());
+        rsvpRecord.setMealChoice(rsvp.getMealChoice());
+        rsvpRecord.setPlus1MealChoice(rsvp.getPlus1MealChoice());
+
+        // WHEN
+        when(rsvpRepository.save(rsvpRecord)).thenReturn(rsvpRecord);
+
+        assertThrows(IllegalArgumentException.class, () ->
+                rsvpService.createRsvp(rsvp));
+    }
+
+    @Test
     void updateRsvp() {
         // GIVEN
         String name = mockNeat.strings().get();
@@ -170,3 +225,4 @@ public class RsvpServiceTest {
         verify(rsvpRepository).delete(rsvpRecord);
     }
 }
+
