@@ -44,25 +44,26 @@ body {
 
 
 .formBox {
-    position: relative;
     width: 530px;
     height: 100px;
     background: #000;
     color: whitesmoke;
     top: 60%;
     left: 50%;
-    position: absolute;
+    position: relative;
     text-align: center;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0%);
     box-sizing: border-box;
     padding: 15px 30px;
 }
 
 .tableBox {
     text-align: center;
+    align-items: center;
+    transform: translate(10%, 10%);
+
 }
 .table {
-
     box-shadow: 0 0 10px black;
     border-collapse: collapse;
     font-family:'Courier New', Courier, monospace;

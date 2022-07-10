@@ -56,7 +56,6 @@ class RSVPPage extends BaseClass {
         this.dataStore.set("attending", result);
     }
 
-
     async loadIntoTable() {
         const rsvpInfo = this.dataStore.get("attending");
 
@@ -84,18 +83,20 @@ class RSVPPage extends BaseClass {
                 </tr>
                 `
             }
-            attendanceTable.innerHTML = myHtml;
+            //Replaces all instances of undefined, entree, and N/A with '' (cleaning up table)
+            const replace = '';
 
+            const newHtml = myHtml
+                .replaceAll('undefined', replace)
+                .replaceAll('Entree', replace)
+                .replaceAll('N/A', replace);
 
-        
+            attendanceTable.innerHTML = newHtml;
 
         }
         else {
             attendanceTable.innerHTML = "<tr><td> no one attending.. </td></tr>"
         }
-
-
-        
 
     }
 
@@ -105,11 +106,8 @@ class RSVPPage extends BaseClass {
         document.getElementById('removeGuest').addEventListener('click', this.onDeleteGuest);
         this.dataStore.addChangeListener(this.loadIntoTable);
         this.onGetTable();
-
-        
-
-
     }
+
 }
 
 const main = async () => {

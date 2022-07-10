@@ -5,6 +5,7 @@
     <title>Home Page</title>
 
     <script type="text/javascript" src="homePage.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
@@ -176,30 +177,19 @@
     };
 
     function displayError() {
-        alert("We're having trouble finding your invitation. Please try again, remember to use the exact spelling that is on your invitation.");
+        swal("Sorry,","We're having trouble finding your invitation. Please try again, remember to use the exact spelling that is on your invitation.");
     };
 
     function displayErrorRsvp() {
-        alert("We are sorry for any inconvenience, please try again and make sure to include the exact spelling that is on your invitation.")
+        swal("Sorry for any inconvenience,","please try again and make sure to include the exact spelling that is on your invitation.")
     };
 
     function displaySuccessfulInvite() {
         let name = document.getElementById('name').value;
 
-        alert( name + " your invitation has been found, follow the steps below to complete your rsvp.")
+        swal( name + " we found your invitation!", "follow the steps below to complete your rsvp.")
     };
 
-    function displaySuccessfulRsvp() {
-
-        let isAttending = document.getElementById('attending').value;
-
-        if (isAttending === "yes"){
-            alert("We are so glad that you're able to make it, and we're looking forward to seeing you there!")
-        }
-        if (isAttending === "no"){
-            alert("We are so sorry that your unable to make it")
-        }
-    };
 
     function onButtonClickHideNameField() {
 
@@ -219,6 +209,7 @@
         const dontForget = document.getElementById('final2');
         const picture = document.getElementById('weddingRings');
         const credits = document.getElementById('credits');
+
 
         if (thankYou.style.display === 'none') {
             thankYou.style.display = 'block';
