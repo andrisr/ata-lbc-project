@@ -48,11 +48,17 @@ body {
     height: 100px;
     background: #000;
     color: whitesmoke;
-    top: 60%;
-    left: 50%;
-    position: relative;
+    /*top: 60%;*/
+    /*left: 50%;*/
+    /*position: relative;*/
     text-align: center;
-    transform: translate(-50%, 0%);
+    /*transform: translate(-50%, 0%);*/
+/*//Added to make it work*/
+    position:absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
     box-sizing: border-box;
     padding: 15px 30px;
 }
@@ -60,8 +66,12 @@ body {
 .tableBox {
     text-align: center;
     align-items: center;
-    transform: translate(10%, 10%);
-
+    /*transform: translate(10%, 10%);*/
+/*//Added to make it work */
+    position:absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .table {
     box-shadow: 0 0 10px black;
