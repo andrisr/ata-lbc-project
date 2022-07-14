@@ -1,8 +1,4 @@
-# ATA-Learn-And-Be-Curious-Project
-
-Follow the instructions in the course for completing the group LBC project.
-
-Deploy the DynamoDB tables using the following Cloudformation commands:
+# My Special Day
 
 # RSVP table (check stack name & file://)
 ```
