@@ -35,7 +35,7 @@ Citations;
     
     -CSS styling
     wedding website - the knot. The KnotÂ® Wedding Planning Website: Tools, Inspiration & More. (n.d.). Retrieved June 28, 2022, from https://www.theknot.com/us
-    The particular site inside the Knot did not have a individual author or contributor, also could not find where exactly when it was published. Used authors button css to style
+    The particular site inside the Knot did not have a individual author or contributor, also could not find where exactly when it was published. Used authors button css and form to style
     button.
     
     
